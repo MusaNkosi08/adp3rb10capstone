@@ -47,6 +47,16 @@ public class Payment {
         this.transactionCode = transactionCode;
     }
 
+    @Override
+    public String toString() {
+        return "Payment{" +
+                "paymentID='" + paymentID + '\'' +
+                ", amount=" + amount +
+                ", status='" + status + '\'' +
+                ", transactionCode='" + transactionCode + '\'' +
+                '}';
+    }
+
     // Methods
     public void processPayment() {
         System.out.println("Processing payment of " + amount + " with ID " + paymentID);
