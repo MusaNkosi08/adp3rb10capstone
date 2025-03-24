@@ -6,45 +6,29 @@ public class Payment {
     private String status;
     private String transactionCode;
 
-    // Constructor
-    public Payment(String paymentID, double amount, String status, String transactionCode) {
-        this.paymentID = paymentID;
-        this.amount = amount;
-        this.status = status;
-        this.transactionCode = transactionCode;
+    // Private constructor
+    private Payment(Builder builder) {
+        this.paymentID = builder.paymentID;
+        this.amount = builder.amount;
+        this.status = builder.status;
+        this.transactionCode = builder.transactionCode;
     }
 
-    // Getter and Setter methods
+    // Getter methods
     public String getPaymentID() {
         return paymentID;
-    }
-
-    public void setPaymentID(String paymentID) {
-        this.paymentID = paymentID;
     }
 
     public double getAmount() {
         return amount;
     }
 
-    public void setAmount(double amount) {
-        this.amount = amount;
-    }
-
     public String getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    private String getTransactionCode() {
+    public String getTransactionCode() {
         return transactionCode;
-    }
-
-    private void setTransactionCode(String transactionCode) {
-        this.transactionCode = transactionCode;
     }
 
     @Override
@@ -70,5 +54,37 @@ public class Payment {
 
     public boolean verifyTransaction() {
         return transactionCode != null && !transactionCode.isEmpty();
+    }
+
+    // Builder Class
+    public static class Builder {
+        private String paymentID;
+        private double amount;
+        private String status;
+        private String transactionCode;
+
+        public Builder setPaymentID(String paymentID) {
+            this.paymentID = paymentID;
+            return this;
+        }
+
+        public Builder setAmount(double amount) {
+            this.amount = amount;
+            return this;
+        }
+
+        public Builder setStatus(String status) {
+            this.status = status;
+            return this;
+        }
+
+        public Builder setTransactionCode(String transactionCode) {
+            this.transactionCode = transactionCode;
+            return this;
+        }
+
+        public Payment build() {
+            return new Payment(this);
+        }
     }
 }
