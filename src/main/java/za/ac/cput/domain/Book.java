@@ -1,3 +1,9 @@
+/*
+Book.java
+Book Model Class
+Author: Ashton Mondreo Petersen (220219494)
+ */
+
 package za.ac.cput.domain;
 
 public class Book {
@@ -47,6 +53,18 @@ public class Book {
         return price;
     }
 
+    //A method to check if there is stock of the book
+    public boolean checkStock() {
+        if (quantity <= 0) {
+            return false;
+        }
+        return true;
+    }
+
+    //A method to add more stock to the quantity of this book
+    public void restockBook(int amount) {
+        quantity += amount;
+    }
 
 
     @Override
@@ -96,6 +114,7 @@ public class Book {
             this.author = author;
             return this;
         }
+
         public BookBuilder setPages(int pages) {
             this.pages = pages;
             return this;
@@ -113,6 +132,8 @@ public class Book {
             this.price = price;
         }
 
-        public Book build() {return new Book(this); }
+        public Book build() {
+            return new Book(this);
+        }
     }
 }
