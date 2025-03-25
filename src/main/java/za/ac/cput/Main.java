@@ -1,5 +1,6 @@
 package za.ac.cput;
 
+import za.ac.cput.domain.Employee;
 import za.ac.cput.domain.Order;
 import za.ac.cput.domain.OrderItem;
 import za.ac.cput.factory.OrderFactory;
@@ -21,5 +22,16 @@ public class Main {
         items.add(new OrderItem(4, 3, 5.0));
         Order order2 = OrderFactory.createOrder(456, "456 Elm St, Othertown", "PayPal", items);
         System.out.println(order2.getOrderDetails());
+
+//        // Creating an employee manually
+//        Employee employee1 = new Employee.Builder()
+//                .setEmployeeID(101)
+//                .setFirstName("John")
+//                .setLastName("Doe")
+//                .setEmail("john.doe@example.com")
+//                .setPosition("Cashier")
+//                .setSalary(35000)
+//                .build();
+//        System.out.println("Employee 1 Details:\n" + employee1);
     }
 }
