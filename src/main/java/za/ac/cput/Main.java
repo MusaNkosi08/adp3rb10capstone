@@ -38,18 +38,17 @@ public class Main {
 
         paymentRepo.getPayment("P001");
 
-        // Process the payment
+
         payment1.processPayment();
         paymentRepo.updatePayment(payment1);
 
-        // Try to refund the payment
+
         payment1.refundPayment();
         paymentRepo.updatePayment(payment1);
 
-        // List all payments
+
         paymentRepo.listPayments();
 
-        // Delete a payment
         paymentRepo.deletePayment("P001");
         paymentRepo.listPayments();
     }
