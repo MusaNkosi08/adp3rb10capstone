@@ -92,4 +92,65 @@ public class BookRepository implements IBookRepository {
     public List<Book> findAll() {
         return bookCatalogue;
     }
-}
+
+
+    @Override
+    public List<Book> findByAuthor(String author, boolean displayOOS) {
+        List<Book> newCatalogue = null;
+        for (Book b : bookCatalogue) {
+            if (b.getAuthor().equals(author)) {
+                if (b.getQuantity()>0){
+                  newCatalogue.add(b);
+                } else if (displayOOS) {
+newCatalogue.add(b);
+                }
+            }
+        }
+        return newCatalogue;
+    }
+
+    @Override
+    public List<Book> findByTitle(String title, boolean displayOOS) {
+        List<Book> newCatalogue = null;
+        for (Book b : bookCatalogue) {
+            if (b.getTitle().contains(title)) {
+                if (b.getQuantity()>0){
+                    newCatalogue.add(b);
+                } else if (displayOOS) {
+                    newCatalogue.add(b);
+                }
+            }
+        }
+        return newCatalogue;
+    }
+
+    @Override
+    public List<Book> findByGenre(String genre, boolean displayOOS) {
+        List<Book> newCatalogue = null;
+        for (Book b : bookCatalogue) {
+            if (b.getGenre().contains(genre)) {
+                if (b.getQuantity()>0){
+                    newCatalogue.add(b);
+                } else if (displayOOS) {
+                    newCatalogue.add(b);
+                }
+            }
+        }
+        return newCatalogue;
+    }
+
+    @Override
+    public List<Book> findByLength(int length, boolean displayOOS) {
+        List<Book> newCatalogue = null;
+        for (Book b : bookCatalogue) {
+            if ((b.getPages()>=length-20) && (b.getPages()<=length+20)) {
+                if (b.getQuantity()>0){
+                    newCatalogue.add(b);
+                } else if (displayOOS) {
+                    newCatalogue.add(b);
+                }
+            }
+        }
+        return newCatalogue;
+    }
+} //EOF
