@@ -32,14 +32,15 @@ public class BookRepository implements IBookRepository {
     public Book create(Book book) {
 
         boolean success = false;
-        int instances = 0;
+        boolean preexisting = false;
 
         for (Book b : bookCatalogue) {
             if (book.getIsbn().equals(b.getIsbn())) {
-                instances++;
+                preexisting = true;
+                System.out.println("A book already exists with this ISBN (" + b.getTitle() + ")");
             }
         }
-        if ((bookCatalogue.add(book)) && instances == 0) {
+        if ((bookCatalogue.add(book)) && !preexisting) {
             success = true;
         }
 
@@ -73,6 +74,7 @@ public class BookRepository implements IBookRepository {
                 return book;
             }
         }
+        System.out.println("A book does not exist with this ISBN");
         return null;
     }
 
@@ -84,12 +86,16 @@ public class BookRepository implements IBookRepository {
                 return true;
             }
         }
-
+        System.out.println("A book does not exist with this ISBN");
         return false;
     }
 
     @Override
     public List<Book> findAll() {
+        if (bookCatalogue.isEmpty()) {
+            System.out.println("There are no books in the catalogue (Consider adding a few)");
+            return null;
+        }
         return bookCatalogue;
     }
 
@@ -99,12 +105,18 @@ public class BookRepository implements IBookRepository {
         List<Book> newCatalogue = null;
         for (Book b : bookCatalogue) {
             if (b.getAuthor().equals(author)) {
-                if (b.getQuantity()>0){
-                  newCatalogue.add(b);
+                if (b.getQuantity() > 0) {
+                    newCatalogue.add(b);
                 } else if (displayOOS) {
-newCatalogue.add(b);
+                    newCatalogue.add(b);
                 }
             }
+        }
+
+
+        if (newCatalogue == null) {
+            System.out.println("No books exist by this author");
+            return null;
         }
         return newCatalogue;
     }
@@ -114,12 +126,18 @@ newCatalogue.add(b);
         List<Book> newCatalogue = null;
         for (Book b : bookCatalogue) {
             if (b.getTitle().contains(title)) {
-                if (b.getQuantity()>0){
+                if (b.getQuantity() > 0) {
                     newCatalogue.add(b);
                 } else if (displayOOS) {
                     newCatalogue.add(b);
                 }
             }
+        }
+
+
+        if (newCatalogue == null) {
+            System.out.println("No books exist by this title");
+            return null;
         }
         return newCatalogue;
     }
@@ -129,12 +147,16 @@ newCatalogue.add(b);
         List<Book> newCatalogue = null;
         for (Book b : bookCatalogue) {
             if (b.getGenre().contains(genre)) {
-                if (b.getQuantity()>0){
+                if (b.getQuantity() > 0) {
                     newCatalogue.add(b);
                 } else if (displayOOS) {
                     newCatalogue.add(b);
                 }
             }
+        }
+        if (newCatalogue == null) {
+            System.out.println("No books exist in this genre");
+            return null;
         }
         return newCatalogue;
     }
@@ -143,13 +165,17 @@ newCatalogue.add(b);
     public List<Book> findByLength(int length, boolean displayOOS) {
         List<Book> newCatalogue = null;
         for (Book b : bookCatalogue) {
-            if ((b.getPages()>=length-20) && (b.getPages()<=length+20)) {
-                if (b.getQuantity()>0){
+            if ((b.getPages() >= length - 20) && (b.getPages() <= length + 20)) {
+                if (b.getQuantity() > 0) {
                     newCatalogue.add(b);
                 } else if (displayOOS) {
                     newCatalogue.add(b);
                 }
             }
+        }
+        if (newCatalogue == null) {
+            System.out.println("No books exist in this range");
+            return null;
         }
         return newCatalogue;
     }
