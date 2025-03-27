@@ -1,3 +1,9 @@
+/*
+Book.java
+Book Model Class
+Author: Ashton Mondreo Petersen (220219494)
+ */
+
 package za.ac.cput.domain;
 
 public class Book {
@@ -47,6 +53,25 @@ public class Book {
         return price;
     }
 
+    //A method to check if there is stock of the book
+    public boolean checkStock() {
+        if (quantity == 0) {
+            return false;
+        }
+        return true;
+    }
+
+    //A method to add more stock to the quantity of this book
+    public void restockBook(int amount) {
+        quantity += amount;
+    }
+
+    //A method that removes stock that is sold and returns the total price of the amount sold
+    public double removeStock(int amount) {
+        quantity -= amount;
+        double total = amount*price;
+        return total;
+    }
 
 
     @Override
@@ -82,23 +107,34 @@ public class Book {
             this.price = price;
         }
 
-        public BookBuilder setIsbn(String isbn) {
+        public BookBuilder(String isbn, String title, String author, int pages, String genre, double price){
             this.isbn = isbn;
-            return this;
-        }
-
-        public BookBuilder setTitle(String title) {
             this.title = title;
-            return this;
+            this.author = author;
+            this.pages = pages;
+            this.genre = genre;
+            this.quantity = 1;
+            this.price = price;
         }
 
-        public BookBuilder setAuthor(String author) {
-            this.author = author;
-            return this;
+        public void setIsbn(String isbn) {
+            this.isbn = isbn;
+
         }
-        public BookBuilder setPages(int pages) {
+
+        public void setTitle(String title) {
+            this.title = title;
+
+        }
+
+        public void setAuthor(String author) {
+            this.author = author;
+
+        }
+
+        public void setPages(int pages) {
             this.pages = pages;
-            return this;
+
         }
 
         public void setGenre(String genre) {
@@ -113,6 +149,8 @@ public class Book {
             this.price = price;
         }
 
-        public Book build() {return new Book(this); }
+        public Book build() {
+            return new Book(this);
+        }
     }
-}
+} //EOF
