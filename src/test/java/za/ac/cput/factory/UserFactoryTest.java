@@ -1,5 +1,11 @@
 package za.ac.cput.factory;
 
+
+/* User.java
+``Author: Aimee Paulus (222814969)
+  Date: 28 March 2025
+ */
+
 import org.junit.jupiter.api.Test;
 import za.ac.cput.domain.User;
 

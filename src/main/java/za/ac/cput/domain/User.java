@@ -1,5 +1,11 @@
 package za.ac.cput.domain;
 
+/* User.java
+``Author: Aimee Paulus (222814969)
+  Date: 21 March 2025
+ */
+
+
 public class User {
     private String userId;
     private String userFirstName;

@@ -1,8 +1,13 @@
 package za.ac.cput.repository.impl;
-import org.junit.jupiter.api.BeforeEach;
 
+
+/* User.java
+``Author: Aimee Paulus (222814969)
+  Date: 28 March 2025
+ */
+
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import za.ac.cput.domain.Book;
 import za.ac.cput.domain.User;
 
 import static org.junit.jupiter.api.Assertions.*;

@@ -5,6 +5,10 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+/* User.java
+``Author: Aimee Paulus (222814969)
+  Date: 28 March 2025
+ */
 
 class UserTest {
 
