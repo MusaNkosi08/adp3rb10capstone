@@ -13,7 +13,7 @@ public class Order {
     private String paymentMethod;
     private List<OrderItem> items;
 
-    // Private constructor that takes a Builder instance.
+    
     private Order(Builder builder) {
         this.orderId = builder.orderId;
         this.customerId = builder.customerId;
@@ -50,7 +50,7 @@ public class Order {
     }
 
 
-    // Builder static nested class
+    
     public static class Builder {
         private int orderId;
         private int customerId;
@@ -99,30 +99,30 @@ public class Order {
         }
     }
 
-    // Calculate the total amount of the order.
+    
     public double calculateTotal() {
         totalAmount = items.stream().mapToDouble(OrderItem::totalPrice).sum();
         return totalAmount;
     }
 
-    // Update the status of the order.
+   
     public void updateStatus(String newStatus) {
         this.status = newStatus;
     }
 
-    // Add an item to the order and recalculate the total.
+    
     public void addItem(OrderItem item) {
         items.add(item);
         calculateTotal();
     }
 
-    // Remove an item from the order and recalculate the total.
+   
     public void removeItem(OrderItem item) {
         items.remove(item);
         calculateTotal();
     }
 
-    // Retrieve the order details in a formatted string.
+
     public String getOrderDetails() {
         StringBuilder details = new StringBuilder();
         details.append("Order ID: ").append(orderId).append("\n");
