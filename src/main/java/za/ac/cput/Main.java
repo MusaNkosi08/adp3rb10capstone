@@ -12,18 +12,40 @@ import java.util.List;
 
 public class Main {
 
- public static void main(String[] args) {
 
-  Order order = new Order(1, 123, "123 Main St, Anytown", "Credit Card");
-  order.addItem(new OrderItem(1, 2, 10.0));
-  order.addItem(new OrderItem(2, 1, 15.0));
-  System.out.println(order.getOrderDetails());
+    public static void main(String[] args) {
 
-  List<OrderItem> items = new ArrayList<>();
-  items.add(new OrderItem(3, 1, 20.0));
-  items.add(new OrderItem(4, 3, 5.0));
-  Order order2 = OrderFactory.createOrder(456, "456 Elm St, Othertown", "PayPal", items);
-  System.out.println(order2.getOrderDetails());
+
+     // Creating an order using the builder pattern
+     Order order = new Order.Builder()
+             .orderId(1)
+             .customerId(123)
+             .shippingAddress("123 Main St, Anytown")
+             .paymentMethod("Credit Card")
+             .addItem(new OrderItem.Builder().itemId(1).quantity(2).price(10.0).build())
+             .addItem(new OrderItem.Builder().itemId(2).quantity(1).price(15.0).build())
+             .build();
+
+     System.out.println(order.getOrderDetails());
+
+     // Creating a list of order items using the builder pattern
+     List<OrderItem> items = new ArrayList<>();
+     items.add(new OrderItem.Builder().itemId(3).quantity(1).price(20.0).build());
+     items.add(new OrderItem.Builder().itemId(4).quantity(3).price(5.0).build());
+
+     // Creating a second order using the builder pattern.
+     // If you have an OrderFactory, it should internally use the builder to create the order.
+     // For example purposes, we'll directly use the builder:
+     Order order2 = new Order.Builder()
+             .orderId(456)
+             .customerId(789) // You may want to provide a customerId if needed.
+             .shippingAddress("456 Elm St, Othertown")
+             .paymentMethod("PayPal")
+             .items(items)
+             .build();
+
+     System.out.println(order2.getOrderDetails());
+    }
 
 //     // Create an ArrayList to store employees
 //     List<Employee> employees = new ArrayList<>();
@@ -109,5 +131,6 @@ public class Main {
   // Delete a payment
   paymentRepo.delete("P001");
   paymentRepo.findAll();
- } //EOF Main Run
+    } //EOF Main Run
 } //EOF
+
