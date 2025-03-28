@@ -1,19 +1,21 @@
 package za.ac.cput.domain;
 
+//tyrese ntate 221817816
+
 public class OrderItem {
 
     private int itemId;
     private int quantity;
     private double price;
 
-    // Private constructor that accepts a Builder instance.
+   
     private OrderItem(Builder builder) {
         this.itemId = builder.itemId;
         this.quantity = builder.quantity;
         this.price = builder.price;
     }
 
-    // Static nested Builder class.
+  
     public static class Builder {
         private int itemId;
         private int quantity;
@@ -39,7 +41,6 @@ public class OrderItem {
         }
     }
 
-    // Calculate the total price for the order item.
     public double totalPrice() {
         return quantity * price;
     }
