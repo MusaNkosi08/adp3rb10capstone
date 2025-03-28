@@ -14,6 +14,7 @@ public class EmployeeRepository implements IEmployeeRepository {
         this.employeeList = new ArrayList<>();
     }
 
+    // Saves an Employee to the repository
     @Override
     public Employee save(Employee employee) {
         if (employee == null) return null;
@@ -21,11 +22,13 @@ public class EmployeeRepository implements IEmployeeRepository {
         return employee;
     }
 
+    // Creates an Employee (not yet implemented)
     @Override
     public Employee create(Employee employee) {
         return null;
     }
 
+    // Reads an Employee by ID
     @Override
     public Employee read(Integer employeeID) {
         for (Employee emp : employeeList) {
@@ -36,11 +39,13 @@ public class EmployeeRepository implements IEmployeeRepository {
         return null;
     }
 
+    // Updates an Employee (not yet implemented)
     @Override
     public Employee update(Employee employee) {
         return null;
     }
 
+    // Deletes an Employee by ID
     @Override
     public boolean delete(Integer employeeID) {
         Employee employee = read(employeeID);
@@ -51,11 +56,13 @@ public class EmployeeRepository implements IEmployeeRepository {
         return false;
     }
 
+    // Returns an empty list (should be modified to return all employees)
     @Override
     public List<Employee> findAll() {
         return List.of();
     }
 
+    // Finds employees by last name
     @Override
     public List<Employee> findByLastName(String lastName) {
         List<Employee> result = new ArrayList<>();
@@ -67,6 +74,7 @@ public class EmployeeRepository implements IEmployeeRepository {
         return result;
     }
 
+    // Finds employees by position
     @Override
     public List<Employee> findByPosition(String position) {
         List<Employee> result = new ArrayList<>();
@@ -78,6 +86,7 @@ public class EmployeeRepository implements IEmployeeRepository {
         return result;
     }
 
+    // Finds employees within a salary range
     @Override
     public List<Employee> findBySalaryRange(double minSalary, double maxSalary) {
         List<Employee> result = new ArrayList<>();
@@ -89,6 +98,7 @@ public class EmployeeRepository implements IEmployeeRepository {
         return result;
     }
 
+    // Returns a copy of all employees in the list
     public List<Employee> getAll() {
         return new ArrayList<>(employeeList);
     }
