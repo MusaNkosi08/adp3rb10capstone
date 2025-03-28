@@ -1,8 +1,7 @@
 package za.ac.cput;
 
 import za.ac.cput.domain.*;
-import za.ac.cput.factory.EmployeeFactory;
-import za.ac.cput.factory.OrderFactory;
+
 import za.ac.cput.repository.IUserRepository;
 import za.ac.cput.repository.impl.PaymentRepository;
 import za.ac.cput.repository.impl.UserRepository;
@@ -45,7 +44,7 @@ public class Main {
              .build();
 
      System.out.println(order2.getOrderDetails());
-    }
+
 
 //     // Create an ArrayList to store employees
 //     List<Employee> employees = new ArrayList<>();
