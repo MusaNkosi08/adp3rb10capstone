@@ -2,7 +2,10 @@ package za.ac.cput;
 
 import za.ac.cput.domain.Order;
 import za.ac.cput.domain.OrderItem;
+import za.ac.cput.domain.Payment;
+import za.ac.cput.domain.User;
 import za.ac.cput.factory.OrderFactory;
+import za.ac.cput.repository.impl.PaymentRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,24 +82,24 @@ public class Main {
  
  
          PaymentRepository paymentRepo = new PaymentRepository();
-         paymentRepo.addPayment(payment1);
+         paymentRepo.create(payment1);
  
  
          paymentRepo.getPayment("P001");
  
          // Process the payment
          payment1.processPayment();
-         paymentRepo.updatePayment(payment1);
+         paymentRepo.update(payment1);
  
          // Try to refund the payment
          payment1.refundPayment();
-         paymentRepo.updatePayment(payment1);
+         paymentRepo.update(payment1);
  
          // List all payments
-         paymentRepo.listPayments();
+         paymentRepo.findAll();
  
          // Delete a payment
-         paymentRepo.deletePayment("P001");
-         paymentRepo.listPayments();
+         paymentRepo.delete("P001");
+         paymentRepo.findAll();
     } //EOF Main Run
 } //EOF
