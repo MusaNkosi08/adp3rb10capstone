@@ -69,5 +69,34 @@ public class Main {
         } else {
             System.out.println("User with ID 54731 not found for deletion.");
         }
-    }
-}
+
+        Payment payment1 = new Payment.Builder()
+                 .setPaymentID("P001")
+                 .setAmount(150.75)
+                 .setStatus("Pending")
+                 .setTransactionCode("TXN001")
+                 .build();
+ 
+ 
+         PaymentRepository paymentRepo = new PaymentRepository();
+         paymentRepo.addPayment(payment1);
+ 
+ 
+         paymentRepo.getPayment("P001");
+ 
+         // Process the payment
+         payment1.processPayment();
+         paymentRepo.updatePayment(payment1);
+ 
+         // Try to refund the payment
+         payment1.refundPayment();
+         paymentRepo.updatePayment(payment1);
+ 
+         // List all payments
+         paymentRepo.listPayments();
+ 
+         // Delete a payment
+         paymentRepo.deletePayment("P001");
+         paymentRepo.listPayments();
+    } //EOF Main Run
+} //EOF
