@@ -1,9 +1,7 @@
 package za.ac.cput;
 
-import za.ac.cput.domain.Order;
-import za.ac.cput.domain.OrderItem;
-import za.ac.cput.domain.Payment;
-import za.ac.cput.domain.User;
+import za.ac.cput.domain.*;
+import za.ac.cput.factory.EmployeeFactory;
 import za.ac.cput.factory.OrderFactory;
 import za.ac.cput.repository.impl.PaymentRepository;
 
@@ -25,16 +23,24 @@ public class Main {
         Order order2 = OrderFactory.createOrder(456, "456 Elm St, Othertown", "PayPal", items);
         System.out.println(order2.getOrderDetails());
 
-//        // Creating an employee manually
-//        Employee employee1 = new Employee.Builder()
-//                .setEmployeeID(101)
-//                .setFirstName("John")
-//                .setLastName("Doe")
-//                .setEmail("john.doe@example.com")
-//                .setPosition("Cashier")
-//                .setSalary(35000)
-//                .build();
-//        System.out.println("Employee 1 Details:\n" + employee1);
+//     // Create an ArrayList to store employees
+//     List<Employee> employees = new ArrayList<>();
+//
+//     // Creating employees using the Factory
+//     Employee employee1 = EmployeeFactory.createEmployee(001, "Musa", "Nkosi", "m.n@cput.ac.za", "Cashier", 35000);
+//     Employee employee2 = EmployeeFactory.createEmployee(002, "Siphosethu", "Msengeni", "s.m@cput.ac.za", "Manager", 50000);
+//     Employee employee3 = EmployeeFactory.createEmployee(003, "Ashton", "Petersen", "a.p@cput.ac.za", "Sales Assistant", 28000);
+//
+//     // Add employees to the list (only if they are successfully created)
+//     if (employee1 != null) employees.add(employee1);
+//     if (employee2 != null) employees.add(employee2);
+//     if (employee3 != null) employees.add(employee3);
+//
+//     // Print all employee details
+//     System.out.println("List of Employees:");
+//     for (Employee emp : employees) {
+//      System.out.println(emp);
+//     }
 
 
         // user display
