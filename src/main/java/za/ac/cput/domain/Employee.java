@@ -1,3 +1,8 @@
+/*
+Employee.java
+Author: Musa Banathi Nkosi (221744517)
+ */
+
 package za.ac.cput.domain;
 
 public class Employee {
