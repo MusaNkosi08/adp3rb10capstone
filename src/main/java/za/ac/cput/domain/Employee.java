@@ -8,7 +8,6 @@ public class Employee {
     private String position;
     private double salary;
 
-    // Private constructor
     private Employee(Builder builder) {
         this.employeeID = builder.employeeID;
         this.firstName = builder.firstName;
@@ -18,7 +17,7 @@ public class Employee {
         this.salary = builder.salary;
     }
 
-    // Getter methods
+    // Getters
     public int getEmployeeID() {
         return employeeID;
     }
@@ -55,7 +54,7 @@ public class Employee {
                 '}';
     }
 
-    // Methods
+    // Additional Methods
     public void promote(String newPosition, double salaryIncrease) {
         System.out.println(firstName + " " + lastName + " has been promoted to " + newPosition);
         this.position = newPosition;
