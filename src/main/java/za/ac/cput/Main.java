@@ -103,24 +103,24 @@ public class Main {
  
  
          PaymentRepository paymentRepo = new PaymentRepository();
-         paymentRepo.addPayment(payment1);
+         paymentRepo.create(payment1);
  
  
          paymentRepo.getPayment("P001");
  
          // Process the payment
          payment1.processPayment();
-         paymentRepo.updatePayment(payment1);
+         paymentRepo.update(payment1);
  
          // Try to refund the payment
          payment1.refundPayment();
-         paymentRepo.updatePayment(payment1);
+         paymentRepo.update(payment1);
  
          // List all payments
-         paymentRepo.listPayments();
+         paymentRepo.findAll();
  
          // Delete a payment
-         paymentRepo.deletePayment("P001");
-         paymentRepo.listPayments();
+         paymentRepo.delete("P001");
+         paymentRepo.findAll();
     } //EOF Main Run
 } //EOF
