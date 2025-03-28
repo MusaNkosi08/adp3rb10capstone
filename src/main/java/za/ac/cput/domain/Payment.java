@@ -6,7 +6,7 @@ public class Payment {
     private String status;
     private String transactionCode;
 
-    // Private constructor
+    // Private constructor to enforce the use of the Builder pattern
     private Payment(Builder builder) {
         this.paymentID = builder.paymentID;
         this.amount = builder.amount;
@@ -14,7 +14,7 @@ public class Payment {
         this.transactionCode = builder.transactionCode;
     }
 
-    // Getter methods
+    // Getter methods to access private attributes
     public String getPaymentID() {
         return paymentID;
     }
@@ -31,6 +31,7 @@ public class Payment {
         return transactionCode;
     }
 
+    // Overriding toString() to provide a string representation of the Payment object
     @Override
     public String toString() {
         return "Payment{" +
@@ -41,28 +42,31 @@ public class Payment {
                 '}';
     }
 
-    // Methods
+    // Method to process the payment and update its status
     public void processPayment() {
         System.out.println("Processing payment of " + amount + " with ID " + paymentID);
-        this.status = "Processed";
+        this.status = "Processed"; // Update status to "Processed"
     }
 
+    // Method to refund the payment and update its status
     public void refundPayment() {
         System.out.println("Refunding payment of " + amount + " with ID " + paymentID);
-        this.status = "Refunded";
+        this.status = "Refunded"; // Update status to "Refunded"
     }
 
+    // Method to verify if the transaction code is valid (not null or empty)
     public boolean verifyTransaction() {
         return transactionCode != null && !transactionCode.isEmpty();
     }
 
-    // Builder Class
+    // Builder Class for constructing Payment objects
     public static class Builder {
         private String paymentID;
         private double amount;
         private String status;
         private String transactionCode;
 
+        // Setter methods for setting values in the Builder pattern
         public Builder setPaymentID(String paymentID) {
             this.paymentID = paymentID;
             return this;
@@ -83,6 +87,7 @@ public class Payment {
             return this;
         }
 
+        // Method to construct and return a Payment object
         public Payment build() {
             return new Payment(this);
         }
