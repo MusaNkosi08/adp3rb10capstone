@@ -7,6 +7,7 @@ Author: Ashton Mondreo Petersen (220219494)
 package za.ac.cput.factory;
 
 import za.ac.cput.domain.Book;
+import za.ac.cput.util.Helper;
 
 public class BookFactory {
 
@@ -14,7 +15,7 @@ public class BookFactory {
     public static Book createManyBooks(String title, String author, String isbn, int pages, String genre, int quantity, double price) {
         if (((title == null) || (title == ""))
                 ||(author == null) || (author == "")
-                ||(isbn == null) || (isbn == "")
+                ||(!Helper.verifyisbn(isbn))
                 ||(title == null) || (title == "")
                 || ((genre == null) || (genre == ""))
         ){
@@ -34,7 +35,7 @@ public class BookFactory {
     public static Book createBook(String title, String author, String isbn, int pages, String genre, double price) {
         if (((title == null) || (title == ""))
                 ||(author == null) || (author == "")
-                ||(isbn == null) || (isbn == "")
+                ||(!Helper.verifyisbn(isbn))
                 ||(title == null) || (title == "")
                 || ((genre == null) || (genre == ""))
         ){
