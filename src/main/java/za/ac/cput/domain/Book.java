@@ -55,15 +55,19 @@ public class Book {
 
     //A method to check if there is stock of the book
     public boolean checkStock() {
-        if (quantity == 0) {
+        if (quantity <= 0) {
             return false;
         }
         return true;
     }
 
     //A method to add more stock to the quantity of this book
-    public void restockBook(int amount) {
+    public Boolean restockBook(int amount) {
+       if (amount <= 0) {
+           return false;
+       }
         quantity += amount;
+       return true;
     }
 
     //A method that removes stock that is sold and returns the total price of the amount sold
