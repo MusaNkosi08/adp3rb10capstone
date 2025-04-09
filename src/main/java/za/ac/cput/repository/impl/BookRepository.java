@@ -102,9 +102,9 @@ public class BookRepository implements IBookRepository {
 
     @Override
     public List<Book> findByAuthor(String author, boolean displayOOS) {
-        List<Book> newCatalogue = null;
+        List<Book> newCatalogue = new ArrayList<>() ;
         for (Book b : bookCatalogue) {
-            if (b.getAuthor().equals(author)) {
+            if (b.getAuthor().contains(author)) {
                 if (b.getQuantity() > 0) {
                     newCatalogue.add(b);
                 } else if (displayOOS) {
@@ -114,7 +114,7 @@ public class BookRepository implements IBookRepository {
         }
 
 
-        if (newCatalogue == null) {
+        if (newCatalogue.size() == 0) {
             System.out.println("No books exist by this author");
             return null;
         }
@@ -123,7 +123,7 @@ public class BookRepository implements IBookRepository {
 
     @Override
     public List<Book> findByTitle(String title, boolean displayOOS) {
-        List<Book> newCatalogue = null;
+        List<Book> newCatalogue = new ArrayList<>() ;
         for (Book b : bookCatalogue) {
             if (b.getTitle().contains(title)) {
                 if (b.getQuantity() > 0) {
@@ -135,7 +135,7 @@ public class BookRepository implements IBookRepository {
         }
 
 
-        if (newCatalogue == null) {
+        if (newCatalogue.size() == 0) {
             System.out.println("No books exist by this title");
             return null;
         }
@@ -144,7 +144,7 @@ public class BookRepository implements IBookRepository {
 
     @Override
     public List<Book> findByGenre(String genre, boolean displayOOS) {
-        List<Book> newCatalogue = null;
+        List<Book> newCatalogue = new ArrayList<>() ;
         for (Book b : bookCatalogue) {
             if (b.getGenre().contains(genre)) {
                 if (b.getQuantity() > 0) {
@@ -154,7 +154,7 @@ public class BookRepository implements IBookRepository {
                 }
             }
         }
-        if (newCatalogue == null) {
+        if (newCatalogue.size() == 0) {
             System.out.println("No books exist in this genre");
             return null;
         }
@@ -163,7 +163,7 @@ public class BookRepository implements IBookRepository {
 
     @Override
     public List<Book> findByLength(int length, boolean displayOOS) {
-        List<Book> newCatalogue = null;
+        List<Book> newCatalogue = new ArrayList<>() ;
         for (Book b : bookCatalogue) {
             if ((b.getPages() >= length - 20) && (b.getPages() <= length + 20)) {
                 if (b.getQuantity() > 0) {
@@ -173,7 +173,7 @@ public class BookRepository implements IBookRepository {
                 }
             }
         }
-        if (newCatalogue == null) {
+        if (newCatalogue.size() == 0) {
             System.out.println("No books exist in this range");
             return null;
         }

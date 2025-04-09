@@ -12,7 +12,7 @@ import za.ac.cput.util.Helper;
 public class BookFactory {
 
     //This method creates a book item that has a custom amount of copies in stock
-    public static Book createManyBooks(String title, String author, String isbn, int pages, String genre, int quantity, double price) {
+    public static Book createManyBooks(String isbn,String title, String author, int pages, String genre, int quantity, double price) {
         if (((title == null) || (title == ""))
                 ||(author == null) || (author == "")
                 ||(!Helper.verifyisbn(isbn))
@@ -32,7 +32,7 @@ public class BookFactory {
     }
 
     //This method creates a book item where there is only one copy of it in stock
-    public static Book createBook(String title, String author, String isbn, int pages, String genre, double price) {
+    public static Book createBook( String isbn, String title, String author, int pages, String genre, double price) {
         if (((title == null) || (title == ""))
                 ||(author == null) || (author == "")
                 ||(!Helper.verifyisbn(isbn))

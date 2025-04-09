@@ -16,7 +16,25 @@ Book.BookBuilder builder2;
        builder2= new Book.BookBuilder("9780316137973", "You've Been Warned", "James Patterson & Howard Roughan", 200,"Thriller",22,83.72);
     }
 
+@Test
+public void removeStock(){
+        builder1.setQuantity(6);
+        book1=builder1.build();
+        double totalPrice=book1.removeStock(2);
+        assertTrue(book1.getQuantity()>=0);
+}
 
+@Test
+public void addStock(){
+        book1=builder1.build();
+        assertTrue(book1.restockBook(4));
+}
+
+@Test
+public void checkStock(){
+        book1=builder1.build();
+        assertTrue(book1.checkStock());
+}
 
     @Test
     public void testSaleLimit(){

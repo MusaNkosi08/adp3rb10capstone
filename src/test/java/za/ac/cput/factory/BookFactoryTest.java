@@ -9,12 +9,12 @@ class BookFactoryTest {
 
     @Test
     void createBooks() {
-        assertNotNull(BookFactory.createBook("You've Been Warned", "James Patterson & Howard Roughan", "9780316137973", 200,"Thriller",83.72));
+        assertNotNull(BookFactory.createBook("9780316137973", "You've Been Warned","James Patterson & Howard Roughan", 200,"Thriller",83.72));
     }
 
     @Test
     void createManyBooks() {
-        assertNotNull(BookFactory.createManyBooks("A Series of Unfortunate Events: The Bad Beginning","Lemony Snicket","9780749746117",162,"Comedy, Drama, Child Fiction",20 ,49.21));
+        assertNotNull(BookFactory.createManyBooks("9780749746117","A Series of Unfortunate Events: The Bad Beginning","Lemony Snicket",162,"Comedy, Drama, Child Fiction",20 ,49.21));
     }
 
 @Test
@@ -24,7 +24,7 @@ class BookFactoryTest {
 
     @Test
     void negativeNumbersCreation() {
-        assertNotNull( BookFactory.createManyBooks("A Series of Unfortunate Events: The Bad Beginning","Lemony Snicket","9780749746117",-68,"Comedy, Drama, Child Fiction",0,-40));
+        assertNotNull( BookFactory.createManyBooks("Lemony Snicket","A Series of Unfortunate Events: The Bad Beginning","9780749746117",-68,"Comedy, Drama, Child Fiction",0,-40));
     }
 
 }
