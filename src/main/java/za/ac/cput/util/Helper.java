@@ -36,7 +36,7 @@ public class Helper {
 // === SUPPLY ORDER VALIDATIONS BELOW ===
 
         public static boolean verifyOrderID(String orderID) {
-            return orderID != null && !orderID.trim().isEmpty() && orderID.length() >= 5;
+            return orderID != null && !orderID.trim().isEmpty();
         }
 
         public static boolean verifySupplierID(String supplierID) {
