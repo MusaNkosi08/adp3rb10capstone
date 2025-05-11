@@ -7,7 +7,6 @@ Author: Musa Banathi Nkosi
 package za.ac.cput.factory;
 
 import org.junit.jupiter.api.Test;
-import za.ac.cput.domain.Supply;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -16,7 +15,7 @@ class SupplyFactoryTest {
     @Test
     void testCreateSupplySuccess() {
         // Test creating a supply with valid inputs from supplier "ABC Supplies"
-        Supply supply = SupplyOrderFactory.createSupply("SUP001", 100.50, 10, "ABC Supplies");
+        Supply supply = SupplyOrderFactory.createSupplyOrder("SUP001", 100.50, 10, "ABC Supplies");
 
         assertNotNull(supply); // Verify the supply object is not null
         assertEquals("SUP001", supply.getOrderID()); // Verify order ID
@@ -29,7 +28,7 @@ class SupplyFactoryTest {
     void testCreateSupplyWithEmptyOrderID() {
         // Test creating a supply with an empty order ID
         Exception exception = assertThrows(IllegalArgumentException.class, () ->
-                SupplyOrderFactory.createSupply("", 100.50, 10, "ABC Supplies"));
+                SupplyOrderFactory.createSupplyOrder("", 100.50, 10, "ABC Supplies"));
 
         assertEquals("Error: Order ID cannot be empty.", exception.getMessage()); // Verify error message
     }
@@ -38,7 +37,7 @@ class SupplyFactoryTest {
     void testCreateSupplyWithEmptySupplierName() {
         // Test creating a supply with an empty supplier name
         Exception exception = assertThrows(IllegalArgumentException.class, () ->
-                SupplyOrderFactory.createSupply("SUP002", 100.50, 10, ""));
+                SupplyOrderFactory.createSupplyOrder("SUP002", 100.50, 10, ""));
 
         assertEquals("Error: Supplier name cannot be empty.", exception.getMessage()); // Verify error message
     }
@@ -47,7 +46,7 @@ class SupplyFactoryTest {
     void testCreateSupplyWithNegativeOrderPrice() {
         // Test creating a supply with a negative order price
         Exception exception = assertThrows(IllegalArgumentException.class, () ->
-                SupplyOrderFactory.createSupply("SUP003", -50.00, 10, "XYZ Distributors"));
+                SupplyOrderFactory.createSupplyOrder("SUP003", -50.00, 10, "XYZ Distributors"));
 
         assertEquals("Error: Order price must be greater than 0.", exception.getMessage()); // Verify error message
     }
@@ -56,7 +55,7 @@ class SupplyFactoryTest {
     void testCreateSupplyWithNegativeQuantity() {
         // Test creating a supply with a negative quantity
         Exception exception = assertThrows(IllegalArgumentException.class, () ->
-                SupplyOrderFactory.createSupply("SUP004", 100.00, -5, "LMN Traders"));
+                SupplyOrderFactory.createSupplyOrder("SUP004", 100.00, -5, "LMN Traders"));
 
         assertEquals("Error: Quantity cannot be negative.", exception.getMessage()); // Verify error message
     }
