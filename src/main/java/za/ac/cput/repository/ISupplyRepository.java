@@ -6,21 +6,18 @@ Author: Musa Banathi Nkosi
 
 package za.ac.cput.repository;
 
-import za.ac.cput.domain.Supply;
+import za.ac.cput.domain.SupplyOrder;
 
 import java.util.List;
 
-public interface ISupplyRepository extends IRepository<Supply, String> {
+public interface ISupplyRepository extends IRepository<SupplyOrder, String> {
 
     // Saves a Supply entity to the repository
-    Supply save(Supply supply);
+    SupplyOrder save(SupplyOrder supply);
 
     // Finds supplies by their order price
-    List<Supply> findByOrderPrice(double orderPrice);
-
-    // Finds supplies by their quantity
-    List<Supply> findByQuantity(int quantity);
+    List<SupplyOrder> findByOrderPrice(double orderPrice);
 
     // Finds supplies by their supplier name
-    List<Supply> findBySupplierName(String supplierName);
+    List<SupplyOrder> findBySupplierID(String supplierName);
 }

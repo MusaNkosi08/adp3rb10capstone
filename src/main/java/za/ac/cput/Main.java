@@ -27,6 +27,18 @@ public class Main {
 
      System.out.println(order.getOrderDetails());
 
+     //creating the supplier
+        Supplier supplier = new Supplier.Builder("BookWorld Publishing")
+                .address("123 Main Street, Booktown")
+                .email("contact@bookworld.com")
+                .phoneNumber("+1-555-1234")
+                .website("www.bookworld.com")
+                .build();
+
+        System.out.println(supplier);
+
+
+
      // Creating a list of order items using the builder pattern
      List<OrderItem> items = new ArrayList<>();
      items.add(new OrderItem.Builder().itemId(3).quantity(1).price(20.0).build());
