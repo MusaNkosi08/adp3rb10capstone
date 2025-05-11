@@ -85,9 +85,7 @@ public class Supply {
             return new Supply(this);
         }
 
-        // Adds a setSupplierName method if needed; otherwise, comment it out.
-        public Builder setSupplierName(String supplierName) {
-            return this;  // Return the correct Builder type
+        public Employee.Builder setSupplierName(String supplierName) {
         }
     }
 }

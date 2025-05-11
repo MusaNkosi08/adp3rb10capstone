@@ -35,7 +35,6 @@ public class SupplyOrderFactory {
                 .setOrderID(orderID)
                 .setOrderPrice(orderPrice)
                 .setQuantity(quantity)
-                .setSupplierName(supplierName)
                 .build();
     }
 }
