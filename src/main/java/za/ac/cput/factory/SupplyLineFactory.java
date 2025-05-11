@@ -1,5 +1,9 @@
-
 package za.ac.cput.factory;
+
+/* SupplyLineFactory.java
+  Author: Ashton Petersen (220219494)
+  Date: 11 May 2025
+*/
 
 import za.ac.cput.domain.SupplyLine;
 

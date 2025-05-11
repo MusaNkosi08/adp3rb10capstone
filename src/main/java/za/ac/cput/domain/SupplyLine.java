@@ -1,5 +1,10 @@
 package za.ac.cput.domain;
 
+/* SupplyLine.java
+  Author: Ashton Petersen (220219494)
+  Date: 11 May 2025
+*/
+
 public class SupplyLine {
     private int lineOrder;
     private int orderId;
