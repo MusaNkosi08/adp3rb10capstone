@@ -59,7 +59,7 @@ public class Order {
         private String shippingAddress;
         private String paymentMethod;
         private String status = "Pending";  // Default status.
-        private List<OrderItem> items = new ArrayList<>();
+        private List<OrderItem> items = new ArrayList();
 
         public Builder orderId(int orderId) {
             this.orderId = orderId;
