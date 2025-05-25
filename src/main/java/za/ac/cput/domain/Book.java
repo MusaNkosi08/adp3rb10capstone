@@ -6,7 +6,12 @@ Author: Ashton Mondreo Petersen (220219494)
 
 package za.ac.cput.domain;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+
+@Entity
 public class Book {
+    @Id
     public String isbn;
     public String title;
     public String author;
@@ -23,6 +28,10 @@ public class Book {
         this.genre = builder.genre;
         this.quantity = builder.quantity;
         this.price = builder.price;
+    }
+
+    public Book() {
+
     }
 
     public String getIsbn() {
