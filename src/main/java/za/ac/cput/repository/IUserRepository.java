@@ -5,9 +5,11 @@ package za.ac.cput.repository;
   Date: 23 March 2025
  */
 
+import org.springframework.stereotype.Repository;
 import za.ac.cput.domain.User;
 import java.util.List;
 
+@Repository
 public interface IUserRepository extends IRepository<User, String> {
 
     User create(User user);
@@ -20,5 +22,6 @@ public interface IUserRepository extends IRepository<User, String> {
     boolean delete(String id);
 
     List<User> findAll();
+
 }
 

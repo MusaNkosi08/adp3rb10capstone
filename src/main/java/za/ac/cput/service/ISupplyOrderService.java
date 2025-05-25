@@ -9,4 +9,14 @@ public interface ISupplyOrderService {
     List<SupplyOrder> readAll();
     SupplyOrder update(SupplyOrder order);
     void delete(String id);
+
+    List<SupplyOrder> getAll();
+
+    List<SupplyOrder> findByOrderStatus(String status);
+
+    List<SupplyOrder> findByEmployeeID(String employeeID);
+
+    List<SupplyOrder> findBySupplierID(String supplierID);
+
+    List<SupplyOrder> findByOrderPriceBetween(double minPrice, double maxPrice);
 }
