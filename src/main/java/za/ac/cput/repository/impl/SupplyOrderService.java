@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import za.ac.cput.domain.SupplyOrder;
 import za.ac.cput.repository.ISupplyOrderRepository;
+import za.ac.cput.repository.SupplyOrderRepository;
 
 import java.util.List;
 
