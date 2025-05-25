@@ -4,6 +4,7 @@ package za.ac.cput.service;
   Date: 25 May 2025
  */
 
+import org.springframework.stereotype.Service;
 import za.ac.cput.domain.User;
 import za.ac.cput.repository.IUserRepository;
 import za.ac.cput.repository.impl.UserRepository;
@@ -11,6 +12,7 @@ import za.ac.cput.service.IUserService;
 
 import java.util.List;
 
+@Service
 public class UserService implements IUserService{
 
     private static IUserService service;
