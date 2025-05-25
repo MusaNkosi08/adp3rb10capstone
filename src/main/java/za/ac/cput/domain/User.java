@@ -1,12 +1,16 @@
 package za.ac.cput.domain;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+
 /* User.java
 ``Author: Aimee Paulus (222814969)
   Date: 21 March 2025
  */
-
-
+@Entity
 public class User {
+
+    @Id
     private String userId;
     private String userFirstName;
     private String userLastName;
@@ -14,6 +18,9 @@ public class User {
     private String userPassword;
     private String userPhoneNumber;
 
+    protected User() {
+
+    }
     private User(UserBuilder builder){
         this.userId = builder.userId;
         this.userFirstName = builder.userFirstName;
@@ -24,6 +31,8 @@ public class User {
 
 
     }
+
+
 
 
     public String getUserId() {

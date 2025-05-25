@@ -5,10 +5,20 @@ package za.ac.cput.domain;
   Date: 10 May 2025
  */
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+
+@Entity
 public class Role {
+
+    @Id
     private String roleId;
     private String roleName;
     private double roleSalary;
+
+    protected Role() {
+
+    }
 
     private Role(RoleBuilder builder) {
 
@@ -16,6 +26,7 @@ public class Role {
         this.roleName = builder.roleName;
         this.roleSalary = builder.roleSalary;
     }
+
 
     public String getRoleId() {
         return roleId;
