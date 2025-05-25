@@ -1,18 +1,39 @@
 package za.ac.cput.domain;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Table;
+
 /* Supplier.java
-     Supplier domain class
-     Author: TT Ntate (221817816)
-     Date: 11 May 2025 */ 
+   Supplier domain class
+   Updated for database persistence
+   Author: TT Ntate (221817816)
+   Date: 11 May 2025
+*/
 
+@Entity
+@Table(name = "suppliers")
 public class Supplier {
-    private final String name;
-    private final String address;
-    private final String email;
-    private final String phoneNumber;
-    private final String website;
 
-    // Private constructor
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false)
+    private String name;
+
+    private String address;
+    private String email;
+    private String phoneNumber;
+    private String website;
+
+    // Default constructor required by JPA
+    protected Supplier() {}
+
+    // Private constructor used by the Builder
     private Supplier(Builder builder) {
         this.name = builder.name;
         this.address = builder.address;
@@ -22,6 +43,10 @@ public class Supplier {
     }
 
     // Getters
+    public Long getId() {
+        return id;
+    }
+
     public String getName() {
         return name;
     }
@@ -45,7 +70,8 @@ public class Supplier {
     @Override
     public String toString() {
         return "Supplier{" +
-                "name='" + name + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", address='" + address + '\'' +
                 ", email='" + email + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
@@ -61,7 +87,7 @@ public class Supplier {
         private String phoneNumber;
         private String website;
 
-        public Builder(String name) { // Mandatory field
+        public Builder(String name) {
             this.name = name;
         }
 
@@ -90,4 +116,3 @@ public class Supplier {
         }
     }
 }
-
