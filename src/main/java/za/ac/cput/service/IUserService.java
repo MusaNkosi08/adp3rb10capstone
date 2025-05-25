@@ -11,7 +11,7 @@ import za.ac.cput.repository.IRepository;
 
 import java.util.List;
 
-@Service
+
 public interface IUserService extends IService<User,String>{
     List<User> findById(String userId);
     List<User> findByFirstName(String userFirstname);
