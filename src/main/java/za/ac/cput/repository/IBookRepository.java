@@ -6,11 +6,12 @@ Author: Ashton Mondreo Petersen (220219494)
 
 package za.ac.cput.repository;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import za.ac.cput.domain.Book;
 
 import java.util.List;
 
-public interface IBookRepository extends IRepository<Book, String> {
+public interface IBookRepository extends JpaRepository<Book,> {
 List<Book> findByAuthor(String author, boolean displayOOS);
 List<Book> findByTitle(String title, boolean displayOOS);
 List<Book> findByGenre(String genre, boolean displayOOS);
