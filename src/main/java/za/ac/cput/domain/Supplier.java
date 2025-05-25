@@ -1,5 +1,10 @@
 package za.ac.cput.domain;
 
+/* Supplier.java
+     Supplier domain class
+     Author: TT Ntate (221817816)
+     Date: 11 May 2025 */ 
+
 public class Supplier {
     private final String name;
     private final String address;
