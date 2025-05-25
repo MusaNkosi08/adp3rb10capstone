@@ -1,4 +1,4 @@
-package za.ac.cput.service;
+package za.ac.cput.service.impl;
 /* UserService.java
 ``Author: Aimee Paulus (222814969)
   Date: 25 May 2025
