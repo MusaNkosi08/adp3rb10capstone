@@ -1,65 +1,60 @@
 package za.ac.cput.domain;
 
-//Tyrese ntate 221817816
-
+import jakarta.persistence.*;
 import java.util.*;
 
+@Entity
 public class Order {
 
+    @Id
     private int orderId;
+
     private int customerId;
     private Date orderDate;
     private String status;
     private double totalAmount;
     private String shippingAddress;
     private String paymentMethod;
-    private List<OrderItem> items;
 
-    
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<OrderItem> items = new ArrayList<>();
+
+    @OneToOne
+    @JoinColumn(name = "payment_id")
+    private Payment payment;
+
+    protected Order() {} // JPA needs this
+
     private Order(Builder builder) {
         this.orderId = builder.orderId;
         this.customerId = builder.customerId;
-        this.orderDate = new Date(); // Automatically set the current date.
+        this.orderDate = new Date();
         this.status = builder.status;
-        this.totalAmount = 0.0;
         this.shippingAddress = builder.shippingAddress;
         this.paymentMethod = builder.paymentMethod;
         this.items = builder.items != null ? builder.items : new ArrayList<>();
+        this.payment = builder.payment;
+        calculateTotal();
     }
 
-    public String getStatus() {
-        return null;
-    }
+    public int getOrderId() { return orderId; }
+    public int getCustomerId() { return customerId; }
+    public Date getOrderDate() { return orderDate; }
+    public String getStatus() { return status; }
+    public double getTotalAmount() { return totalAmount; }
+    public String getShippingAddress() { return shippingAddress; }
+    public String getPaymentMethod() { return paymentMethod; }
+    public List<OrderItem> getItems() { return items; }
+    public Payment getPayment() { return payment; }
 
-    public Collection<Object> getItems() {
-        return null;
-    }
-
-    public int getOrderId() {
-        return 0;
-    }
-
-    public int getCustomerId() {
-        return 0;
-    }
-
-    public String getShippingAddress() {
-        return null;
-    }
-
-    public String getPaymentMethod() {
-        return null;
-    }
-
-
-    
     public static class Builder {
         private int orderId;
         private int customerId;
         private String shippingAddress;
         private String paymentMethod;
-        private String status = "Pending";  // Default status.
-        private List<OrderItem> items = new ArrayList();
+        private String status = "Pending";
+        private List<OrderItem> items = new ArrayList<>();
+        private Payment payment;
 
         public Builder orderId(int orderId) {
             this.orderId = orderId;
@@ -91,8 +86,8 @@ public class Order {
             return this;
         }
 
-        public Builder addItem(OrderItem item) {
-            this.items.add(item);
+        public Builder payment(Payment payment) {
+            this.payment = payment;
             return this;
         }
 
@@ -101,29 +96,25 @@ public class Order {
         }
     }
 
-    
     public double calculateTotal() {
         totalAmount = items.stream().mapToDouble(OrderItem::totalPrice).sum();
         return totalAmount;
     }
 
-   
     public void updateStatus(String newStatus) {
         this.status = newStatus;
     }
 
-    
     public void addItem(OrderItem item) {
+        item.setOrder(this); // Set back-reference
         items.add(item);
         calculateTotal();
     }
 
-   
     public void removeItem(OrderItem item) {
         items.remove(item);
         calculateTotal();
     }
-
 
     public String getOrderDetails() {
         StringBuilder details = new StringBuilder();

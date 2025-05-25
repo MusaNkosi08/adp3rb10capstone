@@ -30,7 +30,7 @@ public class Helper {
         }
         if ((phoneNumber.length() != 10) || (phoneNumber.length() != 12)) {
             return false;
-        }
+           }
         return true;
     }
 // === SUPPLY ORDER VALIDATIONS BELOW ===

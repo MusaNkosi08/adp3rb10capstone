@@ -1,12 +1,22 @@
 package za.ac.cput.domain;
 
+import jakarta.persistence.*;
+import java.util.Objects;
+
+@Entity
 public class Payment {
+
+    @Id
     private String paymentID;
+
     private double amount;
     private String status;
     private String transactionCode;
 
-    // Private constructor to enforce the use of the Builder pattern
+    protected Payment() {
+        // JPA requires a default constructor
+    }
+
     private Payment(Builder builder) {
         this.paymentID = builder.paymentID;
         this.amount = builder.amount;
@@ -14,7 +24,7 @@ public class Payment {
         this.transactionCode = builder.transactionCode;
     }
 
-    // Getter methods to access private attributes
+    // Getters
     public String getPaymentID() {
         return paymentID;
     }
@@ -31,42 +41,26 @@ public class Payment {
         return transactionCode;
     }
 
-    // Overriding toString() to provide a string representation of the Payment object
-    @Override
-    public String toString() {
-        return "Payment{" +
-                "paymentID='" + paymentID + '\'' +
-                ", amount=" + amount +
-                ", status='" + status + '\'' +
-                ", transactionCode='" + transactionCode + '\'' +
-                '}';
-    }
-
-    // Method to process the payment and update its status
+    // Business methods
     public void processPayment() {
-        System.out.println("Processing payment of " + amount + " with ID " + paymentID);
-        this.status = "Processed"; // Update status to "Processed"
+        this.status = "Processed";
     }
 
-    // Method to refund the payment and update its status
     public void refundPayment() {
-        System.out.println("Refunding payment of " + amount + " with ID " + paymentID);
-        this.status = "Refunded"; // Update status to "Refunded"
+        this.status = "Refunded";
     }
 
-    // Method to verify if the transaction code is valid (not null or empty)
     public boolean verifyTransaction() {
-        return transactionCode != null && !transactionCode.isEmpty();
+        return transactionCode != null && !transactionCode.trim().isEmpty();
     }
 
-    // Builder Class for constructing Payment objects
+    // Builder
     public static class Builder {
         private String paymentID;
         private double amount;
         private String status;
         private String transactionCode;
 
-        // Setter methods for setting values in the Builder pattern
         public Builder setPaymentID(String paymentID) {
             this.paymentID = paymentID;
             return this;
@@ -87,9 +81,31 @@ public class Payment {
             return this;
         }
 
-        // Method to construct and return a Payment object
         public Payment build() {
             return new Payment(this);
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Payment{" +
+                "paymentID='" + paymentID + '\'' +
+                ", amount=" + amount +
+                ", status='" + status + '\'' +
+                ", transactionCode='" + transactionCode + '\'' +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Payment)) return false;
+        Payment payment = (Payment) o;
+        return Objects.equals(paymentID, payment.paymentID);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(paymentID);
     }
 }
