@@ -43,6 +43,11 @@ public class UserService implements IUserService{
     }
 
     @Override
+    public void delete(String s) {
+
+    }
+
+    @Override
     public List<User> findAll() {
         return this.repository.findAll();
     }

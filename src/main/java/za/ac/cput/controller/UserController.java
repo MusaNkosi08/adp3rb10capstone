@@ -22,7 +22,7 @@ public class UserController {
 
     @PostMapping("/create")
     public boolean createUser(@RequestBody User user) {
-        return userRepository.create(user) != null; // Assuming save returns the saved user
+        return userRepository.create(user) != null;
     }
 
     @GetMapping("/{userId}")
@@ -37,12 +37,12 @@ public class UserController {
 
     @PutMapping("/update")
     public boolean updateUser(@RequestBody User user) {
-        return userRepository.update(user) != null; // Assuming update returns the updated user
+        return userRepository.update(user) != null;
     }
 
     @DeleteMapping("/delete/{userId}")
     public boolean deleteUser(@PathVariable String userId) {
         userRepository.delete(userId);
-        return true; // Assuming delete is void, return true for successful deletion
+        return true;
     }
 }

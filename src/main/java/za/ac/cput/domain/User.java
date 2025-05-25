@@ -18,7 +18,7 @@ public class User {
     private String userPassword;
     private String userPhoneNumber;
 
-    public User() {
+    protected User() {
 
     }
     private User(UserBuilder builder){
