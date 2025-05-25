@@ -7,12 +7,12 @@ Author: Ashton Mondreo Petersen (220219494)
 package za.ac.cput.repository.impl;
 
 import za.ac.cput.domain.Book;
-import za.ac.cput.service.IBookService;
+import za.ac.cput.repository.IBookRepository;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class BookRepository implements IBookService {
+public class BookRepository implements IBookRepository {
 
     private static BookRepository repository = null;
     private final List<Book> bookCatalogue;
@@ -40,6 +40,7 @@ public class BookRepository implements IBookService {
                 System.out.println("A book already exists with this ISBN (" + b.getTitle() + ")");
             }
         }
+
         if ((bookCatalogue.add(book)) && !preexisting) {
             success = true;
         }
@@ -102,7 +103,7 @@ public class BookRepository implements IBookService {
 
     @Override
     public List<Book> findByAuthor(String author, boolean displayOOS) {
-        List<Book> newCatalogue = new ArrayList<>() ;
+        List<Book> newCatalogue = new ArrayList<Book>() ;
         for (Book b : bookCatalogue) {
             if (b.getAuthor().contains(author)) {
                 if (b.getQuantity() > 0) {
@@ -114,7 +115,7 @@ public class BookRepository implements IBookService {
         }
 
 
-        if (newCatalogue.size() == 0) {
+        if (newCatalogue.isEmpty()) {
             System.out.println("No books exist by this author");
             return null;
         }
@@ -123,7 +124,7 @@ public class BookRepository implements IBookService {
 
     @Override
     public List<Book> findByTitle(String title, boolean displayOOS) {
-        List<Book> newCatalogue = new ArrayList<>() ;
+        List<Book> newCatalogue = new ArrayList<Book>() ;
         for (Book b : bookCatalogue) {
             if (b.getTitle().contains(title)) {
                 if (b.getQuantity() > 0) {
@@ -135,7 +136,7 @@ public class BookRepository implements IBookService {
         }
 
 
-        if (newCatalogue.size() == 0) {
+        if (newCatalogue.isEmpty()) {
             System.out.println("No books exist by this title");
             return null;
         }
@@ -144,7 +145,7 @@ public class BookRepository implements IBookService {
 
     @Override
     public List<Book> findByGenre(String genre, boolean displayOOS) {
-        List<Book> newCatalogue = new ArrayList<>() ;
+        List<Book> newCatalogue = new ArrayList<Book>() ;
         for (Book b : bookCatalogue) {
             if (b.getGenre().contains(genre)) {
                 if (b.getQuantity() > 0) {
@@ -154,7 +155,7 @@ public class BookRepository implements IBookService {
                 }
             }
         }
-        if (newCatalogue.size() == 0) {
+        if (newCatalogue.isEmpty()) {
             System.out.println("No books exist in this genre");
             return null;
         }
@@ -163,7 +164,7 @@ public class BookRepository implements IBookService {
 
     @Override
     public List<Book> findByLength(int length, boolean displayOOS) {
-        List<Book> newCatalogue = new ArrayList<>() ;
+        List<Book> newCatalogue = new ArrayList<Book>() ;
         for (Book b : bookCatalogue) {
             if ((b.getPages() >= length - 20) && (b.getPages() <= length + 20)) {
                 if (b.getQuantity() > 0) {
@@ -173,7 +174,7 @@ public class BookRepository implements IBookService {
                 }
             }
         }
-        if (newCatalogue.size() == 0) {
+        if (newCatalogue.isEmpty()) {
             System.out.println("No books exist in this range");
             return null;
         }
