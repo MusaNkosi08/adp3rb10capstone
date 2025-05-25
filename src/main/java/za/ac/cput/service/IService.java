@@ -15,5 +15,7 @@ public interface IService<T, ID> {
 
     T update(T t);
 
+    void delete(ID id);
+
     List<T> findAll();
 }

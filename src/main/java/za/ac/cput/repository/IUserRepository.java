@@ -20,5 +20,6 @@ public interface IUserRepository extends IRepository<User, String> {
     boolean delete(String id);
 
     List<User> findAll();
+
 }
 
