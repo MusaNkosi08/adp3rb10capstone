@@ -6,11 +6,13 @@ Author: Ashton Mondreo Petersen (220219494)
 
 package za.ac.cput.service;
 
+import org.springframework.stereotype.Service;
 import za.ac.cput.domain.Book;
 import za.ac.cput.repository.IRepository;
 
 import java.util.List;
 
+@Service
 public interface IBookService extends IService<Book, String> {
 List<Book> findByAuthor(String author, boolean displayOOS);
 List<Book> findByTitle(String title, boolean displayOOS);
