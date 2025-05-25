@@ -1,15 +1,27 @@
 package za.ac.cput.domain;
 
+import jakarta.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
-public class SupplyOrder {
+@Entity
+public class SupplyOrder implements Serializable {
+
+    @Id
     private String orderID;
+
     private String employeeID;
     private String orderDetails;
+
+    @Temporal(TemporalType.DATE)
     private Date orderDate;
+
     private String supplierID;
     private double orderPrice;
     private String orderStatus;
+
+    // Constructors
+    public SupplyOrder() {}
 
     private SupplyOrder(Builder builder) {
         this.orderID = builder.orderID;
@@ -21,40 +33,18 @@ public class SupplyOrder {
         this.orderStatus = builder.orderStatus;
     }
 
-    public String getOrderID() {
-        return orderID;
-    }
+    // Getters
+    public String getOrderID() { return orderID; }
+    public String getEmployeeID() { return employeeID; }
+    public String getOrderDetails() { return orderDetails; }
+    public Date getOrderDate() { return orderDate; }
+    public String getSupplierID() { return supplierID; }
+    public double getOrderPrice() { return orderPrice; }
+    public String getOrderStatus() { return orderStatus; }
 
-    public String getEmployeeID() {
-        return employeeID;
-    }
-
-    public String getOrderDetails() {
-        return orderDetails;
-    }
-
-    public Date getOrderDate() {
-        return orderDate;
-    }
-
-    public String getSupplierID() {
-        return supplierID;
-    }
-
-    public double getOrderPrice() {
-        return orderPrice;
-    }
-
-    public String getOrderStatus() {
-        return orderStatus;
-    }
-
+    // Business Logic
     public String displayStatus() {
         return "Order Status: " + orderStatus;
-    }
-
-    public void removeLine(String lineID) {
-        // Logic to remove supply line by lineID (to be implemented in service/repo)
     }
 
     public void cancelOrder() {
@@ -74,6 +64,7 @@ public class SupplyOrder {
                 '}';
     }
 
+    // Builder class
     public static class Builder {
         private String orderID;
         private String employeeID;
