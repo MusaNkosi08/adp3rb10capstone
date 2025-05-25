@@ -1,10 +1,12 @@
 package za.ac.cput.service;
+import org.springframework.stereotype.Service;
 import za.ac.cput.domain.Role;
 import  za.ac.cput.domain.User;
 import za.ac.cput.repository.IRoleRepository;
 import za.ac.cput.repository.impl.RoleRepository;
 import java.util.List;
 
+@Service
 public class RoleService implements IRoleService{
 
     private static IRoleService service;
@@ -34,6 +36,11 @@ public class RoleService implements IRoleService{
     @Override
     public Role update(Role role) {
         return this.repository.save(role); // Use save for update
+    }
+
+    @Override
+    public void delete(String s) {
+
     }
 
     @Override
