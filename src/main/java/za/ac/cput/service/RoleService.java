@@ -37,6 +37,11 @@ public class RoleService implements IRoleService{
     }
 
     @Override
+    public void delete(String s) {
+
+    }
+
+    @Override
     public List<Role> findAll() {
         return List.of();
     }

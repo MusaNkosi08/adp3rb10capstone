@@ -16,7 +16,7 @@ public class Role {
     private String roleName;
     private double roleSalary;
 
-    public Role() {
+    protected Role() {
 
     }
 
