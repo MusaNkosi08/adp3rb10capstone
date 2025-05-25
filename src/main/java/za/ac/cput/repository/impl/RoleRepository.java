@@ -1,4 +1,5 @@
 package za.ac.cput.repository.impl;
+import org.springframework.stereotype.Repository;
 import za.ac.cput.domain.Role;
 import za.ac.cput.domain.User;
 import za.ac.cput.repository.IRoleRepository;
@@ -7,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Repository
 public class RoleRepository implements IRoleRepository {
 
     private static RoleRepository repository = null;
