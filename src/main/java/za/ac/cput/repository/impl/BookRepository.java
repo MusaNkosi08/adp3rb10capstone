@@ -7,12 +7,12 @@ Author: Ashton Mondreo Petersen (220219494)
 package za.ac.cput.repository.impl;
 
 import za.ac.cput.domain.Book;
-import za.ac.cput.repository.IBookRepository;
+import za.ac.cput.service.IBookService;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class BookRepository implements IBookRepository {
+public class BookRepository implements IBookService {
 
     private static BookRepository repository = null;
     private final List<Book> bookCatalogue;
