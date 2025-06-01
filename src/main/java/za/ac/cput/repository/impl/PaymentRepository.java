@@ -1,115 +1,89 @@
 package za.ac.cput.repository.impl;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.transaction.Transactional;
+import org.springframework.stereotype.Repository;
 import za.ac.cput.domain.Payment;
 import za.ac.cput.repository.IPaymentRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 
+@Repository
+@Transactional
 public class PaymentRepository implements IPaymentRepository {
 
-    private static PaymentRepository repository = null;
-    private final List<Payment> paymentList;
-
-    public PaymentRepository() {
-        this.paymentList = new ArrayList<>();
-    }
-
-    public static PaymentRepository getInstance() {
-        if (repository == null) {
-            repository = new PaymentRepository();
-        }
-        return repository;
-    }
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Override
     public Payment create(Payment payment) {
-        if (paymentList.stream().anyMatch(p -> p.getPaymentID().equals(payment.getPaymentID()))) {
-            System.out.println("A payment already exists with this ID: " + payment.getPaymentID());
-            return null;
-        }
-        paymentList.add(payment);
+        entityManager.persist(payment);
         return payment;
     }
 
     @Override
-    public Payment read(String paymentID) {
-        return paymentList.stream().filter(p -> p.getPaymentID().equals(paymentID)).findFirst().orElse(null);
+    public Payment read(String id) {
+        return entityManager.find(Payment.class, id);
     }
 
     @Override
     public Payment update(Payment payment) {
-        for (int i = 0; i < paymentList.size(); i++) {
-            if (paymentList.get(i).getPaymentID().equals(payment.getPaymentID())) {
-                paymentList.set(i, payment);
-                return payment;
-            }
-        }
-        System.out.println("No payment exists with this ID: " + payment.getPaymentID());
-        return null;
+        return entityManager.merge(payment);
     }
 
     @Override
-    public boolean delete(String paymentID) {
-        return paymentList.removeIf(p -> p.getPaymentID().equals(paymentID));
+    public void delete(String id) {
+        Payment payment = read(id);
+        if (payment != null) {
+            entityManager.remove(payment);
+        }
     }
 
     @Override
     public List<Payment> findAll() {
-        return new ArrayList<>(paymentList);
+        return entityManager.createQuery("SELECT p FROM Payment p", Payment.class).getResultList();
     }
 
     @Override
     public List<Payment> findByStatus(String status) {
-        List<Payment> filteredPayments = new ArrayList<>();
-        for (Payment payment : paymentList) {
-            if (payment.getStatus().equalsIgnoreCase(status)) {
-                filteredPayments.add(payment);
-            }
-        }
-        return filteredPayments;
+        return entityManager.createQuery("SELECT p FROM Payment p WHERE p.status = :status", Payment.class)
+                .setParameter("status", status)
+                .getResultList();
     }
 
     @Override
     public List<Payment> findPaymentsAboveAmount(double amount) {
-        List<Payment> filteredPayments = new ArrayList<>();
-        for (Payment payment : paymentList) {
-            if (payment.getAmount() > amount) {
-                filteredPayments.add(payment);
-            }
-        }
-        return filteredPayments;
+        return entityManager.createQuery("SELECT p FROM Payment p WHERE p.amount > :amount", Payment.class)
+                .setParameter("amount", amount)
+                .getResultList();
     }
 
     @Override
     public boolean processPayment(String paymentID) {
-        for (Payment p : paymentList) {
-            if (p.getPaymentID().equals(paymentID)) {
-                p.processPayment();
-                return true;
-            }
+        Payment payment = read(paymentID);
+        if (payment != null) {
+            payment.setStatus("Processed");
+            update(payment);
+            return true;
         }
-        System.out.println("Payment not found for processing: " + paymentID);
         return false;
     }
 
     @Override
     public boolean refundPayment(String paymentID) {
-        for (Payment p : paymentList) {
-            if (p.getPaymentID().equals(paymentID)) {
-                p.refundPayment();
-                return true;
-            }
+        Payment payment = read(paymentID);
+        if (payment != null) {
+            payment.setStatus("Refunded");
+            update(payment);
+            return true;
         }
-        System.out.println("Payment not found for refund: " + paymentID);
         return false;
     }
 
     @Override
     public boolean verifyTransaction(String paymentID) {
-        return paymentList.stream().anyMatch(p -> p.getPaymentID().equals(paymentID));
+        Payment payment = read(paymentID);
+        return payment != null && payment.getTransactionCode() != null && !payment.getTransactionCode().isEmpty();
     }
 }
-
-
-
