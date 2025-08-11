@@ -1,5 +1,10 @@
 package za.ac.cput.factory;
 
+/* SupplierFactory.java
+     Supplier Factory domain class
+     Author: TT Ntate (221817816)
+     Date: 11 May 2025 */ 
+
 import za.ac.cput.domain.Supplier;
 
 public class SupplierFactory {

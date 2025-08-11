@@ -1,9 +1,10 @@
-package za.ac.cput.service;
+package za.ac.cput.service.impl;
 /* UserService.java
 ``Author: Aimee Paulus (222814969)
   Date: 25 May 2025
  */
 
+import org.springframework.stereotype.Service;
 import za.ac.cput.domain.User;
 import za.ac.cput.repository.IUserRepository;
 import za.ac.cput.repository.impl.UserRepository;
@@ -11,6 +12,7 @@ import za.ac.cput.service.IUserService;
 
 import java.util.List;
 
+@Service
 public class UserService implements IUserService{
 
     private static IUserService service;
@@ -40,6 +42,11 @@ public class UserService implements IUserService{
     @Override
     public User update(User user) {
         return this.repository.update(user);
+    }
+
+    @Override
+    public void delete(String s) {
+
     }
 
     @Override
