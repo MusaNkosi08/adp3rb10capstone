@@ -1,4 +1,4 @@
-package za.ac.cput;
+package za.ac.cput.views;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import za.ac.cput.domain.*;
