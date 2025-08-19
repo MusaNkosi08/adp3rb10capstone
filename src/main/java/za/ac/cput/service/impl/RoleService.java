@@ -41,8 +41,9 @@ public class RoleService implements IRoleService {
     }
 
     @Override
-    public void delete(String s) {
+    public boolean delete(String s) {
 
+        return false;
     }
 
     @Override

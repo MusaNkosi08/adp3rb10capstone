@@ -34,10 +34,11 @@ public class OrderService implements IOrderService {
     }
 
     @Override
-    public void delete(String id) {
+    public boolean delete(String id) {
         if (repository.existsById(id)) {
             repository.deleteById(id);
         }
+        return false;
     }
 
     @Override

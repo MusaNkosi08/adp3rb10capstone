@@ -34,7 +34,7 @@ public class PaymentService implements IPaymentService {
     }
 
     @Override
-    public boolean delete(String id) {
+    public sboolean delete(String id) {
         if (repository.existsById(id)) {
             repository.deleteById(id);
             return true;
@@ -55,6 +55,11 @@ public class PaymentService implements IPaymentService {
     @Override
     public List<Payment> findPaymentsAboveAmount(double amount) {
         return repository.findByAmountGreaterThan(amount);
+    }
+
+    @Override
+    public Payment findByPaymentId(String paymentId) {
+        return null;
     }
 
     @Override

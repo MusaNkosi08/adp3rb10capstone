@@ -64,8 +64,9 @@ public class BookService implements IBookService {
     }
 
     @Override
-    public void delete(String id) {
+    public boolean delete(String id) {
       this.repository.deleteById(id);
+        return false;
     }
     @Override
     public List<Book> findAll() {
