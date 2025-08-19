@@ -2,11 +2,8 @@ package za.ac.cput.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import za.ac.cput.domain.Book;
 import za.ac.cput.domain.SupplyLine;
-import za.ac.cput.repository.IBookRepository;
 import za.ac.cput.repository.ISupplyLineRepository;
-import za.ac.cput.service.IBookService;
 import za.ac.cput.service.ISupplyLineService;
 
 import java.util.List;
@@ -37,8 +34,9 @@ public class SupplyLineService implements ISupplyLineService {
     }
 
     @Override
-    public void delete(Integer id) {
+    public boolean delete(Integer id) {
         this.repository.deleteById(id);
+        return false;
     }
     @Override
     public List<SupplyLine> findAll() {
