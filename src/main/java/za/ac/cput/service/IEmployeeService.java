@@ -2,11 +2,12 @@ package za.ac.cput.service;
 
 import za.ac.cput.domain.Employee;
 import java.util.List;
+import java.util.Optional;
 
 public interface IEmployeeService {
     Employee create(Employee employee);
-    Employee read(int id);
-    List<Employee> readAll();
+    Optional<Employee> read(Long id);
     Employee update(Employee employee);
-    void delete(int id);
+    boolean delete(Long id);
+    List<Employee> getAll();
 }
