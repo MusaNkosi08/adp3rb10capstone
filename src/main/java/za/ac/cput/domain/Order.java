@@ -106,7 +106,7 @@ public class Order {
     }
 
     public void addItem(OrderItem item) {
-        item.setOrder(this); // Set back-reference
+     //   item.setOrder(this); // Set back-reference
         items.add(item);
         calculateTotal();
     }

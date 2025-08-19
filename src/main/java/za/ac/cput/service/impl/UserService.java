@@ -1,87 +1,57 @@
 package za.ac.cput.service.impl;
-/* UserService.java
-``Author: Aimee Paulus (222814969)
-  Date: 25 May 2025
- */
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import za.ac.cput.domain.User;
 import za.ac.cput.repository.IUserRepository;
-import za.ac.cput.repository.impl.UserRepository;
-import za.ac.cput.service.IUserService;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
-public class UserService implements IUserService{
+public class UserService {
 
-    private static IUserService service;
-    private static IUserRepository repository;
+    @Autowired
+    private IUserRepository userRepository;
 
-    private UserService(){
-        repository = UserRepository.getInstance();// might need to change it to getRepository()
+    // Create or update a user
+    public User save(User user) {
+        return userRepository.save(user);
     }
 
-    public static IUserService getService(){
-        if(service == null){
-            service = new UserService();
+    // Read by ID
+    public Optional<User> read(String userId) {
+        return userRepository.findById(userId);
+    }
+
+    // Delete by ID
+    public boolean delete(String userId) {
+        if (userRepository.existsById(userId)) {
+            userRepository.deleteById(userId);
+            return true;
         }
-        return service;
-    }
-
-    @Override
-    public User create(User user) {
-        return this.repository.create(user);
-    }
-
-    @Override
-    public User read(String s) {
-        return this.repository.read(s);
-    }
-
-    @Override
-    public User update(User user) {
-        return this.repository.update(user);
-    }
-
-    @Override
-    public boolean delete(String s) {
-
         return false;
     }
 
-    @Override
-    public List<User> findAll() {
-        return this.repository.findAll();
-    }
-
-    @Override
-    public List<User> findById(String userId) {
-        return List.of();
-    }
-
-    @Override
-    public List<User> findByFirstName(String userFirstname) {
-        return List.of();
-    }
-
-    @Override
-    public List<User> findByLastName(String userLastname) {
-        return List.of();
-    }
-
-    @Override
-    public List<User> findByEmail(String userEmail) {
-        return List.of();
-    }
-
-    @Override
-    public List<User> findByPhoneNumber(String userPhoneNumber) {
-        return List.of();
-    }
-
-    @Override
+    // Get all users
     public List<User> getAll() {
-        return List.of();
+        return userRepository.findAll();
+    }
+
+    // Custom queries
+    public Optional<User> getByEmail(String email) {
+        return userRepository.findByUserEmail(email);
+    }
+
+    public List<User> getByFirstName(String firstName) {
+        return userRepository.findByUserFirstName(firstName);
+    }
+
+    public List<User> getByLastName(String lastName) {
+        return userRepository.findByUserLastName(lastName);
+    }
+
+    public List<User> getByPhoneNumber(String phoneNumber) {
+        return userRepository.findByUserPhoneNumber(phoneNumber);
     }
 }

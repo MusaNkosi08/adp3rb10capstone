@@ -7,7 +7,7 @@ import java.util.Objects;
 public class Payment {
 
     @Id
-    private String paymentID;
+    private String paymentId; // Changed from paymentID to paymentId
 
     private double amount;
     private String status;
@@ -18,15 +18,15 @@ public class Payment {
     }
 
     private Payment(Builder builder) {
-        this.paymentID = builder.paymentID;
+        this.paymentId = builder.paymentId;
         this.amount = builder.amount;
         this.status = builder.status;
         this.transactionCode = builder.transactionCode;
     }
 
-    // Getters
-    public String getPaymentID() {
-        return paymentID;
+    // Getters - FIXED NAMING CONVENTION
+    public String getPaymentId() { // Changed from getPaymentID() to getPaymentId()
+        return paymentId;
     }
 
     public double getAmount() {
@@ -54,15 +54,15 @@ public class Payment {
         return transactionCode != null && !transactionCode.trim().isEmpty();
     }
 
-    // Builder
+    // Builder - FIXED METHOD NAMES
     public static class Builder {
-        private String paymentID;
+        private String paymentId; // Changed from paymentID to paymentId
         private double amount;
         private String status;
         private String transactionCode;
 
-        public Builder setPaymentID(String paymentID) {
-            this.paymentID = paymentID;
+        public Builder setPaymentId(String paymentId) { // Changed from setPaymentID to setPaymentId
+            this.paymentId = paymentId;
             return this;
         }
 
@@ -89,7 +89,7 @@ public class Payment {
     @Override
     public String toString() {
         return "Payment{" +
-                "paymentID='" + paymentID + '\'' +
+                "paymentId='" + paymentId + '\'' + // Changed from paymentID to paymentId
                 ", amount=" + amount +
                 ", status='" + status + '\'' +
                 ", transactionCode='" + transactionCode + '\'' +
@@ -101,11 +101,11 @@ public class Payment {
         if (this == o) return true;
         if (!(o instanceof Payment)) return false;
         Payment payment = (Payment) o;
-        return Objects.equals(paymentID, payment.paymentID);
+        return Objects.equals(paymentId, payment.paymentId); // Changed from paymentID to paymentId
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(paymentID);
+        return Objects.hash(paymentId); // Changed from paymentID to paymentId
     }
 }

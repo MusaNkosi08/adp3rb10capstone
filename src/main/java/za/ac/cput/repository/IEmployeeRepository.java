@@ -8,6 +8,7 @@ package za.ac.cput.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import za.ac.cput.domain.Employee;
+import za.ac.cput.domain.SupplyOrder;
 
 import java.util.List;
 
@@ -18,4 +19,9 @@ public interface IEmployeeRepository extends JpaRepository<Employee, Integer> {
     List<Employee> findByLastName(String lastName);
     List<Employee> findByPosition(String position);
     List<Employee> findBySalaryBetween(double minSalary, double maxSalary);
+
+    @Repository
+    interface SupplyOrderRepository extends JpaRepository<SupplyOrder, String> {
+        // Custom queries can go here if needed
+    }
 }

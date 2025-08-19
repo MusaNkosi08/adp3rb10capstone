@@ -1,85 +1,62 @@
 package za.ac.cput.service.impl;
 
+
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import za.ac.cput.domain.Order;
 import za.ac.cput.repository.IOrderRepository;
-import za.ac.cput.service.IOrderService;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
-public class OrderService implements IOrderService {
-
-    private final IOrderRepository repository;
+public class OrderService {
 
     @Autowired
-    public OrderService(IOrderRepository repository) {
-        this.repository = repository;
-    }
+    private IOrderRepository orderRepository;
 
-    @Override
+    // ✅ Create a new order
     public Order create(Order order) {
-        return repository.save(order);
+        return orderRepository.save(order);
     }
 
-    @Override
-    public Order read(String id) {
-        return repository.findById(id).orElse(null);
+    // ✅ Read an order by ID
+    public Optional<Order> read(String orderId) {
+        return orderRepository.findById(orderId);
     }
 
-    @Override
-    public Order update(Order order) {
-        return repository.save(order);
-    }
 
-    @Override
-    public boolean delete(String id) {
-        if (repository.existsById(id)) {
-            repository.deleteById(id);
+    //public Order update(Order order) {
+        //if (orderRepository.existsById(order.getOrderId())) {
+       //     return orderRepository.save(order);
+     //   }
+      //  return null;
+  //  }
+
+
+    public boolean delete(String orderId) {
+        if (orderRepository.existsById(orderId)) {
+            orderRepository.deleteById(orderId);
+            return true;
         }
         return false;
     }
 
-    @Override
-    public List<Order> findAll() {
-        return repository.findAll();
+    public List<Order> getAll() {
+        return orderRepository.findAll();
     }
 
-    @Override
     public Order getOrder(int orderId) {
-        return repository.findByOrderId(orderId);
+        return orderRepository.getOrder(orderId);
     }
 
-    @Override
+
     public List<Order> getOrdersByCustomerId(int customerId) {
-        return repository.findByCustomerId(customerId);
+        return orderRepository.getOrdersByCustomerId(customerId);
     }
-
-    @Override
-    public List<Order> findByStatus(String status) {
-        return repository.findByStatus(status);
-    }
-
-   @Override
-    public boolean cancelOrder(String orderId) {
-        Order order = read(orderId);
-        if (order != null) {
-            order.setStatus("Cancelled");
-            update(order);
-            return true;
-        }
-        return false;
-    }
-
-    @Override
-    public boolean completeOrder(String orderId) {
-        Order order = read(orderId);
-        if (order != null) {
-            order.setStatus("Completed");
-            update(order);
-            return true;
-        }
-        return false;
+    public List<Order> getByStatus(String status) {
+        return orderRepository.findByStatus(status);
     }
 }

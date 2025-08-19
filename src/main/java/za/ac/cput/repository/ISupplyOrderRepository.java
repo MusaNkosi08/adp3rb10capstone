@@ -1,7 +1,4 @@
-/*
-ISupplyOrderRepository.java
-Author: Musa Banathi Nkosi (221744517)
-*/
+
 
 package za.ac.cput.repository;
 
@@ -14,12 +11,8 @@ import java.util.List;
 @Repository
 public interface ISupplyOrderRepository extends JpaRepository<SupplyOrder, String> {
 
-    // Custom query methods
-    List<SupplyOrder> findByOrderStatus(String orderStatus);
-
+    // Custom queries
     List<SupplyOrder> findByEmployeeID(String employeeID);
-
     List<SupplyOrder> findBySupplierID(String supplierID);
-
-    List<SupplyOrder> findByOrderPriceBetween(double minPrice, double maxPrice);
+    List<SupplyOrder> findByOrderStatus(String status);
 }

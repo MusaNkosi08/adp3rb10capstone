@@ -4,42 +4,46 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import za.ac.cput.domain.SupplyLine;
 import za.ac.cput.repository.ISupplyLineRepository;
-import za.ac.cput.service.ISupplyLineService;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
-public class SupplyLineService implements ISupplyLineService {
+public class SupplyLineService {
 
     @Autowired
-    private static ISupplyLineService service;
-    private static ISupplyLineRepository repository;
+    private ISupplyLineRepository supplyLineRepository;
 
-
-
-
-    @Override
-    public SupplyLine create(SupplyLine line) {
-        return this.repository.save(line);
+    // Create or update a supply line
+    public SupplyLine save(SupplyLine supplyLine) {
+        return supplyLineRepository.save(supplyLine);
     }
 
-    @Override
-    public SupplyLine read(Integer id) {
-        return this.repository.findById(id).orElse(null);
+    // Read by ID
+    public Optional<SupplyLine> read(int lineID) {
+        return supplyLineRepository.findById(lineID);
     }
 
-    @Override
-    public SupplyLine update(SupplyLine line) {
-        return this.repository.save(line);
-    }
-
-    @Override
-    public boolean delete(Integer id) {
-        this.repository.deleteById(id);
+    // Delete by ID
+    public boolean delete(int lineID) {
+        if (supplyLineRepository.existsById(lineID)) {
+            supplyLineRepository.deleteById(lineID);
+            return true;
+        }
         return false;
     }
-    @Override
-    public List<SupplyLine> findAll() {
-        return this.repository.findAll();
+
+    // Get all supply lines
+    public List<SupplyLine> getAll() {
+        return supplyLineRepository.findAll();
+    }
+
+    // Custom queries
+    public List<SupplyLine> getByOrderId(int orderId) {
+        return supplyLineRepository.findByOrderId(orderId);
+    }
+
+    public List<SupplyLine> getByBookIsbn(String bookIsbn) {
+        return supplyLineRepository.findByBookIsbn(bookIsbn);
     }
 }
