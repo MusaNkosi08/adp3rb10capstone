@@ -39,6 +39,10 @@ public class OrderItem {
         public OrderItem build() {
             return new OrderItem(this);
         }
+
+        public Builder productId(int productId) {
+            return this;
+        }
     }
 
     public double totalPrice() {
