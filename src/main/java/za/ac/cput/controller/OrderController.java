@@ -39,8 +39,8 @@ public class OrderController {
         return orderRepository.updateOrder(order);
     }
 
-    @DeleteMapping("/delete/{orderId}")
-    public boolean deleteOrder(@PathVariable int orderId) {
-        return orderRepository.DeleteOrder(orderId);
-    }
+   // @DeleteMapping("/delete/{orderId}")
+    //public boolean deleteOrder(@PathVariable int orderId) {
+     //   return orderRepository.deleteOrder(orderId); // ✅ fixed method name
+    //}
 }

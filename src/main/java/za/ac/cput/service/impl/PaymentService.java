@@ -3,90 +3,76 @@ package za.ac.cput.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import za.ac.cput.domain.Payment;
-import za.ac.cput.repository.PaymentRepository;
-import za.ac.cput.service.IPaymentService;
+import za.ac.cput.repository.IPaymentRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
-public class PaymentService implements IPaymentService {
-
-    private final PaymentRepository repository;
+public class PaymentService {
 
     @Autowired
-    public PaymentService(PaymentRepository repository) {
-        this.repository = repository;
-    }
+    private IPaymentRepository paymentRepository;
 
-    @Override
+    // Create a new payment
     public Payment create(Payment payment) {
-        return repository.save(payment);
+        return paymentRepository.save(payment);
     }
 
-    @Override
-    public Payment read(String id) {
-        return repository.findById(id).orElse(null);
+    // Read a payment by ID
+    public Optional<Payment> read(String paymentId) {
+        return paymentRepository.findById(paymentId);
     }
 
-    @Override
+    // Update a payment
     public Payment update(Payment payment) {
-        return repository.save(payment);
-    }
-
-    @Override
-    public sboolean delete(String id) {
-        if (repository.existsById(id)) {
-            repository.deleteById(id);
-            return true;
+        if (paymentRepository.existsById(payment.getPaymentId())) {
+            return paymentRepository.save(payment);
         }
-        return false;
-    }
-
-    @Override
-    public List<Payment> findAll() {
-        return repository.findAll();
-    }
-
-    @Override
-    public List<Payment> findByStatus(String status) {
-        return repository.findByStatus(status);
-    }
-
-    @Override
-    public List<Payment> findPaymentsAboveAmount(double amount) {
-        return repository.findByAmountGreaterThan(amount);
-    }
-
-    @Override
-    public Payment findByPaymentId(String paymentId) {
         return null;
     }
 
-    @Override
+    // Delete a payment
+    public boolean delete(String paymentId) {
+        if (paymentRepository.existsById(paymentId)) {
+            paymentRepository.deleteById(paymentId);
+            return true;
+        }
+        return false;
+    }
+
+    // Get all payments
+    public List<Payment> getAll() {
+        return paymentRepository.findAll();
+    }
+
+    // Process payment (set status to "Processed")
     public boolean processPayment(String paymentId) {
-        Payment payment = read(paymentId);
-        if (payment != null) {
-            payment.setStatus("Processed");
-            update(payment);
+        Optional<Payment> optionalPayment = paymentRepository.findById(paymentId);
+        if (optionalPayment.isPresent()) {
+            Payment payment = optionalPayment.get();
+            payment.processPayment();
+            paymentRepository.save(payment);
             return true;
         }
         return false;
     }
 
-    @Override
+    // Refund payment (set status to "Refunded")
     public boolean refundPayment(String paymentId) {
-        Payment payment = read(paymentId);
-        if (payment != null) {
-            payment.setStatus("Refunded");
-            update(payment);
+        Optional<Payment> optionalPayment = paymentRepository.findById(paymentId);
+        if (optionalPayment.isPresent()) {
+            Payment payment = optionalPayment.get();
+            payment.refundPayment();
+            paymentRepository.save(payment);
             return true;
         }
         return false;
     }
 
-    @Override
+    // Verify transaction code
     public boolean verifyTransaction(String paymentId) {
-        Payment payment = read(paymentId);
-        return payment != null && payment.getTransactionCode() != null && !payment.getTransactionCode().isEmpty();
+        Optional<Payment> optionalPayment = paymentRepository.findById(paymentId);
+        return optionalPayment.map(Payment::verifyTransaction).orElse(false);
     }
 }
