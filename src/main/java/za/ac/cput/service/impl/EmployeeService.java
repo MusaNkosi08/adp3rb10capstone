@@ -4,7 +4,7 @@
  Author: Musa Banathi Nkosi (221744517)
 */
 
-package za.ac.cput.service;
+package za.ac.cput.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
