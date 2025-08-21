@@ -8,28 +8,24 @@ package za.ac.cput.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import za.ac.cput.domain.Book;
-import za.ac.cput.domain.Employee;
-import za.ac.cput.domain.Supplier;
-import za.ac.cput.repository.IEmployeeRepository;
-import za.ac.cput.repository.ISupplierRepository;
-import za.ac.cput.service.IBookService;
-import za.ac.cput.service.IEmployeeService;
+import za.ac.cput.domain.User;
+import za.ac.cput.repository.IUserRepository;
 import za.ac.cput.service.ISupplierService;
+import za.ac.cput.service.IUserService;
 
 import java.util.List;
 
 @Service
-public class UserService implements ISupplierService {
+public class UserService implements IUserService {
 
 
     @Autowired
-    private static ISupplierService service;
+    private static IUserService service;
     @Autowired
-    private static ISupplierRepository repository;
+    private static IUserRepository repository;
 
 
-    public static ISupplierService getService() {
+    public static IUserService getService() {
         if (service == null) {
 
             return service;
@@ -39,31 +35,31 @@ public class UserService implements ISupplierService {
     }
 
     @Override
-    public Supplier create (Supplier supplier) {
-        return this.repository.save(supplier);
+    public User create (User user) {
+        return this.repository.save(user);
     }
 
     @Override
-    public Supplier read (Long id){
-        return this.repository.findById(id).orElse(null);
+    public User read (String id){
+        return this.repository.findById(String.valueOf(id)).orElse(null);
     }
 
     @Override
-    public Supplier update (Supplier supplier){
-        return this.repository.save(supplier);
+    public User update (User user){
+        return this.repository.save(user);
     }
 
     @Override
-    public boolean delete (Long id){
-        if (!this.repository.existsById(id)) {
+    public boolean delete (String id){
+        if (!this.repository.existsById(String.valueOf(id))) {
             return false;}
         else {
-            this.repository.deleteById(id);
+            this.repository.deleteById(String.valueOf(id));
             return true;
         }
     }
     @Override
-    public List<Supplier> findAll () {
+    public List<User> findAll () {
         return this.repository.findAll();
     }
 }
