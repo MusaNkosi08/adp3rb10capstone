@@ -9,9 +9,8 @@ import java.util.List;
 
 @Service
 public interface ISupplierService extends IService<Supplier, Integer> {
-    List<Supplier> findBySuppliercode(String author, boolean displayOOS);
-    List<Supplier> findByTitle(String title, boolean displayOOS);
-    List<Supplier> findByGenre(String genre, boolean displayOOS);
-    List<Supplier> findByLength(int length, boolean displayOOS);
+    List<Supplier> findBySuppliercode(int SupplierCode);
+    List<Supplier> findBySupplierEmail (String email);
+    List<Supplier> findByPhoneNumber(String contactNumber);
 
 }
