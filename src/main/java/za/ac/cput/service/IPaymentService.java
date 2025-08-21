@@ -3,17 +3,21 @@ package za.ac.cput.service;
 import za.ac.cput.domain.Payment;
 import java.util.List;
 
-public interface IPaymentService extends IService<Payment, String> {
+public interface IPaymentService extends IService<Payment, Long> {
+    Payment create(Payment payment);
 
-    List<Payment> findByStatus(String status);
+    @Override
+    Payment read(Long paymentId);
 
-    List<Payment> findPaymentsAboveAmount(double amount);
+    Payment update(Payment payment);
 
-    Payment findByPaymentId(String paymentId);
+    boolean delete(Long paymentId);
 
-    boolean processPayment(String paymentId);
+    List<Payment> getAll();
 
-    boolean refundPayment(String paymentId);
+    boolean processPayment(Long paymentId);
 
-    boolean verifyTransaction(String paymentId);
+    boolean refundPayment(Long paymentId);
+
+    boolean verifyTransaction(Long paymentId);
 }

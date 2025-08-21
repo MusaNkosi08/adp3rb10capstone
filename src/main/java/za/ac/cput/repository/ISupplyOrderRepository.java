@@ -1,5 +1,3 @@
-
-
 package za.ac.cput.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -9,10 +7,10 @@ import za.ac.cput.domain.SupplyOrder;
 import java.util.List;
 
 @Repository
-public interface ISupplyOrderRepository extends JpaRepository<SupplyOrder, String> {
+public interface ISupplyOrderRepository extends JpaRepository<SupplyOrder, Long> {
 
     // Custom queries
-    List<SupplyOrder> findByEmployeeID(String employeeID);
-    List<SupplyOrder> findBySupplierID(String supplierID);
+    List<SupplyOrder> findByEmployeeID(Long employeeID);
+    List<SupplyOrder> findBySupplierSupplierID(Long supplierID);
     List<SupplyOrder> findByOrderStatus(String status);
 }

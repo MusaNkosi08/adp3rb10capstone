@@ -7,11 +7,15 @@ Author: Ashton Mondreo Petersen (220219494)
 package za.ac.cput.domain;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 
 @Entity
 public class Book {
     @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     public String isbn;
     public String title;
     public String author;
@@ -19,15 +23,18 @@ public class Book {
     public String genre;
     public int quantity;
     public double price;
+    @Lob
+    public byte[] image;
 
     private Book(BookBuilder builder) {
-        this.isbn = builder.isbn;
-        this.title = builder.title;
-        this.author = builder.author;
-        this.pages = builder.pages;
-        this.genre = builder.genre;
-        this.quantity = builder.quantity;
-        this.price = builder.price;
+    this.isbn = builder.isbn;
+    this.title = builder.title;
+    this.author = builder.author;
+    this.pages = builder.pages;
+    this.genre = builder.genre;
+    this.quantity = builder.quantity;
+    this.price = builder.price;
+    this.image = builder.image;
     }
 
     public Book() {
@@ -60,6 +67,10 @@ public class Book {
 
     public double getPrice() {
         return price;
+    }
+
+    public byte[] getImage() {
+        return image;
     }
 
     //A method to check if there is stock of the book
@@ -102,16 +113,16 @@ public class Book {
 
     public static class BookBuilder {
 
-        private String isbn;
-        private String title;
-        private String author;
-        private int pages;
-        private String genre;
-        private int quantity;
-        private double price;
+    private String isbn;
+    private String title;
+    private String author;
+    private int pages;
+    private String genre;
+    private int quantity;
+    private double price;
+    private byte[] image;
 
-        public BookBuilder(String isbn, String title, String author, int pages, String genre, int quantity, double price) {
-            this.isbn = isbn;
+        public BookBuilder(String title, String author, int pages, String genre, int quantity, double price) {
             this.title = title;
             this.author = author;
             this.pages = pages;
@@ -120,8 +131,7 @@ public class Book {
             this.price = price;
         }
 
-        public BookBuilder(String isbn, String title, String author, int pages, String genre, double price){
-            this.isbn = isbn;
+        public BookBuilder(String title, String author, int pages, String genre, double price){
             this.title = title;
             this.author = author;
             this.pages = pages;
@@ -160,6 +170,10 @@ public class Book {
 
         public void setPrice(double price) {
             this.price = price;
+        }
+
+        public void setImage(byte[] image) {
+            this.image = image;
         }
 
         public Book build() {

@@ -6,10 +6,12 @@ package za.ac.cput.factory;
 */
 
 import za.ac.cput.domain.SupplyLine;
+import za.ac.cput.domain.Order;
+import za.ac.cput.domain.Book;
 
 public class SupplyLineFactory {
 
-    public static SupplyLine createSupplyLine(int lineID, int orderID, String bookID, int quantity) {
-        return new SupplyLine.Builder(lineID,orderID,bookID,quantity).build();
+    public static SupplyLine createSupplyLine(Long lineID, Order order, Book book, int quantity) {
+        return new SupplyLine.Builder(lineID, order, book, quantity).build();
     }
 }

@@ -10,11 +10,11 @@ import za.ac.cput.domain.User;
 import java.util.List;
 
 
-public interface IUserService extends IService<User,String>{
-    List<User> findById(String userId);
+public interface IUserService extends IService<User, Long> {
+    List<User> findById(Long userId);
     List<User> findByFirstName(String userFirstname);
     List<User> findByLastName(String userLastname);
     List<User> findByEmail(String userEmail);
     List<User> findByPhoneNumber(String userPhoneNumber);
-    List <User> getAll();
+    User login(String email, String password);
 }// end of file

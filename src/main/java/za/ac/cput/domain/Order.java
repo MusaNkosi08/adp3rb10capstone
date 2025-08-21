@@ -4,10 +4,12 @@ import jakarta.persistence.*;
 import java.util.*;
 
 @Entity
+@Table(name = "orders") // ✅ avoid SQL reserved keyword "order"
 public class Order {
 
     @Id
-    private int orderId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long orderId; // ✅ only ONE primary key
 
     private int customerId;
     private Date orderDate;
@@ -19,7 +21,7 @@ public class Order {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderItem> items = new ArrayList<>();
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "payment_id")
     private Payment payment;
 
@@ -37,7 +39,7 @@ public class Order {
         calculateTotal();
     }
 
-    public int getOrderId() { return orderId; }
+    public Long getOrderId() { return orderId; }
     public int getCustomerId() { return customerId; }
     public Date getOrderDate() { return orderDate; }
     public String getStatus() { return status; }
@@ -48,7 +50,7 @@ public class Order {
     public Payment getPayment() { return payment; }
 
     public static class Builder {
-        private int orderId;
+        private Long orderId; // ⚠️ keep this if you want to set manually, but usually DB generates it
         private int customerId;
         private String shippingAddress;
         private String paymentMethod;
@@ -56,7 +58,7 @@ public class Order {
         private List<OrderItem> items = new ArrayList<>();
         private Payment payment;
 
-        public Builder orderId(int orderId) {
+        public Builder orderId(Long orderId) {
             this.orderId = orderId;
             return this;
         }
@@ -106,7 +108,7 @@ public class Order {
     }
 
     public void addItem(OrderItem item) {
-     //   item.setOrder(this); // Set back-reference
+        // item.setOrder(this); // Uncomment if OrderItem has @ManyToOne
         items.add(item);
         calculateTotal();
     }

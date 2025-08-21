@@ -1,25 +1,46 @@
 package za.ac.cput.domain;
 
-//tyrese ntate 221817816
+import jakarta.persistence.*;
 
+@Entity
 public class OrderItem {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int itemId;
     private int quantity;
     private double price;
 
-   
+    @ManyToOne
+    @JoinColumn(name = "book_isbn", referencedColumnName = "isbn")
+    private Book book;
+
+    @ManyToOne
+    @JoinColumn(name = "order_id", referencedColumnName = "orderId")
+    private Order order;
+
+    protected OrderItem() {}
+
     private OrderItem(Builder builder) {
         this.itemId = builder.itemId;
         this.quantity = builder.quantity;
         this.price = builder.price;
+        this.order = builder.order;
     }
 
-  
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
     public static class Builder {
         private int itemId;
         private int quantity;
         private double price;
+        private Order order;
 
         public Builder itemId(int itemId) {
             this.itemId = itemId;
@@ -33,6 +54,11 @@ public class OrderItem {
 
         public Builder price(double price) {
             this.price = price;
+            return this;
+        }
+
+        public Builder order(Order order) {
+            this.order = order;
             return this;
         }
 

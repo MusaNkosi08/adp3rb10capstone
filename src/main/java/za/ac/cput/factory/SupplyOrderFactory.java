@@ -6,37 +6,30 @@ Author: [Your Name] (Your Student Number)
 package za.ac.cput.factory;
 
 import za.ac.cput.domain.SupplyOrder;
+import za.ac.cput.domain.Supplier;
 
 import java.util.Date;
 
 public class SupplyOrderFactory {
 
-    public static SupplyOrder createSupplyOrder(String orderID, String employeeID, String orderDetails, Date orderDate, String supplierID, String orderStatus, double orderPrice) {
-        // Trim input values to avoid leading/trailing spaces being considered as valid inputs
-        orderID = orderID != null ? orderID.trim() : "";
-        employeeID = employeeID != null ? employeeID.trim() : "";
-        supplierID = supplierID != null ? supplierID.trim() : "";
-
+    public static SupplyOrder createSupplyOrder(Long orderID, Long employeeID, String orderDetails, Date orderDate, Supplier supplier, String orderStatus, double orderPrice) {
         // Validate required fields
-        if (orderID.isEmpty()) {
-            throw new IllegalArgumentException("Error: Order ID cannot be empty.");
+        if (orderID == null) {
+            throw new IllegalArgumentException("Error: Order ID cannot be null.");
         }
-        if (employeeID.isEmpty()) {
-            throw new IllegalArgumentException("Error: Employee ID cannot be empty.");
+        if (employeeID == null) {
+            throw new IllegalArgumentException("Error: Employee ID cannot be null.");
         }
-        if (supplierID.isEmpty()) {
-            throw new IllegalArgumentException("Error: Supplier ID cannot be empty.");
+        if (supplier == null) {
+            throw new IllegalArgumentException("Error: Supplier cannot be null.");
         }
-
-        // Validate order price and quantity
         if (orderPrice <= 0) {
             throw new IllegalArgumentException("Error: Order price must be greater than 0.");
         }
-
-        // Build and return the Supply object
+        // Build and return the SupplyOrder object
         return new SupplyOrder.Builder()
                 .setOrderID(orderID)
-                .setSupplierID(supplierID)
+                .setSupplier(supplier)
                 .setEmployeeID(employeeID)
                 .setOrderDetails(orderDetails)
                 .setOrderDate(orderDate)

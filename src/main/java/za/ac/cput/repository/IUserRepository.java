@@ -1,4 +1,3 @@
-
 package za.ac.cput.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -9,11 +8,9 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface IUserRepository extends JpaRepository<User, String> {
-
-    // Custom queries
-    Optional<User> findByUserEmail(String email);
+public interface IUserRepository extends JpaRepository<User, Long> {
     List<User> findByUserFirstName(String firstName);
     List<User> findByUserLastName(String lastName);
-    List<User> findByUserPhoneNumber(String phoneNumber);
+    Optional<User> findByContactEmail(String email);
+    List<User> findByContactPhoneNumber(String phoneNumber);
 }

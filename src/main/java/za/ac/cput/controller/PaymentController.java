@@ -15,13 +15,13 @@ public class PaymentController {
     private IPaymentRepository paymentRepository;
 
     @PostMapping("/create")
-    public boolean createPayment(@RequestBody Payment payment) {
-        return paymentRepository.create(payment);
+    public Payment createPayment(@RequestBody Payment payment) {
+        return paymentRepository.save(payment);
     }
 
     @GetMapping("/{paymentID}")
-    public Payment getPayment(@PathVariable String paymentID) {
-        return paymentRepository.read(paymentID);
+    public Payment getPayment(@PathVariable Long paymentID) {
+        return paymentRepository.findById(paymentID).orElse(null);
     }
 
     @GetMapping("/status/{status}")
@@ -31,21 +31,21 @@ public class PaymentController {
 
     @GetMapping("/above/{amount}")
     public List<Payment> getPaymentsAboveAmount(@PathVariable double amount) {
-        return paymentRepository.findPaymentsAboveAmount(amount);
+        return paymentRepository.findByAmountGreaterThan(amount);
     }
 
     @PutMapping("/process/{paymentID}")
-    public boolean processPayment(@PathVariable String paymentID) {
+    public boolean processPayment(@PathVariable Long paymentID) {
         return paymentRepository.processPayment(paymentID);
     }
 
     @PutMapping("/refund/{paymentID}")
-    public boolean refundPayment(@PathVariable String paymentID) {
+    public boolean refundPayment(@PathVariable Long paymentID) {
         return paymentRepository.refundPayment(paymentID);
     }
 
     @GetMapping("/verify/{paymentID}")
-    public boolean verifyTransaction(@PathVariable String paymentID) {
+    public boolean verifyTransaction(@PathVariable Long paymentID) {
         return paymentRepository.verifyTransaction(paymentID);
     }
 }

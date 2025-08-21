@@ -1,69 +1,126 @@
 /*
- EmployeeService.java
- Service class for Employee
+ UserService.java
+ Service class for User
  Author: Musa Banathi Nkosi (221744517)
 */
 
 package za.ac.cput.service.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import za.ac.cput.domain.Book;
-import za.ac.cput.domain.Employee;
-import za.ac.cput.domain.Supplier;
-import za.ac.cput.repository.IEmployeeRepository;
-import za.ac.cput.repository.ISupplierRepository;
-import za.ac.cput.service.IBookService;
-import za.ac.cput.service.IEmployeeService;
-import za.ac.cput.service.ISupplierService;
+import za.ac.cput.domain.Contact;
+import za.ac.cput.domain.User;
+import za.ac.cput.repository.IUserRepository;
+import za.ac.cput.service.IContactService;
+import za.ac.cput.service.IUserService;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
-public class UserService implements ISupplierService {
+public class UserService implements IUserService {
 
+    private final IUserRepository repository;
+    private final IContactService contactService;
 
-    @Autowired
-    private static ISupplierService service;
-    @Autowired
-    private static ISupplierRepository repository;
+    public UserService(IUserRepository repository, IContactService contactService) {
+        this.repository = repository;
+        this.contactService = contactService;
+    }
 
-
-    public static ISupplierService getService() {
-        if (service == null) {
-
-            return service;
+    @Override
+    public User create(User user) {
+        Contact contact = user.getContact();
+        if (contact != null) {
+            contact = contactService.create(contact);
+            user = new User.UserBuilder()
+                    .setUserId(user.getUserId())
+                    .setUserFirstName(user.getUserFirstName())
+                    .setUserLastName(user.getUserLastName())
+                    .setRole(user.getRole())
+                    .setContact(contact)
+                    .build();
         }
-
-        return service;
+        return repository.save(user);
     }
 
     @Override
-    public Supplier create (Supplier supplier) {
-        return this.repository.save(supplier);
+    public User read(Long id) {
+        return repository.findById(id).orElse(null);
     }
 
     @Override
-    public Supplier read (Long id){
-        return this.repository.findById(id).orElse(null);
+    public User update(User user) {
+        Contact contact = user.getContact();
+        if (contact != null) {
+            if (contact.getContactId() != null) {
+                contact = contactService.update(contact);
+            } else {
+                contact = contactService.create(contact);
+            }
+            // Always rebuild the User with the latest Contact reference
+            user = new User.UserBuilder()
+                    .setUserId(user.getUserId())
+                    .setUserFirstName(user.getUserFirstName())
+                    .setUserLastName(user.getUserLastName())
+                    .setRole(user.getRole())
+                    .setContact(contact)
+                    .build();
+        }
+        return repository.save(user);
     }
 
     @Override
-    public Supplier update (Supplier supplier){
-        return this.repository.save(supplier);
-    }
-
-    @Override
-    public boolean delete (Long id){
-        if (!this.repository.existsById(id)) {
-            return false;}
-        else {
-            this.repository.deleteById(id);
+    public boolean delete(Long id) {
+        if (repository.existsById(id)) {
+            repository.deleteById(id);
             return true;
         }
+        return false;
     }
+
     @Override
-    public List<Supplier> findAll () {
-        return this.repository.findAll();
+    public List<User> findAll() {
+        return repository.findAll();
+    }
+
+    @Override
+    public User login(String email, String password) {
+        Optional<User> optionalUser = repository.findByContactEmail(email);
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            Contact contact = user.getContact();
+            if (contact != null && password.equals(contact.getPassword())) {
+                return user;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public List<User> findByPhoneNumber(String userPhoneNumber) {
+        return repository.findByContactPhoneNumber(userPhoneNumber);
+    }
+
+    @Override
+    public List<User> findById(Long userId) {
+        return repository.findAll().stream()
+            .filter(u -> u.getUserId().equals(userId))
+            .toList();
+    }
+
+    @Override
+    public List<User> findByFirstName(String userFirstname) {
+        return List.of();
+    }
+
+    @Override
+    public List<User> findByLastName(String userLastname) {
+        return List.of();
+    }
+
+    @Override
+    public List<User> findByEmail(String userEmail) {
+        Optional<User> user = repository.findByContactEmail(userEmail);
+        return user.map(List::of).orElse(List.of());
     }
 }

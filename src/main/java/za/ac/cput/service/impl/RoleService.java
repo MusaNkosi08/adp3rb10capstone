@@ -1,61 +1,70 @@
-package za.ac.cput.service.impl;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import za.ac.cput.domain.Role;
-import za.ac.cput.repository.IRoleRepository;
-
-import java.util.List;
-import java.util.Optional;
-
-@Service
-public class RoleService {
-
-    @Autowired
-    private IRoleRepository roleRepository;
-
-    // Create or update a role
-    public Role save(Role role) {
-        return roleRepository.save(role);
-    }
-
-    // Read role by ID
-    public Optional<Role> read(String roleId) {
-        return roleRepository.findById(roleId);
-    }
-
-    // Delete role
-    public boolean delete(String roleId) {
-        if (roleRepository.existsById(roleId)) {
-            roleRepository.deleteById(roleId);
-            return true;
-        }
-        return false;
-    }
-
-    // Get all roles
-    public List<Role> getAll() {
-        return roleRepository.findAll();
-    }
-
-    // Custom queries
-    public Role getByRoleName(String roleName) {
-        return roleRepository.findByRoleName(roleName);
-    }
-
-    public List<Role> getRolesWithSalaryGreaterThan(double salary) {
-        return roleRepository.findByRoleSalaryGreaterThan(salary);
-    }
-
-    public List<Role> getRolesByKeyword(String keyword) {
-        return roleRepository.findByRoleNameContaining(keyword);
-    }
-
-    public List<Role> getRolesWithinSalaryRange(double min, double max) {
-        return roleRepository.findRolesWithinSalaryRange(min, max);
-    }
-
-    public long countRolesWithSalaryAbove(double salary) {
-        return roleRepository.countRolesWithSalaryAbove(salary);
-    }
-}
+//package za.ac.cput.service.impl;
+//import org.springframework.stereotype.Service;
+//import za.ac.cput.domain.Role;
+//import  za.ac.cput.domain.User;
+//import za.ac.cput.repository.IRoleRepository;
+//import za.ac.cput.service.IRoleService;
+//
+//import java.util.List;
+//
+//@Service
+//public class RoleService implements IRoleService {
+//
+//    private final IRoleRepository repository;
+//
+//    public RoleService(IRoleRepository repository) {
+//        this.repository = repository;
+//    }
+//
+//    @Override
+//    public Role create(Role role) {
+//        return repository.save(role);
+//    }
+//
+//    @Override
+//    public Role read(Long id) {
+//        return repository.findById(id).orElse(null);
+//    }
+//
+//    @Override
+//    public Role update(Role role) {
+//        return repository.save(role);
+//    }
+//
+//    @Override
+//    public boolean delete(Long id) {
+//        if (repository.existsById(id)) {
+//            repository.deleteById(id);
+//            return true;
+//        }
+//        return false;
+//    }
+//
+//    @Override
+//    public List<Role> findAll() {
+//        return repository.findAll();
+//    }
+//
+//    @Override
+//    public List<User> findByFirstName(String userFirstname) {
+//        // Not implemented, as IRoleRepository does not have this method
+//        return List.of();
+//    }
+//
+//    @Override
+//    public List<Role> findByRoleId(Long roleID) {
+//        Role role = repository.findById(roleID).orElse(null);
+//        return role != null ? List.of(role) : List.of();
+//    }
+//
+//    @Override
+//    public List<Role> findByRoleName(String roleName) {
+//        Role role = repository.findByRoleName(roleName);
+//        return role != null ? List.of(role) : List.of();
+//    }
+//
+//    @Override
+//    public List<Role> findByRoleSalary(double roleSalary) {
+//        return repository.findByRoleSalaryGreaterThan(roleSalary);
+//    }
+//}// end of file

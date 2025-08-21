@@ -18,9 +18,9 @@ public class SupplyLineController {
     }
 
     @GetMapping("/{lineID}")
-    public SupplyLine getLine(@PathVariable Integer LineISBN) {
+    public SupplyLine getLine(@PathVariable Long lineID) {
 
-        return repository.findById(LineISBN).orElse(null);
+        return repository.findById(lineID).orElse(null);
     }
 
     @PutMapping("/update")
@@ -29,7 +29,7 @@ public class SupplyLineController {
     }
 
     @DeleteMapping("/delete/{lineID}")
-    public void deleteLine(@PathVariable Integer lineID) {
+    public void deleteLine(@PathVariable Long lineID) {
         repository.deleteById(lineID);
     }
 }

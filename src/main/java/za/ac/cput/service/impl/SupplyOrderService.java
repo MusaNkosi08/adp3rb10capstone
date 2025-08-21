@@ -1,76 +1,86 @@
-package za.ac.cput.service.impl;
 /*
- SupplyOrderService.java
- Service class for SupplyOrder
- Author: [222791829]
+ EmployeeService.java
+ Service class for Employee
+ Author: Musa Banathi Nkosi (221744517)
 */
 
+package za.ac.cput.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import za.ac.cput.domain.Supplier;
 import za.ac.cput.domain.SupplyOrder;
 import za.ac.cput.repository.ISupplyOrderRepository;
+import za.ac.cput.service.ISupplyOrderService;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
-public class SupplyOrderService {
+public class SupplyOrderService implements ISupplyOrderService {
 
-    @Autowired
-    private ISupplyOrderRepository supplyOrderRepository;
+    private final ISupplyOrderRepository repository;
 
-    // Create or update a supply order
-    public SupplyOrder save(SupplyOrder order) {
-        return supplyOrderRepository.save(order);
+    public SupplyOrderService(ISupplyOrderRepository repository) {
+        this.repository = repository;
     }
 
-    // Read by ID
-    public Optional<SupplyOrder> read(String orderID) {
-        return supplyOrderRepository.findById(orderID);
+    @Override
+    public SupplyOrder create(SupplyOrder order) {
+        return repository.save(order);
     }
 
-    // Delete by ID
-    public boolean delete(String orderID) {
-        if (supplyOrderRepository.existsById(orderID)) {
-            supplyOrderRepository.deleteById(orderID);
+    @Override
+    public SupplyOrder read(Long id) {
+        return repository.findById(id).orElse(null);
+    }
+
+    @Override
+    public SupplyOrder update(SupplyOrder order) {
+        return repository.save(order);
+    }
+
+    @Override
+    public boolean delete(Long id) {
+        if (repository.existsById(id)) {
+            repository.deleteById(id);
             return true;
         }
         return false;
     }
 
-    // Get all supply orders
+    @Override
+    public List<SupplyOrder> readAll() {
+        return repository.findAll();
+    }
+
+    @Override
     public List<SupplyOrder> getAll() {
-        return supplyOrderRepository.findAll();
+        return repository.findAll();
     }
 
-    // Custom queries
-    public List<SupplyOrder> getByEmployeeID(String employeeID) {
-        return supplyOrderRepository.findByEmployeeID(employeeID);
+    @Override
+    public List<SupplyOrder> findByOrderStatus(String status) {
+        return repository.findByOrderStatus(status);
     }
 
-    public List<SupplyOrder> getBySupplierID(String supplierID) {
-        return supplyOrderRepository.findBySupplierID(supplierID);
+    @Override
+    public List<SupplyOrder> findByEmployeeID(Long employeeID) {
+        return repository.findByEmployeeID(employeeID);
     }
 
-    public List<SupplyOrder> getByStatus(String status) {
-        return supplyOrderRepository.findByOrderStatus(status);
+    @Override
+    public List<SupplyOrder> findBySupplierID(Long supplierID) {
+        return repository.findBySupplierSupplierID(supplierID);
     }
 
-    // Business logic
-    public boolean cancelOrder(String orderID) {
-        Optional<SupplyOrder> optionalOrder = supplyOrderRepository.findById(orderID);
-        if (optionalOrder.isPresent()) {
-            SupplyOrder order = optionalOrder.get();
-            order.cancelOrder();
-            supplyOrderRepository.save(order);
-            return true;
-        }
-        return false;
+    @Override
+    public List<SupplyOrder> findByOrderPriceBetween(double minPrice, double maxPrice) {
+        // TODO: Implement this method when the repository supports it
+        throw new UnsupportedOperationException("findByOrderPriceBetween not implemented yet");
     }
 
-    public String displayStatus(String orderID) {
-        Optional<SupplyOrder> optionalOrder = supplyOrderRepository.findById(orderID);
-        return optionalOrder.map(SupplyOrder::displayStatus).orElse("Order not found");
+    @Override
+    public List<SupplyOrder> findAll() {
+        return repository.findAll();
     }
 }

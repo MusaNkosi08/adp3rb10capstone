@@ -21,7 +21,7 @@ public class SupplyOrderController {
     }
 
     @GetMapping("/{orderId}")
-    public SupplyOrder getSupplyOrder(@PathVariable String orderId) {
+    public SupplyOrder getSupplyOrder(@PathVariable Long orderId) {
         return repository.findById(orderId).orElse(null);
     }
 
@@ -31,7 +31,7 @@ public class SupplyOrderController {
     }
 
     @DeleteMapping("/delete/{orderId}")
-    public void deleteSupplyOrder(@PathVariable String orderId) {
+    public void deleteSupplyOrder(@PathVariable Long orderId) {
         repository.deleteById(orderId);
     }
 

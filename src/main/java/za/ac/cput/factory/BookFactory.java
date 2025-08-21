@@ -12,14 +12,12 @@ import za.ac.cput.util.Helper;
 public class BookFactory {
 
     //This method creates a book item that has a custom amount of copies in stock
-    public static Book createManyBooks(String isbn,String title, String author, int pages, String genre, int quantity, double price) {
+    public static Book createManyBooks(String title, String author, int pages, String genre, int quantity, double price, byte[] image) {
         if (((title == null) || (title == ""))
                 ||(author == null) || (author == "")
-                ||(!Helper.verifyisbn(isbn))
-                ||(title == null) || (title == "")
-                || ((genre == null) || (genre == ""))
+                ||((genre == null) || (genre == ""))
         ){
-            System.out.println("Error: title or author or isbn or title is empty");
+            System.out.println("Error: title or author or genre is empty");
             return null;
         }
         if (
@@ -28,18 +26,18 @@ public class BookFactory {
             System.out.println("Error: page or price or quantity or price is invalid");
             return null;
         }
-        return new Book.BookBuilder(isbn, title, author, pages, genre, quantity, price).build();
+        Book.BookBuilder builder = new Book.BookBuilder(title, author, pages, genre, quantity, price);
+        builder.setImage(image);
+        return builder.build();
     }
 
     //This method creates a book item where there is only one copy of it in stock
-    public static Book createBook( String isbn, String title, String author, int pages, String genre, double price) {
+    public static Book createBook( String title, String author, int pages, String genre, double price, byte[] image) {
         if (((title == null) || (title == ""))
                 ||(author == null) || (author == "")
-                ||(!Helper.verifyisbn(isbn))
-                ||(title == null) || (title == "")
-                || ((genre == null) || (genre == ""))
+                ||((genre == null) || (genre == ""))
         ){
-            System.out.println("Error: title or author or isbn or title is empty");
+            System.out.println("Error: title or author or genre is empty");
             return null;
         }
         if (
@@ -48,6 +46,8 @@ public class BookFactory {
             System.out.println("Error: page or price or quantity or price is invalid");
             return null;
         }
-        return new Book.BookBuilder(isbn, title, author, pages, genre, price).build();
+    Book.BookBuilder builder = new Book.BookBuilder(title, author, pages, genre, price);
+    builder.setImage(image);
+    return builder.build();
     }
 } //EOF

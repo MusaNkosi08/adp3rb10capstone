@@ -12,7 +12,6 @@ import za.ac.cput.domain.Book;
 
 import java.util.List;
 @Repository
-public interface IBookRepository extends JpaRepository<Book,String> {
-
-
+public interface IBookRepository extends JpaRepository<Book, Long> {
+    // Add custom query methods if needed
 }//EOF

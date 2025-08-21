@@ -7,13 +7,13 @@ import za.ac.cput.domain.Payment;
 import java.util.List;
 
 @Repository
-public interface IPaymentRepository extends JpaRepository<Payment, String> {
+public interface IPaymentRepository extends JpaRepository<Payment, Long> {
 
     List<Payment> findByStatus(String status);
 
     List<Payment> findByAmountGreaterThan(double amount);
 
-    default boolean processPayment(String paymentID) {
+    default boolean processPayment(Long paymentID) {
         return findById(paymentID).map(payment -> {
             payment.processPayment();
             save(payment);
@@ -21,7 +21,7 @@ public interface IPaymentRepository extends JpaRepository<Payment, String> {
         }).orElse(false);
     }
 
-    default boolean refundPayment(String paymentID) {
+    default boolean refundPayment(Long paymentID) {
         return findById(paymentID).map(payment -> {
             payment.refundPayment();
             save(payment);
@@ -29,7 +29,7 @@ public interface IPaymentRepository extends JpaRepository<Payment, String> {
         }).orElse(false);
     }
 
-    default boolean verifyTransaction(String paymentID) {
+    default boolean verifyTransaction(Long paymentID) {
         return findById(paymentID).map(Payment::verifyTransaction).orElse(false);
     }
 }

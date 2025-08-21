@@ -2,40 +2,44 @@ package za.ac.cput.domain;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Table;
 
 /* User.java
-``Author: Aimee Paulus (222814969)
-  Date: 21 March 2025
- */
+   Author: Aimee Paulus (222814969)
+   Date: 21 March 2025
+*/
 @Entity
+@Table(name = "users") // optional but recommended
 public class User {
 
     @Id
-    private String userId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long userId;
     private String userFirstName;
     private String userLastName;
-    private String userEmail;
-    private String userPassword;
-    private String userPhoneNumber;
+    private String role;
 
-    protected User() {
+    @OneToOne
+    @JoinColumn(name = "contact_id")
+    private Contact contact;
 
-    }
+    // Required by JPA
+    protected User() {}
+
     private User(UserBuilder builder){
         this.userId = builder.userId;
         this.userFirstName = builder.userFirstName;
         this.userLastName = builder.userLastName;
-        this.userEmail = builder.userEmail;
-        this.userPassword = builder.userPassword;
-        this.userPhoneNumber = builder.userPhoneNumber;
-
-
+        this.role = builder.role;
+        this.contact = builder.contact;
     }
 
-
-
-
-    public String getUserId() {
+    // Getters
+    public Long getUserId() {
         return userId;
     }
 
@@ -47,16 +51,12 @@ public class User {
         return userLastName;
     }
 
-    public String getUserEmail() {
-        return userEmail;
+    public String getRole() {
+        return role;
     }
 
-    public String getUserPassword() {
-        return userPassword;
-    }
-
-    public String getUserPhoneNumber() {
-        return userPhoneNumber;
+    public Contact getContact() {
+        return contact;
     }
 
     @Override
@@ -65,30 +65,24 @@ public class User {
                 "userId='" + userId + '\'' +
                 ", userFirstName='" + userFirstName + '\'' +
                 ", userLastName='" + userLastName + '\'' +
-                ", userEmail='" + userEmail + '\'' +
-                ", userPassword='" + userPassword + '\'' +
-                ", userPhoneNumber='" + userPhoneNumber + '\'' +
+                ", role='" + role + '\'' +
+                ", contact=" + contact +
                 '}';
     }
 
-    public static class UserBuilder{
-        private String userId;
+    public static class UserBuilder {
+        private Long userId;
         private String userFirstName;
         private String userLastName;
-        private String userEmail;
-        private String userPassword;
-        private String userPhoneNumber;
+        private String role;
+        private Contact contact;
 
-        public UserBuilder(String userId,String userFirstName,String userLastName, String userEmail,String userPassword, String userPhoneNumber){
-            this.userId = userId;
-            this.userFirstName = userFirstName;
-            this.userLastName = userLastName;
-            this.userEmail = userEmail;
-            this.userPassword = userPassword;
-            this.userPhoneNumber = userPhoneNumber;
+        public UserBuilder() {}
+
+        public UserBuilder(Long userId, String userFirstName, String userLastName, String role, Contact contact) {
         }
 
-        public UserBuilder setUserId(String userId) {
+        public UserBuilder setUserId(Long userId) {
             this.userId = userId;
             return this;
         }
@@ -103,22 +97,18 @@ public class User {
             return this;
         }
 
-        public UserBuilder setUserEmail(String userEmail) {
-            this.userEmail = userEmail;
+        public UserBuilder setRole(String role) {
+            this.role = role;
             return this;
         }
 
-        public UserBuilder setUserPassword(String userPassword) {
-            this.userPassword = userPassword;
+        public UserBuilder setContact(Contact contact) {
+            this.contact = contact;
             return this;
         }
 
-        public UserBuilder setUserPhoneNumber(String userPhoneNumber) {
-            this.userPhoneNumber = userPhoneNumber;
-            return this;
-        }
-
-        public User build(){ return new User(this);
+        public User build() {
+            return new User(this);
         }
     }
 }
