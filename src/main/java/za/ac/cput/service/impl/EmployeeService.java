@@ -8,72 +8,59 @@ package za.ac.cput.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import za.ac.cput.domain.Book;
 import za.ac.cput.domain.Employee;
 import za.ac.cput.repository.IEmployeeRepository;
+import za.ac.cput.service.IBookService;
+import za.ac.cput.service.IEmployeeService;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
-public class EmployeeService {
+public class EmployeeService implements IEmployeeService {
+
 
     @Autowired
-    private IEmployeeRepository employeeRepository;
+    private static IEmployeeService service;
+    @Autowired
+    private static IEmployeeRepository repository;
 
-    // Create
-    public Employee create(Employee employee) {
-        return employeeRepository.save(employee);
-    }
 
-    // Read
-    public Optional<Employee> read(int employeeID) {
-        return employeeRepository.findById(employeeID);
-    }
+    public static IEmployeeService getService() {
+        if (service == null) {
 
-    // Update
-    public Employee update(Employee employee) {
-        if (employeeRepository.existsById(employee.getEmployeeID())) {
-            return employeeRepository.save(employee);
+            return service;
         }
-        return null;
+
+        return service;
     }
 
-    // Delete
-    public boolean delete(int employeeID) {
-        if (employeeRepository.existsById(employeeID)) {
-            employeeRepository.deleteById(employeeID);
+    @Override
+    public Employee create (Employee book){
+        return this.repository.save(book);
+    }
+
+    @Override
+    public Employee read (Long id){
+        return this.repository.findById(Math.toIntExact(id)).orElse(null);
+    }
+
+    @Override
+    public Employee update (Employee employee){
+        return this.repository.save(employee);
+    }
+
+    @Override
+    public boolean delete (Long id){
+        if (!this.repository.existsById(Math.toIntExact(id))) {
+            return false;}
+        else {
+            this.repository.deleteById(Math.toIntExact(id));
             return true;
         }
-        return false;
     }
-
-    // Get all
-    public List<Employee> getAll() {
-        return employeeRepository.findAll();
-    }
-
-    // 🔍 Custom query methods
-    public List<Employee> getByLastName(String lastName) {
-        return employeeRepository.findByLastName(lastName);
-    }
-
-    public List<Employee> getByPosition(String position) {
-        return employeeRepository.findByPosition(position);
-    }
-
-    public List<Employee> getBySalaryRange(double min, double max) {
-        return employeeRepository.findBySalaryBetween(min, max);
-    }
-
-    // Business logic: Promote employee
-    public boolean promoteEmployee(int employeeID, String newPosition, double salaryIncrease) {
-        Optional<Employee> optionalEmployee = employeeRepository.findById(employeeID);
-        if (optionalEmployee.isPresent()) {
-            Employee employee = optionalEmployee.get();
-            employee.promote(newPosition, salaryIncrease);
-            employeeRepository.save(employee);
-            return true;
-        }
-        return false;
+    @Override
+    public List<Employee> findAll () {
+        return this.repository.findAll();
     }
 }

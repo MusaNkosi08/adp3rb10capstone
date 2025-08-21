@@ -1,57 +1,69 @@
+/*
+ EmployeeService.java
+ Service class for Employee
+ Author: Musa Banathi Nkosi (221744517)
+*/
+
 package za.ac.cput.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import za.ac.cput.domain.User;
-import za.ac.cput.repository.IUserRepository;
+import za.ac.cput.domain.Book;
+import za.ac.cput.domain.Employee;
+import za.ac.cput.domain.Supplier;
+import za.ac.cput.repository.IEmployeeRepository;
+import za.ac.cput.repository.ISupplierRepository;
+import za.ac.cput.service.IBookService;
+import za.ac.cput.service.IEmployeeService;
+import za.ac.cput.service.ISupplierService;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
-public class UserService {
+public class UserService implements ISupplierService {
+
 
     @Autowired
-    private IUserRepository userRepository;
+    private static ISupplierService service;
+    @Autowired
+    private static ISupplierRepository repository;
 
-    // Create or update a user
-    public User save(User user) {
-        return userRepository.save(user);
+
+    public static ISupplierService getService() {
+        if (service == null) {
+
+            return service;
+        }
+
+        return service;
     }
 
-    // Read by ID
-    public Optional<User> read(String userId) {
-        return userRepository.findById(userId);
+    @Override
+    public Supplier create (Supplier supplier) {
+        return this.repository.save(supplier);
     }
 
-    // Delete by ID
-    public boolean delete(String userId) {
-        if (userRepository.existsById(userId)) {
-            userRepository.deleteById(userId);
+    @Override
+    public Supplier read (Long id){
+        return this.repository.findById(id).orElse(null);
+    }
+
+    @Override
+    public Supplier update (Supplier supplier){
+        return this.repository.save(supplier);
+    }
+
+    @Override
+    public boolean delete (Long id){
+        if (!this.repository.existsById(id)) {
+            return false;}
+        else {
+            this.repository.deleteById(id);
             return true;
         }
-        return false;
     }
-
-    // Get all users
-    public List<User> getAll() {
-        return userRepository.findAll();
-    }
-
-    // Custom queries
-    public Optional<User> getByEmail(String email) {
-        return userRepository.findByUserEmail(email);
-    }
-
-    public List<User> getByFirstName(String firstName) {
-        return userRepository.findByUserFirstName(firstName);
-    }
-
-    public List<User> getByLastName(String lastName) {
-        return userRepository.findByUserLastName(lastName);
-    }
-
-    public List<User> getByPhoneNumber(String phoneNumber) {
-        return userRepository.findByUserPhoneNumber(phoneNumber);
+    @Override
+    public List<Supplier> findAll () {
+        return this.repository.findAll();
     }
 }

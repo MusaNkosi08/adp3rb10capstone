@@ -8,7 +8,7 @@ import za.ac.cput.domain.Supplier;
 import java.util.List;
 
 @Repository
-public interface ISupplierRepository extends JpaRepository<Supplier, String> {
+public interface ISupplierRepository extends JpaRepository<Supplier, Long> {
 
     // Custom queries
     Supplier findByName(String name);

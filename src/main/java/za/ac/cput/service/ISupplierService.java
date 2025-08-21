@@ -8,9 +8,10 @@ import za.ac.cput.domain.Supplier;
 import java.util.List;
 
 @Service
-public interface ISupplierService extends IService<Supplier, Integer> {
+public interface ISupplierService extends IService<Supplier, Long> {
+ /*
     List<Supplier> findBySuppliercode(int SupplierCode);
     List<Supplier> findBySupplierEmail (String email);
     List<Supplier> findByPhoneNumber(String contactNumber);
-
+*/
 }

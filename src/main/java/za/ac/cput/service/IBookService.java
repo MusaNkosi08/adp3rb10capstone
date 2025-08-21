@@ -13,10 +13,11 @@ import java.util.List;
 
 @Service
 public interface IBookService extends IService<Book, String> {
-
+ /*
     List<Book> findByAuthor(String author, boolean displayOOS);
 List<Book> findByTitle(String title, boolean displayOOS);
 List<Book> findByGenre(String genre, boolean displayOOS);
 List<Book> findByLength(int length, boolean displayOOS);
+*/
 
 }//EOF

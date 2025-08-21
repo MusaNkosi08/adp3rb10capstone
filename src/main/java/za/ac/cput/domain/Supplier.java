@@ -15,7 +15,7 @@ public class Supplier {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int supplierID;
+    private Long supplierID;
     private String name;
     private String address;
     private String email;
@@ -36,7 +36,7 @@ public class Supplier {
     }
 
     // Getters
-    public int getSupplierID() {
+    public Long getSupplierID() {
         return supplierID;
     }
     public String getName() {

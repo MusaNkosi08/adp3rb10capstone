@@ -6,13 +6,12 @@ Author: Musa Banathi Nkosi (221744517)
 package za.ac.cput.domain;
 
 import jakarta.persistence.*;
-import java.util.Objects;
 
 @Entity
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int employeeID;
+    private Long employeeID;
 
     private String firstName;
     private String lastName;
@@ -30,7 +29,7 @@ public class Employee {
         this.salary = salary;
     }
 
-    public int getEmployeeID() { return employeeID; }
+    public Long getEmployeeID() { return employeeID; }
     public String getFirstName() { return firstName; }
     public String getLastName() { return lastName; }
     public String getEmail() { return email; }
@@ -53,4 +52,46 @@ public class Employee {
                 ", salary=" + salary +
                 '}';
     }
+    public static class Builder{
+
+        private Long employeeID;
+        private String firstName;
+        private String lastName;
+        private String email;
+        private String position;
+        private double salary;
+
+        public Builder setEmployeeID(Long employeeID) {
+            this.employeeID = employeeID;
+            return this;
+        }
+        public Builder setFirstName(String firstName) {
+            this.firstName = firstName;
+            return this;
+    }
+        public Builder setLastName(String lastName) {
+        this.lastName = lastName;
+            return this;
+    }
+
+    public  Builder setEmail(String email) {
+            this.email = email;
+            return this;
+        }
+    public Builder setPosition(String position) {
+            this.position = position;
+            return this;
+        }
+    public Builder setSalary(double salary) {
+            this.salary = salary;
+            return this;
+        }
+
+        public Employee build() {
+            return new Employee(firstName, lastName, email, position, salary);
+    }
+    }
+
 }
+
+
