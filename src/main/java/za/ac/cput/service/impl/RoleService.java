@@ -1,61 +1,70 @@
 package za.ac.cput.service.impl;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import za.ac.cput.domain.Role;
+import  za.ac.cput.domain.User;
 import za.ac.cput.repository.IRoleRepository;
+import za.ac.cput.service.IRoleService;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
-public class RoleService {
+public class RoleService implements IRoleService {
 
-    @Autowired
-    private IRoleRepository roleRepository;
+    private final IRoleRepository repository;
 
-    // Create or update a role
-    public Role save(Role role) {
-        return roleRepository.save(role);
+    public RoleService(IRoleRepository repository) {
+        this.repository = repository;
     }
 
-    // Read role by ID
-    public Optional<Role> read(String roleId) {
-        return roleRepository.findById(roleId);
+    @Override
+    public Role create(Role role) {
+        return repository.save(role);
     }
 
-    // Delete role
-    public boolean delete(String roleId) {
-        if (roleRepository.existsById(roleId)) {
-            roleRepository.deleteById(roleId);
+    @Override
+    public Role read(String s) {
+        return repository.findById(s).orElse(null);
+    }
+
+    @Override
+    public Role update(Role role) {
+        return repository.save(role);
+    }
+
+    @Override
+    public boolean delete(String s) {
+        if (repository.existsById(s)) {
+            repository.deleteById(s);
             return true;
         }
         return false;
     }
 
-    // Get all roles
-    public List<Role> getAll() {
-        return roleRepository.findAll();
+    @Override
+    public List<Role> findAll() {
+        return repository.findAll();
     }
 
-    // Custom queries
-    public Role getByRoleName(String roleName) {
-        return roleRepository.findByRoleName(roleName);
+    @Override
+    public List<User> findByFirstName(String userFirstname) {
+        // Not implemented, as IRoleRepository does not have this method
+        return List.of();
     }
 
-    public List<Role> getRolesWithSalaryGreaterThan(double salary) {
-        return roleRepository.findByRoleSalaryGreaterThan(salary);
+    @Override
+    public List<Role> findByRoleId(String roleID) {
+        Role role = repository.findById(roleID).orElse(null);
+        return role != null ? List.of(role) : List.of();
     }
 
-    public List<Role> getRolesByKeyword(String keyword) {
-        return roleRepository.findByRoleNameContaining(keyword);
+    @Override
+    public List<Role> findByRoleName(String roleName) {
+        Role role = repository.findByRoleName(roleName);
+        return role != null ? List.of(role) : List.of();
     }
 
-    public List<Role> getRolesWithinSalaryRange(double min, double max) {
-        return roleRepository.findRolesWithinSalaryRange(min, max);
+    @Override
+    public List<Role> findByRoleSalary(double roleSalary) {
+        return repository.findByRoleSalaryGreaterThan(roleSalary);
     }
-
-    public long countRolesWithSalaryAbove(double salary) {
-        return roleRepository.countRolesWithSalaryAbove(salary);
-    }
-}
+}// end of file
