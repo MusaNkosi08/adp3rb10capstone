@@ -1,73 +1,88 @@
 package za.ac.cput.repository.impl;
 
-
-/* User.java
-``Author: Aimee Paulus (222814969)
-  Date: 28 March 2025
- */
-
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import za.ac.cput.domain.User;
+import za.ac.cput.repository.IUserRepository;
+
+import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@DataJpaTest
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+class IUserRepositoryTest {
 
-class UserRepositoryTest {
-    UserRepository repo1;
+    @Autowired
+    private TestEntityManager entityManager;
 
-    @BeforeEach
-    void setUp() {
-        repo1 = UserRepository.getInstance();
+    @Autowired
+    private IUserRepository userRepository;
+
+    private User createTestUser() {
+        return new User.UserBuilder("98567", "Aimee", "Paulus",
+                "aimeepaulus@gmail.com", "password675", "0834569876")
+                .build();
     }
 
     @Test
-    void u_Create() {
-        repo1.create(new User.UserBuilder("98567", "Aimee", "Paulus", "aimeepaulus@gmail.com", "password675", "0834569876").build());
-        assertNotNull(repo1.create(new User.UserBuilder("98567", "Aimee", "Paulus", "aimeepaulus@gmail.com", "password675", "0834569876").build()));
+    @Order(1)
+    void testSaveUser() {
+        User user = createTestUser();
+        User savedUser = userRepository.save(user);
+
+        assertNotNull(savedUser);
+        assertEquals("98567", savedUser.getUserId());
+        assertEquals("Aimee", savedUser.getUserFirstName());
     }
 
     @Test
-    void updateExistingUser() {
-        User existingUser = new User.UserBuilder("98567", "Aimee", "Paulus", "aimeepaulus@gmail.com", "password675", "0834569876").build();
-        repo1.create(existingUser);
+    @Order(2)
+    void testFindById() {
+        User user = createTestUser();
+        entityManager.persist(user);
 
-        User updatedUser = new User.UserBuilder("98567", "Aimee", "Paulus", "aimeepaulus@gmail.com", "password675", "0834569876").build();
-
-        User result = repo1.update(updatedUser);
-        assertNotNull(result);
-        assertEquals("Aimee", result.getUserFirstName());
-        assertEquals("aimeepaulus@gmail.com", result.getUserEmail());
-    }
-
-
-    @Test
-    void updateOnNonExistingUser() {
-        repo1.create(new User.UserBuilder("98567", "Aimee", "Paulus", "aimeepaulus@gmail.com", "password675", "0834569876").build());
-        assertNotNull(repo1.update(new User.UserBuilder("98567", "Aimee", "Paulus", "aimeepaulus@gmail.com", "password675", "0834569876").build()));
+        Optional<User> foundUser = userRepository.findById("98567");
+        assertTrue(foundUser.isPresent());
+        assertEquals("Paulus", foundUser.get().getUserLastName());
     }
 
     @Test
-    void deleteExistingUser() {
-        User user = new User.UserBuilder("98567", "Aimee", "Paulus", "aimeepaulus@gmail.com", "password675", "0834569876").build();
-        repo1.create(user);
+    @Order(3)
+    void testFindByEmail() {
+        User user = createTestUser();
+        entityManager.persist(user);
 
-        assertTrue(repo1.delete("98567"));
-        assertNull(repo1.read("98567"));
+        Optional<User> foundUser = userRepository.findByUserEmail("aimeepaulus@gmail.com");
+        assertTrue(foundUser.isPresent());
+        assertEquals("0834569876", foundUser.get().getUserPhoneNumber());
     }
 
     @Test
-    void deleteNonExistingUser() {
-        repo1.create(new User.UserBuilder("98567", "Aimee", "Paulus", "aimeepaulus@gmail.com", "password675", "0834569876").build());
-        assertTrue(repo1.delete("98567"));
+    @Order(4)
+    void testFindByFirstName() {
+        User user = createTestUser();
+        entityManager.persist(user);
+
+        List<User> users = userRepository.findByUserFirstName("Aimee");
+        assertEquals(1, users.size());
+        assertEquals("Paulus", users.get(0).getUserLastName());
     }
 
     @Test
-    void getNoUsers() {
-        assertTrue(repo1.findAll().isEmpty());
+    @Order(5)
+    void testDeleteUser() {
+        User user = createTestUser();
+        entityManager.persist(user);
+
+        userRepository.deleteById("98567");
+        Optional<User> deletedUser = userRepository.findById("98567");
+        assertFalse(deletedUser.isPresent());
     }
-
-
-
-
 }

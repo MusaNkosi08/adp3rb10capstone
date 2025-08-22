@@ -17,12 +17,12 @@ public class OrderService {
     @Autowired
     private IOrderRepository orderRepository;
 
-    // ✅ Create a new order
+    // Create a new order
     public Order create(Order order) {
         return orderRepository.save(order);
     }
 
-    // ✅ Read an order by ID
+    // Read an order by ID
     public Optional<Order> read(String orderId) {
         return orderRepository.findById(orderId);
     }

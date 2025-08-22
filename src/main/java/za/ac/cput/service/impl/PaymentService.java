@@ -75,4 +75,13 @@ public class PaymentService {
         Optional<Payment> optionalPayment = paymentRepository.findById(paymentId);
         return optionalPayment.map(Payment::verifyTransaction).orElse(false);
     }
+
+    public List<Payment> findByStatus(String status) {
+        return paymentRepository.findByStatus(status);
+    }
+
+    public List<Payment> findByAmountGreaterThan(double amount) {
+        return paymentRepository.findByAmountGreaterThan(amount);
+    }
+
 }

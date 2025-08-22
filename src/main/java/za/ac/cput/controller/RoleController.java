@@ -20,7 +20,7 @@ public class RoleController {
     private IRoleService roleService;
 
     @PostMapping("/create")
-    public Role createRole(@RequestBody Employee role) {
+    public Role createRole(@RequestBody Role role) {
         return roleService.create(role);
     }
 

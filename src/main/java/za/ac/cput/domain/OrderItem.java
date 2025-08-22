@@ -2,12 +2,25 @@ package za.ac.cput.domain;
 
 //tyrese ntate 221817816
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "order_items")
 public class OrderItem {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int itemId;
     private int quantity;
     private double price;
 
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    private Order order;
+
+    protected OrderItem(){
+
+    }
    
     private OrderItem(Builder builder) {
         this.itemId = builder.itemId;
