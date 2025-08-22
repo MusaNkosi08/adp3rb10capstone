@@ -4,46 +4,56 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import za.ac.cput.domain.SupplyLine;
 import za.ac.cput.repository.ISupplyLineRepository;
+import za.ac.cput.service.ISupplyLineService;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class SupplyLineService {
+public class SupplyLineService implements ISupplyLineService {
 
     @Autowired
     private ISupplyLineRepository supplyLineRepository;
 
-    // Create or update a supply line
-    public SupplyLine save(SupplyLine supplyLine) {
+    @Override
+    public SupplyLine create(SupplyLine supplyLine) {
         return supplyLineRepository.save(supplyLine);
     }
 
-    // Read by ID
-    public Optional<SupplyLine> read(int lineID) {
-        return supplyLineRepository.findById(lineID);
+    @Override
+    public SupplyLine read(Integer integer) {
+        return null;
     }
 
-    // Delete by ID
-    public boolean delete(int lineID) {
-        if (supplyLineRepository.existsById(lineID)) {
-            supplyLineRepository.deleteById(lineID);
+//    @Override
+//    public Optional<SupplyLine> read(Integer id) {
+//        return supplyLineRepository.findById(id);
+//    }
+
+    @Override
+    public SupplyLine update(SupplyLine supplyLine) {
+        if (supplyLineRepository.existsById(supplyLine.getLineID())) {
+            return supplyLineRepository.save(supplyLine);
+        }
+        return null;
+    }
+
+    @Override
+    public boolean delete(Integer id) {
+        if (supplyLineRepository.existsById(id)) {
+            supplyLineRepository.deleteById(id);
             return true;
         }
         return false;
     }
 
-    // Get all supply lines
-    public List<SupplyLine> getAll() {
-        return supplyLineRepository.findAll();
+    @Override
+    public List<SupplyLine> findAll() {
+        return List.of();
     }
 
-    // Custom queries
-    public List<SupplyLine> getByOrderId(int orderId) {
-        return supplyLineRepository.findByOrderId(orderId);
-    }
-
-    public List<SupplyLine> getByBookIsbn(String bookIsbn) {
-        return supplyLineRepository.findByBookIsbn(bookIsbn);
-    }
+//    @Override
+//    public List<SupplyLine> getAll() {
+//        return supplyLineRepository.findAll();
+//    }
 }

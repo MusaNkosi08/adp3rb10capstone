@@ -90,6 +90,6 @@ class PaymentRepositoryTest {
     @Test
     void testVerifyTransaction() {
         assertTrue(repository.verifyTransaction("P001"));
-        assertFalse(repository.verifyTransaction("P999")); // Non-existent transaction
+        assertFalse(repository.verifyTransaction("P999"));
     }
 }

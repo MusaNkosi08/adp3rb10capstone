@@ -67,7 +67,4 @@ class UserRepositoryTest {
         assertTrue(repo1.findAll().isEmpty());
     }
 
-
-
-
 }

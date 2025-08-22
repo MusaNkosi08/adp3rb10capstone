@@ -9,7 +9,7 @@ import za.ac.cput.domain.Employee;
 
 public class EmployeeFactory {
 
-    public static Employee createEmployee(int employeeID, String firstName, String lastName, String email, String position, double salary) {
+    public static Employee createEmployee(Long employeeID, String firstName, String lastName, String email, String position, double salary) {
         // Trim input values to avoid leading/trailing spaces being considered as valid inputs
         firstName = firstName != null ? firstName.trim() : "";
         lastName = lastName != null ? lastName.trim() : "";

@@ -91,6 +91,11 @@ public class Order {
             return this;
         }
 
+        public Builder addItem(OrderItem item) {
+            this.items.add(item);
+            return this;
+        }
+
         public Order build() {
             return new Order(this);
         }

@@ -3,14 +3,24 @@ package za.ac.cput.domain;
 /* Supplier.java
      Supplier domain class
      Author: TT Ntate (221817816)
-     Date: 11 May 2025 */ 
+     Date: 11 May 2025 */
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
 public class Supplier {
-    private final String name;
-    private final String address;
-    private final String email;
-    private final String phoneNumber;
-    private final String website;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long supplierID;
+    private String name;
+    private String address;
+    private String email;
+    private String phoneNumber;
+    private String website;
 
     // Private constructor
     private Supplier(Builder builder) {
@@ -21,7 +31,14 @@ public class Supplier {
         this.website = builder.website;
     }
 
+    public Supplier() {
+
+    }
+
     // Getters
+    public Long getSupplierID() {
+        return supplierID;
+    }
     public String getName() {
         return name;
     }
@@ -45,6 +62,7 @@ public class Supplier {
     @Override
     public String toString() {
         return "Supplier{" +
+                "supplierID=" + supplierID +
                 "name='" + name + '\'' +
                 ", address='" + address + '\'' +
                 ", email='" + email + '\'' +
@@ -55,6 +73,7 @@ public class Supplier {
 
     // Static inner Builder class
     public static class Builder {
+        // Required fields
         private String name;
         private String address;
         private String email;

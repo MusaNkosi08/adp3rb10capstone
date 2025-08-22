@@ -4,9 +4,9 @@ import za.ac.cput.domain.Payment;
 
 public class PaymentFactory {
 
-    public static Payment createPayment(String paymentID, double amount, String status, String transactionCode) {
+    public static Payment createPayment(String paymentId, double amount, String status, String transactionCode) {
         // Basic validation
-        if (paymentID == null || paymentID.isEmpty()) {
+        if (paymentId == null || paymentId.isEmpty()) {
             throw new IllegalArgumentException("Payment ID cannot be null or empty");
         }
         if (amount <= 0) {
@@ -18,7 +18,7 @@ public class PaymentFactory {
         // transactionCode can be null or empty, but you may add validation if needed
 
         return new Payment.Builder()
-                .setPaymentID(paymentID)
+                .setPaymentId(paymentId) // Changed from setPaymentID to setPaymentId
                 .setAmount(amount)
                 .setStatus(status)
                 .setTransactionCode(transactionCode)

@@ -2,14 +2,19 @@ package za.ac.cput.service;
 
 import za.ac.cput.domain.Payment;
 import java.util.List;
+import java.util.Optional;
 
-public interface IPaymentService extends IService<Payment, String> {
+public interface IPaymentService  {
 
-    List<Payment> findByStatus(String status);
+    Payment create(Payment payment);
 
-    List<Payment> findPaymentsAboveAmount(double amount);
+    Optional<Payment> read(String paymentId);
 
-    Payment findByPaymentId(String paymentId);
+    Payment update(Payment payment);
+
+    boolean delete(String paymentId);
+
+    List<Payment> getAll();
 
     boolean processPayment(String paymentId);
 

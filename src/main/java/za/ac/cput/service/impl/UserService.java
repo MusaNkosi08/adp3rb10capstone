@@ -1,30 +1,49 @@
+/*
+ UserService.java
+ Service class for User
+ Author: Musa Banathi Nkosi (221744517)
+*/
+
 package za.ac.cput.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import za.ac.cput.domain.User;
 import za.ac.cput.repository.IUserRepository;
+import za.ac.cput.service.IUserService;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UserService {
+public class UserService implements IUserService {
 
     @Autowired
-    private IUserRepository userRepository;
+    private IUserRepository userRepository; // Changed to userRepository to match PaymentService pattern
 
-    // Create or update a user
-    public User save(User user) {
+    // Create a new user
+    @Override
+    public User create(User user) {
         return userRepository.save(user);
     }
 
-    // Read by ID
-    public Optional<User> read(String userId) {
-        return userRepository.findById(userId);
+    @Override
+    public User read(String id) {
+        Optional<User> userOptional = userRepository.findById(id);
+        return userOptional.orElse(null);
     }
 
-    // Delete by ID
+    // Update a user
+    @Override
+    public User update(User user) {
+        if (userRepository.existsById(user.getUserId())) { // Assuming getUserID() method exists
+            return userRepository.save(user);
+        }
+        return null;
+    }
+
+    // Delete a user
+    @Override
     public boolean delete(String userId) {
         if (userRepository.existsById(userId)) {
             userRepository.deleteById(userId);
@@ -34,24 +53,25 @@ public class UserService {
     }
 
     // Get all users
-    public List<User> getAll() {
+    @Override
+    public List<User> findAll() {
         return userRepository.findAll();
     }
 
-    // Custom queries
-    public Optional<User> getByEmail(String email) {
+    // Additional methods that match your repository capabilities
+    public Optional<User> findByUserEmail(String email) {
         return userRepository.findByUserEmail(email);
     }
 
-    public List<User> getByFirstName(String firstName) {
+    public List<User> findByUserFirstName(String firstName) {
         return userRepository.findByUserFirstName(firstName);
     }
 
-    public List<User> getByLastName(String lastName) {
+    public List<User> findByUserLastName(String lastName) {
         return userRepository.findByUserLastName(lastName);
     }
 
-    public List<User> getByPhoneNumber(String phoneNumber) {
+    public List<User> findByUserPhoneNumber(String phoneNumber) {
         return userRepository.findByUserPhoneNumber(phoneNumber);
     }
 }

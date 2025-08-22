@@ -13,7 +13,10 @@ public interface IUserRepository extends JpaRepository<User, String> {
 
     // Custom queries
     Optional<User> findByUserEmail(String email);
+
     List<User> findByUserFirstName(String firstName);
+
     List<User> findByUserLastName(String lastName);
+
     List<User> findByUserPhoneNumber(String phoneNumber);
 }
