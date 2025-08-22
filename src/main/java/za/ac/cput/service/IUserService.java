@@ -5,9 +5,7 @@
 
 package za.ac.cput.service;
 
-import org.springframework.stereotype.Service;
 import za.ac.cput.domain.User;
-import za.ac.cput.repository.IRepository;
 
 import java.util.List;
 

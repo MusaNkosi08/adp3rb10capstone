@@ -1,15 +1,19 @@
+/*
+ IRoleRepository.java
+ Repository interface for Role
+ Author: Aimee Paulus (222814969)
+*/
+
 package za.ac.cput.repository;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import za.ac.cput.domain.Role;
+
 import java.util.List;
 
 @Repository
-public interface IRoleRepository {
-    Role save(Role role);
-    Role findById(String id);
-    List<Role> findAll();
-    void delete(String id);
+public interface IRoleRepository extends JpaRepository<Role, String> {
 
     // Custom queries
     Role findByRoleName(String roleName);

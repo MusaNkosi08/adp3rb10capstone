@@ -1,4 +1,4 @@
 package za.ac.cput.controller;
 
-public class SupplierController {
+public class EmployeeController {
 }
