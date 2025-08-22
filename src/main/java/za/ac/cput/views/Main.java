@@ -12,7 +12,7 @@ public class Main {
     public static void main(String[] args) {
 
 
-        // Creating an order using the builder pattern
+        // Creating an order using
         Order order = new Order.Builder()
                 .orderId(1)
                 .customerId(123)

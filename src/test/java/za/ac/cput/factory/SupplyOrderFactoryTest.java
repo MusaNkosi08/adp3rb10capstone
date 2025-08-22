@@ -1,4 +1,4 @@
-//package za.ac.cput.factory;
+package za.ac.cput.factory;
 //
-//public class SupplyOrderFactoryTest {
-//}
+public class SupplyOrderFactoryTest {
+}
