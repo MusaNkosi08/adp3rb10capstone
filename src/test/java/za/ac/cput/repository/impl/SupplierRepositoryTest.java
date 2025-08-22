@@ -1,4 +1,4 @@
-package za.ac.cput.repository.impl;
-
-public class SupplierRepositoryTest {
-}
+//package za.ac.cput.repository.impl;
+//
+//public class SupplierRepositoryTest {
+//}

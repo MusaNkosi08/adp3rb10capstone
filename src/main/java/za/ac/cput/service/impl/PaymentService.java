@@ -4,27 +4,28 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import za.ac.cput.domain.Payment;
 import za.ac.cput.repository.IPaymentRepository;
+import za.ac.cput.service.IPaymentService;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class PaymentService {
+public class PaymentService implements IPaymentService {
 
     @Autowired
     private IPaymentRepository paymentRepository;
 
-    // Create a new payment
+    @Override
     public Payment create(Payment payment) {
         return paymentRepository.save(payment);
     }
 
-    // Read a payment by ID
+    @Override
     public Optional<Payment> read(String paymentId) {
         return paymentRepository.findById(paymentId);
     }
 
-    // Update a payment
+    @Override
     public Payment update(Payment payment) {
         if (paymentRepository.existsById(payment.getPaymentId())) {
             return paymentRepository.save(payment);
@@ -32,7 +33,7 @@ public class PaymentService {
         return null;
     }
 
-    // Delete a payment
+    @Override
     public boolean delete(String paymentId) {
         if (paymentRepository.existsById(paymentId)) {
             paymentRepository.deleteById(paymentId);
@@ -41,47 +42,23 @@ public class PaymentService {
         return false;
     }
 
-    // Get all payments
+    @Override
     public List<Payment> getAll() {
         return paymentRepository.findAll();
     }
 
-    // Process payment (set status to "Processed")
+    @Override
     public boolean processPayment(String paymentId) {
-        Optional<Payment> optionalPayment = paymentRepository.findById(paymentId);
-        if (optionalPayment.isPresent()) {
-            Payment payment = optionalPayment.get();
-            payment.processPayment();
-            paymentRepository.save(payment);
-            return true;
-        }
-        return false;
+        return paymentRepository.processPayment(paymentId);
     }
 
-    // Refund payment (set status to "Refunded")
+    @Override
     public boolean refundPayment(String paymentId) {
-        Optional<Payment> optionalPayment = paymentRepository.findById(paymentId);
-        if (optionalPayment.isPresent()) {
-            Payment payment = optionalPayment.get();
-            payment.refundPayment();
-            paymentRepository.save(payment);
-            return true;
-        }
-        return false;
+        return paymentRepository.refundPayment(paymentId);
     }
 
-    // Verify transaction code
+    @Override
     public boolean verifyTransaction(String paymentId) {
-        Optional<Payment> optionalPayment = paymentRepository.findById(paymentId);
-        return optionalPayment.map(Payment::verifyTransaction).orElse(false);
+        return paymentRepository.verifyTransaction(paymentId);
     }
-
-    public List<Payment> findByStatus(String status) {
-        return paymentRepository.findByStatus(status);
-    }
-
-    public List<Payment> findByAmountGreaterThan(double amount) {
-        return paymentRepository.findByAmountGreaterThan(amount);
-    }
-
 }

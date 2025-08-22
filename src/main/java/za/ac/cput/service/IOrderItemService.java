@@ -1,4 +1,13 @@
 package za.ac.cput.service;
 
-public interface IOrderItemService {
+import za.ac.cput.domain.OrderItem;
+
+// Import List and Optional if needed for custom methods
+import java.util.List;
+import java.util.Optional;
+
+public interface IOrderItemService extends IService<OrderItem, Integer> {
+
+    // Business logic specific to OrderItem
+    double calculateTotalPrice(int itemId);
 }
