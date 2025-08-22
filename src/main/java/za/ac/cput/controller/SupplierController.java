@@ -2,6 +2,7 @@ package za.ac.cput.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import za.ac.cput.domain.Book;
 import za.ac.cput.domain.Supplier;
 import za.ac.cput.repository.ISupplierRepository;
 
@@ -19,7 +20,7 @@ public class SupplierController {
     }
 
     @GetMapping("/{supplierID}")
-    public Book getSupplier(@PathVariable Long supplierID) {
+    public Supplier getSupplier(@PathVariable Long supplierID) {
 
         return repository.findById(supplierID).orElse(null);
     }

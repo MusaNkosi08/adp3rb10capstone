@@ -11,6 +11,7 @@ import jakarta.persistence.*;
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //private Long employeeID;
     private Long employeeID;
 
     private String firstName;

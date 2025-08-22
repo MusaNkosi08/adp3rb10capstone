@@ -1,4 +1,4 @@
-//package za.ac.cput.repository.impl;
+package za.ac.cput.repository.impl;
 //
-//public class BookRepositoryTest {
-//}
+public class BookRepositoryTest {
+}

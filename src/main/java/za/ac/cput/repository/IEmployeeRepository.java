@@ -16,9 +16,13 @@ import java.util.List;
 public interface IEmployeeRepository extends JpaRepository<Employee, Integer> {
 
     // Custom query methods
+    List<Employee> findByFirstName(String firstName);
     List<Employee> findByLastName(String lastName);
+    List<Employee> findByEmail(String email);
     List<Employee> findByPosition(String position);
-    List<Employee> findBySalaryBetween(double minSalary, double maxSalary);
+    List<Employee> findBySalaryGreaterThan(double salary);
+    List<Employee> findBySalaryLessThan(double salary);
+
 
     @Repository
     interface SupplyOrderRepository extends JpaRepository<SupplyOrder, String> {
