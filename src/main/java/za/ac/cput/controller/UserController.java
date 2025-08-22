@@ -1,14 +1,14 @@
 /* UserController.java
-``Author: Aimee Paulus (222814969)
-  Date: 25 May 2025
- */
+Author: Aimee Paulus (222814969)
+Date: 25 May 2025
+*/
 
 package za.ac.cput.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import za.ac.cput.domain.User;
-import za.ac.cput.repository.IUserRepository;
+import za.ac.cput.service.IUserService;
 
 import java.util.List;
 
@@ -17,31 +17,30 @@ import java.util.List;
 public class UserController {
 
     @Autowired
-    private IUserRepository userRepository;
+    private IUserService userService;
 
     @PostMapping("/create")
-    public boolean createUser(@RequestBody User user) {
-        return userRepository.create(user) != null;
+    public User createUser(@RequestBody User user) {
+        return userService.create(user);
     }
 
     @GetMapping("/{userId}")
     public User getUser(@PathVariable String userId) {
-        return userRepository.read(userId);
+        return userService.read(userId);
     }
 
     @GetMapping("/all")
     public List<User> getAllUsers() {
-        return userRepository.findAll();
+        return userService.findAll();
     }
 
     @PutMapping("/update")
-    public boolean updateUser(@RequestBody User user) {
-        return userRepository.update(user) != null;
+    public User updateUser(@RequestBody User user) {
+        return userService.update(user);
     }
 
     @DeleteMapping("/delete/{userId}")
     public boolean deleteUser(@PathVariable String userId) {
-        userRepository.delete(userId);
-        return true;
+        return userService.delete(userId);
     }
 }
