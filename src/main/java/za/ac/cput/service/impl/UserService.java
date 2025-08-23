@@ -1,6 +1,6 @@
 /*
- UserService.java
- Service class for User
+ EmployeeService.java
+ Service class for Employee
  Author: Musa Banathi Nkosi (221744517)
 */
 
@@ -10,68 +10,56 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import za.ac.cput.domain.User;
 import za.ac.cput.repository.IUserRepository;
+import za.ac.cput.service.ISupplierService;
 import za.ac.cput.service.IUserService;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserService implements IUserService {
 
+
     @Autowired
-    private IUserRepository userRepository; // Changed to userRepository to match PaymentService pattern
+    private static IUserService service;
+    @Autowired
+    private static IUserRepository repository;
 
-    // Create a new user
-    @Override
-    public User create(User user) {
-        return userRepository.save(user);
-    }
 
-    @Override
-    public User read(String id) {
-        Optional<User> userOptional = userRepository.findById(id);
-        return userOptional.orElse(null);
-    }
+    public static IUserService getService() {
+        if (service == null) {
 
-    // Update a user
-    @Override
-    public User update(User user) {
-        if (userRepository.existsById(user.getUserId())) { // Assuming getUserID() method exists
-            return userRepository.save(user);
+            return service;
         }
-        return null;
+
+        return service;
     }
 
-    // Delete a user
     @Override
-    public boolean delete(String userId) {
-        if (userRepository.existsById(userId)) {
-            userRepository.deleteById(userId);
+    public User create (User user) {
+        return this.repository.save(user);
+    }
+
+    @Override
+    public User read (String id){
+        return this.repository.findById(String.valueOf(id)).orElse(null);
+    }
+
+    @Override
+    public User update (User user){
+        return this.repository.save(user);
+    }
+
+    @Override
+    public boolean delete (String id){
+        if (!this.repository.existsById(String.valueOf(id))) {
+            return false;}
+        else {
+            this.repository.deleteById(String.valueOf(id));
             return true;
         }
-        return false;
     }
-
-    // Get all users
     @Override
-    public List<User> findAll() {
-        return userRepository.findAll();
-    }
-
-    // Additional methods that match your repository capabilities
-    public Optional<User> findByUserEmail(String email) {
-        return userRepository.findByUserEmail(email);
-    }
-
-    public List<User> findByUserFirstName(String firstName) {
-        return userRepository.findByUserFirstName(firstName);
-    }
-
-    public List<User> findByUserLastName(String lastName) {
-        return userRepository.findByUserLastName(lastName);
-    }
-
-    public List<User> findByUserPhoneNumber(String phoneNumber) {
-        return userRepository.findByUserPhoneNumber(phoneNumber);
+    public List<User> findAll () {
+        return this.repository.findAll();
     }
 }

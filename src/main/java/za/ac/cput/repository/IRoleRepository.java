@@ -19,6 +19,6 @@ public interface IRoleRepository extends JpaRepository<Role, String> {
     Role findByRoleName(String roleName);
     List<Role> findByRoleSalaryGreaterThan(double salary);
     List<Role> findByRoleNameContaining(String keyword);
-    List<Role> findRolesWithinSalaryRange(double min, double max);
-    long countRolesWithSalaryAbove(double salary);
+    List<Role> findByRoleSalaryBetween(double min, double max);
+    long countByRoleSalaryGreaterThan(double salary);
 }

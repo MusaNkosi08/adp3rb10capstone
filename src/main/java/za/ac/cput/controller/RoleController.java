@@ -20,9 +20,9 @@ public class RoleController {
     private IRoleService roleService;
 
     @PostMapping("/create")
-    public Role createRole(@RequestBody Role role) {
-        return roleService.create(role);
-    }
+public Role createRole(@RequestBody Role role) {
+    return roleService.create(role);
+}
 
     @GetMapping("/{roleId}")
     public Role getRole(@PathVariable String roleId) {
