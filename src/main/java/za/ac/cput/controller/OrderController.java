@@ -15,18 +15,18 @@ public class OrderController {
     private IOrderRepository orderRepository;
 
     @PostMapping("/create")
-    public boolean createOrder(@RequestBody Order order) {
-        return orderRepository.addOrder(order);
+    public Order createOrder(@RequestBody Order order) {
+        return orderRepository.save(order);
     }
 
     @GetMapping("/{orderId}")
     public Order getOrder(@PathVariable int orderId) {
-        return orderRepository.getOrder(orderId);
+        return orderRepository.findById(orderId).orElse(null);
     }
 
     @GetMapping("/customer/{customerId}")
     public List<Order> getOrdersByCustomerId(@PathVariable int customerId) {
-        return orderRepository.getOrdersByCustomerId(customerId);
+        return orderRepository.findByCustomerId(customerId);
     }
 
     @GetMapping("/status/{status}")
@@ -35,12 +35,16 @@ public class OrderController {
     }
 
     @PutMapping("/update")
-    public boolean updateOrder(@RequestBody Order order) {
-        return orderRepository.updateOrder(order);
+    public Order updateOrder(@RequestBody Order order) {
+        return orderRepository.save(order);
     }
 
-   // @DeleteMapping("/delete/{orderId}")
-    //public boolean deleteOrder(@PathVariable int orderId) {
-     //   return orderRepository.deleteOrder(orderId); // ✅ fixed method name
-    //}
+    @DeleteMapping("/delete/{orderId}")
+    public boolean deleteOrder(@PathVariable int orderId) {
+        if (orderRepository.existsById(orderId)) {
+            orderRepository.deleteById(orderId);
+            return true;
+        }
+        return false;
+    }
 }
