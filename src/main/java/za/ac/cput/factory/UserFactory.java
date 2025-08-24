@@ -6,6 +6,11 @@ import za.ac.cput.domain.User;
  Author: Aimee Paulus (222814969)
  Date: 21 March 2025
 */
+/*
+ UserFactory.java
+ Test class for UserService
+ Author: Aimee Paulus (222814969
+*/
 
 public class UserFactory {
 
