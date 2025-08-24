@@ -1,23 +1,21 @@
-/*package za.ac.cput.views;
+package za.ac.cput;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.ComponentScan;
 import za.ac.cput.domain.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
+
 @SpringBootApplication
-@ComponentScan(basePackages = "za.ac.cput") // tells spring to scan whole project - for autowire error in userServiceTest
 public class Main {
 
     public static void main(String[] args) {
-
-        //Spring will scan all sub-packages - needed for userService test
+        //  Spring will scan the whole project for components
         SpringApplication.run(Main.class, args);
 
-        // Creating an order using
+        // Creating an order using builder
         Order order = new Order.Builder()
                 .orderId(1)
                 .customerId(123)
@@ -41,12 +39,12 @@ public class Main {
         System.out.println("\n=== SUPPLIERS ===");
         System.out.println(supplier);
 
-        // Creating a list of order items using the builder pattern
+        // Creating a list of order items
         List<OrderItem> items = new ArrayList<>();
         items.add(new OrderItem.Builder().itemId(3).quantity(1).price(20.0).build());
         items.add(new OrderItem.Builder().itemId(4).quantity(3).price(5.0).build());
 
-        // Creating a second order using the builder pattern
+        // Second order
         Order order2 = new Order.Builder()
                 .orderId(456)
                 .customerId(789)
@@ -58,20 +56,20 @@ public class Main {
         System.out.println("\n=== ORDERITEMS ===");
         System.out.println(order2.getOrderDetails());
 
-        // Creating users using the builder pattern (like Order and Supplier)
+        // Creating users
         System.out.println("\n=== USERS ===");
-        User user1 = new User.UserBuilder("54731", "Ameena", "Abrahams", "amennaabrahams@gmail.com", "Password123", "0723787789")
-                .build();
+        User user1 = new User.UserBuilder("54731", "Ameena", "Abrahams",
+                "ameenaabrahams@gmail.com", "Password123", "0723787789").build();
         System.out.println("User 1: " + user1);
 
-        User user2 = new User.UserBuilder("54732", "John", "Doe", "john.doe@example.com", "SecurePass456", "0831234567")
-                .build();
+        User user2 = new User.UserBuilder("54732", "John", "Doe",
+                "john.doe@example.com", "SecurePass456", "0831234567").build();
         System.out.println("User 2: " + user2);
 
-        // Creating employees using the builder pattern
+        // Creating employees
         System.out.println("\n=== EMPLOYEES ===");
         Employee employee1 = new Employee.Builder()
-                .setEmployeeID(001L)
+                .setEmployeeID(1L)
                 .setFirstName("Musa")
                 .setLastName("Nkosi")
                 .setEmail("m.n@cput.ac.za")
@@ -81,7 +79,7 @@ public class Main {
         System.out.println("Employee 1: " + employee1);
 
         Employee employee2 = new Employee.Builder()
-                .setEmployeeID(002L)
+                .setEmployeeID(2L)
                 .setFirstName("Siphosethu")
                 .setLastName("Msengeni")
                 .setEmail("s.m@cput.ac.za")
@@ -91,7 +89,7 @@ public class Main {
         System.out.println("Employee 2: " + employee2);
 
         Employee employee3 = new Employee.Builder()
-                .setEmployeeID(003L)
+                .setEmployeeID(3L)
                 .setFirstName("Ashton")
                 .setLastName("Petersen")
                 .setEmail("a.p@cput.ac.za")
@@ -100,7 +98,7 @@ public class Main {
                 .build();
         System.out.println("Employee 3: " + employee3);
 
-        // Creating payments using the builder pattern
+        // Creating payments
         System.out.println("\n=== PAYMENTS ===");
         Payment payment1 = new Payment.Builder()
                 .setPaymentId("P001")
@@ -126,41 +124,18 @@ public class Main {
                 .build();
         System.out.println("Payment 3: " + payment3);
 
-        // Creating a list of employees
-        List<Employee> employees = new ArrayList<>();
-        employees.add(employee1);
-        employees.add(employee2);
-        employees.add(employee3);
-
-        // Creating a list of users
-        List<User> users = new ArrayList<>();
-        users.add(user1);
-        users.add(user2);
-
-        // Creating a list of payments
-        List<Payment> payments = new ArrayList<>();
-        payments.add(payment1);
-        payments.add(payment2);
-        payments.add(payment3);
-
         // Display all collections
+        List<Employee> employees = List.of(employee1, employee2, employee3);
+        List<User> users = List.of(user1, user2);
+        List<Payment> payments = List.of(payment1, payment2, payment3);
+
         System.out.println("\n=== ALL EMPLOYEES ===");
-        for (Employee emp : employees) {
-            System.out.println(emp);
-        }
+        employees.forEach(System.out::println);
 
         System.out.println("\n=== ALL USERS ===");
-        for (User user : users) {
-            System.out.println(user);
-        }
+        users.forEach(System.out::println);
 
         System.out.println("\n=== ALL PAYMENTS ===");
-        for (Payment payment : payments) {
-            System.out.println(payment);
-        }
-
-    } //EOF Main Run
-} //EOF
-
-
- */
+        payments.forEach(System.out::println);
+    }
+}

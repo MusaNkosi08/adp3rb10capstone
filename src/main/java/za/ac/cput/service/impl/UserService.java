@@ -1,7 +1,7 @@
 /*
  UserService.java
  Service class for User
- Author: Musa Banathi Nkosi (221744517)
+ Author:Aimee Paulus (222814969)
 */
 
 package za.ac.cput.service.impl;
