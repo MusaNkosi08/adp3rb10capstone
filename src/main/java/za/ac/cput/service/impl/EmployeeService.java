@@ -63,35 +63,4 @@ public class EmployeeService implements IEmployeeService {
     public List<Employee> findAll () {
         return this.repository.findAll();
     }
-
-    @Override
-    public List<Employee> findByFirstName(String firstName) {
-        return this.repository.findByFirstName(firstName);
-    }
-
-    @Override
-    public List<Employee> findByLastName(String lastName) {
-        return this.repository.findByLastName(lastName);
-    }
-
-    @Override
-    public List<Employee> findByEmail(String email) {
-        return this.repository.findByEmail(email);
-    }
-
-    @Override
-    public List<Employee> findByPosition(String position) {
-        return this.repository.findByPosition(position);
-    }
-
-    @Override
-    public List<Employee> findBySalaryGreaterThan(double salary) {
-        return this.repository.findBySalaryGreaterThan(salary);
-    }
-
-    @Override
-    public List<Employee> findBySalaryLessThan(double salary) {
-        return this.repository.findBySalaryLessThan(salary);
-    }
-
 }

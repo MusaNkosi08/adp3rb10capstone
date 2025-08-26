@@ -8,10 +8,10 @@ import java.util.List;
 
 public class OrderFactory {
 
-    public static Order createOrder(int orderId, int customerId, String shippingAddress,
+    public static Order createOrder(Long orderId, int customerId, String shippingAddress,
                                     String paymentMethod, List<OrderItem> items, Payment payment) {
         // Basic validations
-        if (orderId <= 0) {
+        if (orderId != null && orderId <= 0) {
             throw new IllegalArgumentException("Order ID must be greater than zero");
         }
         if (customerId <= 0) {

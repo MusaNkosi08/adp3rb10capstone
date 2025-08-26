@@ -1,11 +1,8 @@
 package za.ac.cput.domain;
 
-//tyrese ntate 221817816
-
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "order_items")
 public class OrderItem {
 
     @Id
@@ -15,24 +12,31 @@ public class OrderItem {
     private double price;
 
     @ManyToOne
-    @JoinColumn(name = "order_id")
+    @JoinColumn(name = "order_id", referencedColumnName = "orderId")
     private Order order;
 
-    protected OrderItem(){
+    protected OrderItem() {}
 
-    }
-   
     private OrderItem(Builder builder) {
         this.itemId = builder.itemId;
         this.quantity = builder.quantity;
         this.price = builder.price;
+        this.order = builder.order;
     }
 
-  
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
     public static class Builder {
         private int itemId;
         private int quantity;
         private double price;
+        private Order order;
 
         public Builder itemId(int itemId) {
             this.itemId = itemId;
@@ -46,6 +50,11 @@ public class OrderItem {
 
         public Builder price(double price) {
             this.price = price;
+            return this;
+        }
+
+        public Builder order(Order order) {
+            this.order = order;
             return this;
         }
 

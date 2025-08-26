@@ -18,48 +18,60 @@ import java.util.List;
 @Service
 public class SupplyOrderService implements ISupplyOrderService {
 
+    private final ISupplyOrderRepository repository;
 
-    @Autowired
-    private static ISupplyOrderService service;
-    @Autowired
-    private static ISupplyOrderRepository repository;
-
-
-    public static ISupplyOrderService getService() {
-        if (service == null) {
-
-            return service;
-        }
-
-        return service;
+    public SupplyOrderService(ISupplyOrderRepository repository) {
+        this.repository = repository;
     }
 
     @Override
-    public SupplyOrder create (SupplyOrder order) {
-        return this.repository.save(order);
+    public SupplyOrder create(SupplyOrder order) {
+        return repository.save(order);
     }
 
     @Override
-    public SupplyOrder read (String id){
-        return this.repository.findById(id).orElse(null);
+    public SupplyOrder read(String id) {
+        return repository.findById(id).orElse(null);
     }
 
     @Override
-    public SupplyOrder update (SupplyOrder order){
-        return this.repository.save(order);
+    public SupplyOrder update(SupplyOrder order) {
+        return repository.save(order);
     }
 
     @Override
-    public boolean delete (String id){
-        if (!this.repository.existsById(id)) {
-            return false;}
-        else {
-            this.repository.deleteById(id);
-            return true;
-        }
+    public void delete(String id) {
+        repository.deleteById(id);
     }
+
     @Override
-    public List<SupplyOrder> findAll () {
-        return this.repository.findAll();
+    public List<SupplyOrder> readAll() {
+        return repository.findAll();
+    }
+
+    @Override
+    public List<SupplyOrder> getAll() {
+        return repository.findAll();
+    }
+
+    @Override
+    public List<SupplyOrder> findByOrderStatus(String status) {
+        return repository.findByOrderStatus(status);
+    }
+
+    @Override
+    public List<SupplyOrder> findByEmployeeID(String employeeID) {
+        return repository.findByEmployeeID(employeeID);
+    }
+
+    @Override
+    public List<SupplyOrder> findBySupplierID(String supplierID) {
+        return repository.findBySupplierID(supplierID);
+    }
+
+    @Override
+    public List<SupplyOrder> findByOrderPriceBetween(double minPrice, double maxPrice) {
+        // TODO: Implement this method when the repository supports it
+        throw new UnsupportedOperationException("findByOrderPriceBetween not implemented yet");
     }
 }
