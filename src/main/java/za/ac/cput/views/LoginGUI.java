@@ -17,7 +17,7 @@ import javax.swing.border.EmptyBorder;
 
 /**
  *
- * @author aimee
+ * @author aimee paulus 222814969
  */
 public class LoginGUI extends JFrame implements ActionListener{
 

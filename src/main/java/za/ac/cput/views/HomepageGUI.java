@@ -24,7 +24,7 @@ import javax.swing.JPanel;
 
             {
                 try {
-                    // Load from classpath - this is the correct way
+                    // Load from classpath
                     image = ImageIO.read(getClass().getResource("/Logo.jpeg"));
                 } catch (IOException ex) {
                     Logger.getLogger(HomepageGUI.class.getName()).log(Level.SEVERE, null, ex);
