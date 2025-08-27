@@ -1,6 +1,8 @@
 package za.ac.cput.views;
 
+import za.ac.cput.controller.OrderItemController;
 import za.ac.cput.domain.Book;
+import za.ac.cput.factory.OrderItemFactory;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -24,16 +26,10 @@ public class BookCatalogueGUI extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        switch (e.getActionCommand()) {
-            case "Add To Cart": {
-                int requestedQuantity = Integer.parseInt(JOptionPane.showInputDialog("Please enter how much of this book you would like to purchase:"));
 
-                break;
-            }
-        }
     }
 
-    class BookItemPanel extends JPanel {
+    class BookItemPanel extends JPanel implements ActionListener {
 
     private JLabel titleLabel;
     private JLabel authorLabel;
@@ -41,6 +37,7 @@ public class BookCatalogueGUI extends JFrame implements ActionListener {
     private JLabel lengthLabel;
     private JLabel availabilityLabel;
     private JButton btnAddToCart;
+    private Book b;
 
     public BookItemPanel(Book b) {
       setLayout(new GridLayout(5, 1));
@@ -62,5 +59,17 @@ public class BookCatalogueGUI extends JFrame implements ActionListener {
         add(btnAddToCart);
         btnAddToCart.addActionListener(BookCatalogueGUI.this);
     }
-  }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            switch (e.getActionCommand()) {
+                case "Add To Cart": {
+                    int requestedQuantity = Integer.parseInt(JOptionPane.showInputDialog("Please enter how much of this book you would like to purchase:"));
+                    OrderItemController orderItemController = new OrderItemController();
+                    orderItemController.createOrderItem(OrderItemFactory.createOrderItem(01, b.isbn, requestedQuantity, b.price));
+                    break;
+                }
+            }
+        }
+    }
 }
