@@ -7,7 +7,7 @@ import za.ac.cput.views.HomepageGUI;
 public class runHomePage {
     public static void main(String[] args) {
 
-        // Create and show the GUI on the Event Dispatch Thread
+
         javax.swing.SwingUtilities.invokeLater(() -> {
 
             HomepageGUI hpg = new HomepageGUI();
