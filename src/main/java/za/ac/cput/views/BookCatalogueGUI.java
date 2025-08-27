@@ -5,21 +5,42 @@ import za.ac.cput.domain.Book;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class BookCatalogueGUI extends JFrame {
+public class BookCatalogueGUI extends JFrame implements ActionListener {
+//Header Elements
+    JPanel pnlHeader = new JPanel();
+    JLabel lblHeader = new JLabel("Book Catalogue");
+    JButton btnBack = new JButton("Back to Main Menu");
+    //Body Elements
+    JPanel pnlBody = new JPanel();
+    JScrollPane scrollPane = new JScrollPane(pnlBody);
 
 
   public BookCatalogueGUI(){
 
   }
 
-  public class BookItemPanel extends JPanel {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        switch (e.getActionCommand()) {
+            case "Add To Cart": {
+                int requestedQuantity = Integer.parseInt(JOptionPane.showInputDialog("Please enter how much of this book you would like to purchase:"));
+
+                break;
+            }
+        }
+    }
+
+    class BookItemPanel extends JPanel {
 
     private JLabel titleLabel;
     private JLabel authorLabel;
     private JLabel genreLabel;
     private JLabel lengthLabel;
     private JLabel availabilityLabel;
+    private JButton btnAddToCart;
 
     public BookItemPanel(Book b) {
       setLayout(new GridLayout(5, 1));
@@ -31,12 +52,15 @@ public class BookCatalogueGUI extends JFrame {
       genreLabel = new JLabel("Genre: " + b.genre);
       lengthLabel = new JLabel("Length: " + b.pages + " pages");
       availabilityLabel = new JLabel("Available: " + (b.quantity>0 ? "Yes" : "No"));
+        btnAddToCart = new JButton("Add To Cart");
 
       add(titleLabel);
       add(authorLabel);
       add(genreLabel);
       add(lengthLabel);
       add(availabilityLabel);
+        add(btnAddToCart);
+        btnAddToCart.addActionListener(BookCatalogueGUI.this);
     }
   }
 }
