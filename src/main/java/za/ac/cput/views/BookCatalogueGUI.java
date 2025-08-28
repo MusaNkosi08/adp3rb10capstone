@@ -41,7 +41,7 @@ pnlHeader.add(btnBack);
 pnlHeader.add(btnCart);
 pnlHeader.setLayout(new GridLayout(1,3));
 this.add(pnlHeader);
-this.add(pnlBody);
+this.add(scrollPane);
   }
 
     @Override
