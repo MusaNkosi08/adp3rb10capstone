@@ -1,5 +1,6 @@
 package za.ac.cput.views;
 
+import za.ac.cput.controller.BookController;
 import za.ac.cput.controller.OrderItemController;
 import za.ac.cput.domain.Book;
 import za.ac.cput.factory.OrderItemFactory;
@@ -9,9 +10,14 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class BookCatalogueGUI extends JFrame implements ActionListener {
-//Header Elements
+//Data Elements
+ArrayList<Book> bookList= new ArrayList<>();
+BookController bc= new BookController();
+OrderItemController oi= new OrderItemController();
+    //Header Elements
     JPanel pnlHeader = new JPanel();
     JLabel lblHeader = new JLabel("Book Catalogue");
     JButton btnBack = new JButton("Back to Main Menu");
@@ -19,13 +25,23 @@ public class BookCatalogueGUI extends JFrame implements ActionListener {
     //Body Elements
     JPanel pnlBody = new JPanel();
     JScrollPane scrollPane = new JScrollPane(pnlBody);
-    List<Book> bookList = new List<Book>();
+
     
 public void setList (){
-
+    pnlBody.removeAll();
+    bookList = bc.getAllBooks();
+for(int i=0;i<bookList.size();i++){
+    pnlBody.add(new BookItemPanel(bookList.get(i)));
+}
 }
   public BookCatalogueGUI(){
-
+setList();
+pnlHeader.add(lblHeader);
+pnlHeader.add(btnBack);
+pnlHeader.add(btnCart);
+pnlHeader.setLayout(new GridLayout(1,3));
+this.add(pnlHeader);
+this.add(pnlBody);
   }
 
     @Override
@@ -69,8 +85,15 @@ public void setList (){
             switch (e.getActionCommand()) {
                 case "Add To Cart": {
                     int requestedQuantity = Integer.parseInt(JOptionPane.showInputDialog("Please enter how much of this book you would like to purchase:"));
-                    OrderItemController orderItemController = new OrderItemController();
-                    orderItemController.createOrderItem(OrderItemFactory.createOrderItem(01, b.isbn, requestedQuantity, b.price));
+                    if (requestedQuantity > b.quantity) {
+                        JOptionPane.showMessageDialog(null, "Sorry, we do not have enough stock to fulfill your request.");
+                        return;
+                    }
+                    if (requestedQuantity <= 0) {
+                        JOptionPane.showMessageDialog(null, "Please enter a valid quantity.");
+                        return;
+                    }
+
                     break;
                 }
             }
