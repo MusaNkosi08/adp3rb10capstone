@@ -15,11 +15,15 @@ public class BookCatalogueGUI extends JFrame implements ActionListener {
     JPanel pnlHeader = new JPanel();
     JLabel lblHeader = new JLabel("Book Catalogue");
     JButton btnBack = new JButton("Back to Main Menu");
+    JButton btnCart = new JButton ("Go to Cart");
     //Body Elements
     JPanel pnlBody = new JPanel();
     JScrollPane scrollPane = new JScrollPane(pnlBody);
+    List<Book> bookList = new List<Book>();
+    
+public void setList (){
 
-
+}
   public BookCatalogueGUI(){
 
   }
