@@ -11,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/book")
+@CrossOrigin(origins = "http://localhost:3000") // Add this annotation
 public class BookController {
 
     @Autowired
