@@ -8,8 +8,12 @@ public class OrderItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int itemId;
+
     private int quantity;
-    private double price;
+
+    @ManyToOne
+    @JoinColumn(name = "isbn", referencedColumnName = "isbn")
+    private Book book;
 
     @ManyToOne
     @JoinColumn(name = "order_id", referencedColumnName = "orderId")
@@ -20,7 +24,7 @@ public class OrderItem {
     private OrderItem(Builder builder) {
         this.itemId = builder.itemId;
         this.quantity = builder.quantity;
-        this.price = builder.price;
+        this.book= builder.book;
         this.order = builder.order;
     }
 
@@ -35,8 +39,9 @@ public class OrderItem {
     public static class Builder {
         private int itemId;
         private int quantity;
-        private double price;
+
         private Order order;
+        private Book book;
 
         public Builder itemId(int itemId) {
             this.itemId = itemId;
@@ -48,13 +53,15 @@ public class OrderItem {
             return this;
         }
 
-        public Builder price(double price) {
-            this.price = price;
-            return this;
-        }
+
 
         public Builder order(Order order) {
             this.order = order;
+            return this;
+        }
+
+        public Builder book(Book book) {
+            this.book = book;
             return this;
         }
 
@@ -68,7 +75,7 @@ public class OrderItem {
     }
 
     public double totalPrice() {
-        return quantity * price;
+        return quantity * book.price;
     }
 
     public int getItemId() {
@@ -79,7 +86,4 @@ public class OrderItem {
         return quantity;
     }
 
-    public double getPrice() {
-        return price;
-    }
 }

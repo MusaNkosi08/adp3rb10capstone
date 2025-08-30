@@ -6,6 +6,7 @@ import za.ac.cput.domain.Book;
 import za.ac.cput.domain.Order;
 import za.ac.cput.repository.IBookRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -35,6 +36,12 @@ public class BookController {
     @DeleteMapping("/delete/{bookISBN}")
     public void deleteBook(@PathVariable String bookISBN) {
         repository.deleteById(bookISBN);
+    }
+
+    @GetMapping("/{bookISBN}")
+    public ArrayList<Book> getAllBooks() {
+
+        return (ArrayList<Book>) repository.findAll();
     }
 }
 

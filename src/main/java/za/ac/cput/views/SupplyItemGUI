@@ -1,4 +1,4 @@
-
+/*
 package za.ac.cput.views;
 
 import za.ac.cput.controller.BookController;
@@ -13,11 +13,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class BookCatalogueGUI extends JFrame implements ActionListener {
+public class SupplyItemGUI extends JFrame implements ActionListener {
 //Data Elements
 ArrayList<Book> bookList= new ArrayList<>();
-BookController bc= new BookController();
-OrderItemController oi= new OrderItemController();
+SupplyLineController bc= new SupplyLineController();
+SupplyOrderController oi= new SupplyOrderItemController();
     //Header Elements
     JPanel pnlHeader = new JPanel();
     JLabel lblHeader = new JLabel("Book Catalogue");
@@ -102,3 +102,4 @@ this.add(scrollPane);
     }
 }
 
+*/
