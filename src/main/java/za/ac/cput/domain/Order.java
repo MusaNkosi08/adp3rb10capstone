@@ -131,7 +131,7 @@ public class Order {
         for (OrderItem item : items) {
             details.append(" - Item ID: ").append(item.getItemId())
                     .append(", Quantity: ").append(item.getQuantity())
-                    .append(", Price: ").append(String.format("%.2f", item.getPrice())).append("\n");
+                    .append(", Price: ").append(String.format("%.2f", item.getBook().getPrice())).append("\n");
         }
         return details.toString();
     }

@@ -1,6 +1,8 @@
 package za.ac.cput.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import za.ac.cput.domain.Payment;
 
@@ -9,9 +11,11 @@ import java.util.List;
 @Repository
 public interface IPaymentRepository extends JpaRepository<Payment, Long> {
 
-    List<Payment> findByStatus(String status);
+    @Query(value= "SELECT * FROM Payment WHERE status = :status", nativeQuery = true)
+    List<Payment> findByStatus(@Param("status") String status);
 
-    List<Payment> findByAmountGreaterThan(double amount);
+    @Query(value= "SELECT * FROM Payment WHERE amount > :amount ", nativeQuery = true)
+    List<Payment> findByAmountGreaterThan(@Param("amount") double amount);
 
     default boolean processPayment(Long paymentID) {
         return findById(paymentID).map(payment -> {
