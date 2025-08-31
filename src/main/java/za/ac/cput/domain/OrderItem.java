@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 public class OrderItem {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int itemId;
 
     private int quantity;
@@ -69,13 +69,21 @@ public class OrderItem {
             return new OrderItem(this);
         }
 
-        public Builder productId(int productId) {
+        public Builder isbn(String isbn) {
             return this;
         }
     }
 
     public double totalPrice() {
         return quantity * book.price;
+    }
+
+    public Book getBook() {
+        return book;
+    }
+
+    public void setBook(Book book) {
+        this.book = book;
     }
 
     public int getItemId() {

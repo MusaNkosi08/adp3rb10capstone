@@ -29,6 +29,9 @@ public class OrderController {
         return orderRepository.findByCustomerId(customerId);
     }
 
+    public Order getLatestOrder (@PathVariable Long customerId) {
+        return orderRepository.findLatestUserOrder( customerId );
+    }
     @GetMapping("/status/{status}")
     public List<Order> getOrdersByStatus(@PathVariable String status) {
         return orderRepository.findByStatus(status);

@@ -2,6 +2,7 @@
 package za.ac.cput.views;
 
 import za.ac.cput.controller.BookController;
+import za.ac.cput.controller.OrderController;
 import za.ac.cput.controller.OrderItemController;
 import za.ac.cput.domain.Book;
 import za.ac.cput.factory.OrderItemFactory;
@@ -17,8 +18,9 @@ public class BookCatalogueGUI extends JFrame implements ActionListener {
 //Data Elements
 ArrayList<Book> bookList= new ArrayList<>();
 BookController bc= new BookController();
-OrderItemController oi= new OrderItemController();
-    //Header Elements
+OrderItemController oic= new OrderItemController();
+OrderController oc= new OrderController();
+//Header Elements
     JPanel pnlHeader = new JPanel();
     JLabel lblHeader = new JLabel("Book Catalogue");
     JButton btnBack = new JButton("Back to Main Menu");
@@ -94,7 +96,7 @@ this.add(scrollPane);
                         JOptionPane.showMessageDialog(null, "Please enter a valid quantity.");
                         return;
                     }
-
+                 oic.createOrderItem(OrderItemFactory.createOrderItem(b, oc.getLatestOrder(Long.valueOf(1)), requestedQuantity));
                     break;
                 }
             }

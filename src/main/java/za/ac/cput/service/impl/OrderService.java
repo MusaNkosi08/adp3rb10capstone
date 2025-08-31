@@ -48,6 +48,10 @@ public class OrderService implements IOrderService {
     public boolean delete(Integer integer) {
         return false;
     }
+    public Order findLatestOrder(Long customerId) {
+        return orderRepository.findLatestUserOrder(customerId);
+    }
+
 
     @Override
     public List<Order> findAll() {
