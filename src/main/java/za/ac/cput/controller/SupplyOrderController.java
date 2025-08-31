@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import za.ac.cput.domain.SupplyOrder;
 import za.ac.cput.repository.ISupplyOrderRepository;
+import za.ac.cput.service.impl.SupplyOrderService;
 
 import java.util.List;
 
@@ -12,31 +13,36 @@ import java.util.List;
 @RequestMapping("/api/supplyorder")
 public class SupplyOrderController {
 
-    @Autowired
-    private ISupplyOrderRepository repository;
+
+    private SupplyOrderService repository;
+@Autowired
+    public SupplyOrderController(SupplyOrderService repository) {
+        this.repository = repository;
+    }
+
 
     @PostMapping("/create")
     public SupplyOrder createSupplyOrder(@RequestBody SupplyOrder supplyOrder) {
-        return this.repository.save(supplyOrder);
+        return this.repository.create(supplyOrder);
     }
 
     @GetMapping("/{orderId}")
     public SupplyOrder getSupplyOrder(@PathVariable String orderId) {
-        return repository.findById(orderId).orElse(null);
+        return repository.read(orderId);
     }
 
     @PutMapping("/update")
     public SupplyOrder updateSupplyOrder(@RequestBody SupplyOrder supplyOrder) {
-        return repository.save(supplyOrder);
+        return repository.create(supplyOrder);
     }
 
     @DeleteMapping("/delete/{orderId}")
     public void deleteSupplyOrder(@PathVariable String orderId) {
-        repository.deleteById(orderId);
+        repository.delete(orderId);
     }
 
     @GetMapping("/all")
     public List<SupplyOrder> getAllSupplyOrders() {
-        return repository.findAll();
+        return repository.readAll();
     }
 }

@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
 import za.ac.cput.domain.Employee;
-import za.ac.cput.service.IEmployeeService;
+import za.ac.cput.service.impl.EmployeeService;
 
 import java.util.List;
 
@@ -13,32 +13,37 @@ import java.util.List;
 @RequestMapping("/api/employees")
 public class EmployeeController {
 
+
+    private EmployeeService service;
+
     @Autowired
-    private IEmployeeService employeeService;
+    public EmployeeController(EmployeeService service) {
+        this.service = service;
+    }
 
     @PostMapping("/create")
     public Employee createEmployee(@RequestBody Employee employee) {
-        return employeeService.create(employee);
+        return service.create(employee);
     }
 
     @GetMapping("/{id}")
     public Employee getEmployee(@PathVariable Long id) {
-        return employeeService.read(id);
+        return service.read(id);
     }
 
     @PutMapping("/update")
     public Employee updateEmployee(@RequestBody Employee employee) {
-        return employeeService.update(employee);
+        return service.update(employee);
     }
 
     @DeleteMapping("/delete/{id}")
     public boolean deleteEmployee(@PathVariable Long id) {
-        return employeeService.delete(id);
+        return service.delete(id);
     }
 
     @GetMapping("/all")
     public List<Employee> getAllEmployees() {
-        return employeeService.findAll();
+        return service.findAll();
     }
 /*
     @GetMapping("/firstname/{firstName}")

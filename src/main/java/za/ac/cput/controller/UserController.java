@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import za.ac.cput.domain.User;
 import za.ac.cput.repository.IUserRepository;
+import za.ac.cput.service.impl.UserService;
 
 import java.util.List;
 
@@ -17,16 +18,16 @@ import java.util.List;
 public class UserController {
 
     @Autowired
-    private IUserRepository userRepository;
+    private UserService userRepository;
 
     @PostMapping("/create")
     public User createUser(@RequestBody User user) {
-        return userRepository.save(user);
+        return userRepository.create(user);
     }
 
     @GetMapping("/{userId}")
     public User getUser(@PathVariable String userId) {
-        return userRepository.findById(userId).orElse(null);
+        return userRepository.read(userId);
     }
 
     @GetMapping("/all")
@@ -36,15 +37,11 @@ public class UserController {
 
     @PutMapping("/update")
     public User updateUser(@RequestBody User user) {
-        return userRepository.save(user);
+        return userRepository.create(user);
     }
 
     @DeleteMapping("/delete/{userId}")
     public boolean deleteUser(@PathVariable String userId) {
-        if (userRepository.existsById(userId)) {
-            userRepository.deleteById(userId);
-            return true;
-        }
-        return false;
+       return userRepository.delete(userId);
     }
 }

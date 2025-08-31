@@ -6,6 +6,7 @@ import za.ac.cput.controller.OrderController;
 import za.ac.cput.controller.OrderItemController;
 import za.ac.cput.domain.Book;
 import za.ac.cput.factory.OrderItemFactory;
+import za.ac.cput.service.impl.BookService;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -17,7 +18,7 @@ import java.util.ArrayList;
 public class BookCatalogueGUI extends JFrame implements ActionListener {
 //Data Elements
 ArrayList<Book> bookList= new ArrayList<>();
-BookController bc= new BookController();
+BookController bc= new BookController(new BookService());
 OrderItemController oic= new OrderItemController();
 OrderController oc= new OrderController();
 //Header Elements

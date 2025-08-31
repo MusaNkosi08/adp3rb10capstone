@@ -43,6 +43,16 @@ public class PaymentService implements IPaymentService {
     }
 
     @Override
+    public List<Payment> findByStatus(String status) {
+        return paymentRepository.findByStatus(status);
+    }
+
+    @Override
+    public List<Payment> findByAmountGreaterThan(double amount) {
+        return paymentRepository.findByAmountGreaterThan(amount);
+    }
+
+    @Override
     public List<Payment> getAll() {
         return paymentRepository.findAll();
     }

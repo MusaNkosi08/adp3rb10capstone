@@ -7,36 +7,41 @@ package za.ac.cput.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import za.ac.cput.domain.Employee;
 import za.ac.cput.domain.Role;
-import za.ac.cput.service.IRoleService;
+import za.ac.cput.service.impl.RoleService;
+
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/roles")
 public class RoleController {
 
+
+    private RoleService service;
+
     @Autowired
-    private IRoleService roleService;
+    public RoleController(RoleService service) {
+        this.service = service;
+    }
 
     @PostMapping("/create")
 public Role createRole(@RequestBody Role role) {
-    return roleService.create(role);
+    return service.create(role);
 }
 
     @GetMapping("/{roleId}")
     public Role getRole(@PathVariable String roleId) {
-        return roleService.read(roleId);
+        return service.read(roleId);
     }
 
     @GetMapping("/all")
     public List<Role> getAllRoles() {
-        return roleService.findAll();
+        return service.findAll();
     }
 
     @PutMapping("/update")
     public Role updateRole(@RequestBody Role role) {
-        return roleService.update(role);
+        return service.update(role);
     }
 
 

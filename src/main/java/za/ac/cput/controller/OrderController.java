@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import za.ac.cput.domain.Order;
 import za.ac.cput.repository.IOrderRepository;
+import za.ac.cput.service.impl.OrderService;
 
 import java.util.List;
 
@@ -11,43 +12,43 @@ import java.util.List;
 @RequestMapping("/api/orders")
 public class OrderController {
 
-    @Autowired
-    private IOrderRepository orderRepository;
+
+    private OrderService service;
+@Autowired
+    public OrderController(OrderService service) {
+        this.service = service;
+    }
 
     @PostMapping("/create")
     public Order createOrder(@RequestBody Order order) {
-        return orderRepository.save(order);
+        return service.create(order);
     }
 
     @GetMapping("/{orderId}")
     public Order getOrder(@PathVariable int orderId) {
-        return orderRepository.findById(orderId).orElse(null);
+        return service.read(orderId);
     }
 
     @GetMapping("/customer/{customerId}")
     public List<Order> getOrdersByCustomerId(@PathVariable int customerId) {
-        return orderRepository.findByCustomerId(customerId);
+        return service.findByCustomerId(customerId);
     }
 
     public Order getLatestOrder (@PathVariable Long customerId) {
-        return orderRepository.findLatestUserOrder( customerId );
+        return service.findLatestOrder( customerId );
     }
     @GetMapping("/status/{status}")
     public List<Order> getOrdersByStatus(@PathVariable String status) {
-        return orderRepository.findByStatus(status);
+        return service.findByStatus(status);
     }
 
     @PutMapping("/update")
     public Order updateOrder(@RequestBody Order order) {
-        return orderRepository.save(order);
+        return service.create(order);
     }
 
     @DeleteMapping("/delete/{orderId}")
     public boolean deleteOrder(@PathVariable int orderId) {
-        if (orderRepository.existsById(orderId)) {
-            orderRepository.deleteById(orderId);
-            return true;
-        }
-        return false;
+        return service.delete(orderId);
     }
 }

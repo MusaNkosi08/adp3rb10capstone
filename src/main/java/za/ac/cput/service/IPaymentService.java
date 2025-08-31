@@ -13,7 +13,9 @@ public interface IPaymentService  {
     Payment update(Payment payment);
 
     boolean delete(String paymentId);
+    List<Payment> findByStatus(String status);
 
+    List<Payment> findByAmountGreaterThan(double amount);
     List<Payment> getAll();
 
     boolean processPayment(String paymentId);
