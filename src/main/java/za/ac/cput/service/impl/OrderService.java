@@ -31,23 +31,30 @@ public class OrderService implements IOrderService {
 
     @Override
     public Order create(Order order) {
-        return null;
+        return orderRepository.save(order);
     }
 
     @Override
     public Order read(Integer integer) {
-        return null;
+        return orderRepository.findById(integer).orElse(null);
     }
 
     @Override
     public Order update(Order order) {
-        return null;
+        return orderRepository.save(order);
+
     }
 
     @Override
-    public boolean delete(Integer integer) {
-        return false;
+    public boolean delete(Integer id) {
+        if (!this.orderRepository.existsById(id)) {
+            return false;}
+        else {
+            this.orderRepository.deleteById(id);
+            return true;
     }
+    }
+
     public Order findLatestOrder(Long customerId) {
         return orderRepository.findLatestUserOrder(customerId);
     }

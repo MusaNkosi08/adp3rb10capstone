@@ -22,7 +22,7 @@ public class SupplyLineService implements ISupplyLineService {
 
     @Override
     public SupplyLine read(Integer integer) {
-        return null;
+        return supplyLineRepository.findById(integer).orElse(null);
     }
 
 //    @Override
