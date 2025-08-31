@@ -1,2 +1,2 @@
+![ADP3 Capstone UML Diagram](https://github.com/AimeeLisa/adp3rb10capstone1/raw/master/ADP3_Capstone_UML.png)
 
-![ADP3-RB10 UML (2)](https://github.com/user-attachments/assets/764230ed-ec55-44dd-8599-fb806eb587da)
