@@ -16,7 +16,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 
-    public class HomepageGUI extends JFrame implements ActionListener
+    public class HomepageGUI extends JPanel implements ActionListener
     {
         private JPanel pnl = new JPanel();
         private JPanel pnlLogo = new JPanel() {
@@ -41,12 +41,12 @@ import javax.swing.JPanel;
             }
         };
 
-        private JButton  btnSignup = new JButton("Signup");
-        private JButton  btnLogin = new JButton("Login");
+         JButton  btnSignup = new JButton("Signup");
+         JButton  btnLogin = new JButton("Login");
 
 
         public HomepageGUI(){
-            super("SnuggleReads");
+
 
             //Panel layout
             pnl.setLayout(new GridLayout(1,2,1,1));
@@ -85,8 +85,8 @@ import javax.swing.JPanel;
                 SignupGUI sg = new SignupGUI();
                 sg.setVisible(true);
                 sg.setSize(600,600);
-                sg.isResizable();
-                sg.setDefaultCloseOperation(EXIT_ON_CLOSE);
+               // sg.isResizable();
+                //sg.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 
             }
@@ -95,8 +95,8 @@ import javax.swing.JPanel;
                 LoginGUI lg = new LoginGUI();
                 lg.setVisible(true);
                 lg.setSize(600,600);
-                lg.isResizable();
-                lg.setDefaultCloseOperation(EXIT_ON_CLOSE);
+                //lg.isResizable();
+                //lg.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
             }
 

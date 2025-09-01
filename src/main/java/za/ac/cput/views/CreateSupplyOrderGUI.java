@@ -4,13 +4,16 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
-public class CreateSupplyOrderGUI extends JFrame {
+public class CreateSupplyOrderGUI extends JPanel {
 
     public CreateSupplyOrderGUI() {
-        setTitle("SnuggleReads • Create Supply Order");
-        setSize(1080, 680);
+        /*
+        setTitle("Add/Edit Supplier");
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        */
+        setSize(1080, 680);
+
 
         JPanel main = new JPanel(new BorderLayout(16, 16));
         main.setBorder(new EmptyBorder(16, 16, 16, 16));
@@ -244,8 +247,9 @@ public class CreateSupplyOrderGUI extends JFrame {
         row.add(add, BorderLayout.EAST);
         return row;
     }
-
+    /*
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new CreateSupplyOrderGUI().setVisible(true));
     }
+    */
 }

@@ -19,7 +19,7 @@ import javax.swing.border.EmptyBorder;
  *
  * @author aimee paulus 222814969
  */
-public class LoginGUI extends JFrame implements ActionListener{
+public class LoginGUI extends JPanel implements ActionListener{
 
     private JPanel pnlGreeting = new JPanel();
     private JPanel pnl = new JPanel();
@@ -39,7 +39,7 @@ public class LoginGUI extends JFrame implements ActionListener{
     private JButton btnLogin = new JButton("Login");
 
     public LoginGUI(){
-        super("Login");
+
 
         // Panel layout
         pnlGreeting.setLayout(new BorderLayout());

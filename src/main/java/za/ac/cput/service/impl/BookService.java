@@ -20,12 +20,11 @@ import java.util.List;
 public class BookService implements IBookService {
 
 
-    @Autowired
-    private static IBookService service;
-    @Autowired
-    private static IBookRepository repository;
 
+    @Autowired
+    private IBookRepository repository;
 
+/*
     public static IBookService getService() {
         if (service == null) {
 
@@ -34,6 +33,8 @@ public class BookService implements IBookService {
 
         return service;
     }
+
+ */
 
  /*
     @Override

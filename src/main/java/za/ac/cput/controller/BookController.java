@@ -26,7 +26,7 @@ public class BookController {
         return this.service.create(book);
     }
 
-    @GetMapping("/{bookISBN}")
+    @GetMapping("/get/{bookISBN}")
     public Book getBook(@PathVariable String bookISBN) {
 
         return service.read(bookISBN);
@@ -42,7 +42,7 @@ public class BookController {
         service.delete(bookISBN);
     }
 
-    @GetMapping("/{bookISBN}")
+    @GetMapping("/getall")
     public ArrayList<Book> getAllBooks() {
 
         return (ArrayList<Book>) service.findAll();

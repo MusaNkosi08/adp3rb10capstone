@@ -3,13 +3,16 @@ package za.ac.cput.views;
 import javax.swing.*;
 import java.awt.*;
 
-public class AddEmployeeGUI extends JFrame {
+public class AddEmployeeGUI extends JPanel {
 
     public AddEmployeeGUI() {
+        /*
         setTitle("Add Employee");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setSize(500, 500);
         setLocationRelativeTo(null);
+        */
+        setSize(500, 500);
+
 
         JPanel panel = new JPanel(new GridBagLayout());
         panel.setBackground(new Color(250, 245, 245));
@@ -83,9 +86,11 @@ public class AddEmployeeGUI extends JFrame {
         add(panel);
     }
 
+    /*
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             new AddEmployeeGUI().setVisible(true);
         });
     }
+    */
 }

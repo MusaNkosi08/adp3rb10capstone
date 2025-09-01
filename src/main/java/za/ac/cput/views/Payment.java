@@ -3,17 +3,21 @@ package za.ac.cput.views;
 import javax.swing.*;
 import java.awt.*;
 
-public class Payment extends JFrame {
+public class Payment extends JPanel {
     private JRadioButton creditCardBtn, paypalBtn;
     private JTextField cardNumberField, expiryField, cvvField;
     private JLabel totalLabel;
     private JButton payButton;
 
     public Payment(double totalAmount) {
-        setTitle("Payment");
-        setSize(400, 300);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+       /*
+        setTitle("Add/Edit Supplier");
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
+        */
+
+        setSize(400, 300);
+
 
         // Payment methods
         creditCardBtn = new JRadioButton("Credit Card", true);
@@ -111,7 +115,7 @@ public class Payment extends JFrame {
                 "Payment of R" + totalAmount + " successful!",
                 "Success",
                 JOptionPane.INFORMATION_MESSAGE);
-        dispose();
+
     }
 
 }

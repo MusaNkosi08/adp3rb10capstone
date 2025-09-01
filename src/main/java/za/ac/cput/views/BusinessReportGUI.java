@@ -4,13 +4,16 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
-public class BusinessReportGUI extends JFrame {
+public class BusinessReportGUI extends JPanel {
 
     public BusinessReportGUI() {
-        setTitle("SnuggleReads • View Report of Business Progress");
-        setSize(1200, 750);
+        /*
+        setTitle("Add/Edit Supplier");
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        */
+        setSize(1200, 750);
+
 
         JPanel main = new JPanel(new BorderLayout(16, 16));
         main.setBorder(new EmptyBorder(16, 16, 16, 16));
@@ -170,9 +173,10 @@ public class BusinessReportGUI extends JFrame {
         p.add(header, BorderLayout.NORTH);
         return p;
     }
-
+    /*
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new BusinessReportGUI().setVisible(true));
     }
+    */
 }
 

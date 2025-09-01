@@ -5,6 +5,7 @@ import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 import za.ac.cput.views.HomepageGUI;
 
 public class runHomePage {
+    /*
     public static void main(String[] args) {
 
 
@@ -19,5 +20,10 @@ public class runHomePage {
 
         });
 
-    }
+
+
 }
+*/
+
+    }
+

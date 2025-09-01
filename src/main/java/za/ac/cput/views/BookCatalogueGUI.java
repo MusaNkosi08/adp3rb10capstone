@@ -7,6 +7,8 @@ import za.ac.cput.controller.OrderItemController;
 import za.ac.cput.domain.Book;
 import za.ac.cput.factory.OrderItemFactory;
 import za.ac.cput.service.impl.BookService;
+import za.ac.cput.service.impl.OrderItemService;
+import za.ac.cput.service.impl.OrderService;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -15,12 +17,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class BookCatalogueGUI extends JFrame implements ActionListener {
+public class BookCatalogueGUI extends JPanel implements ActionListener {
 //Data Elements
 ArrayList<Book> bookList= new ArrayList<>();
 BookController bc= new BookController(new BookService());
-OrderItemController oic= new OrderItemController();
-OrderController oc= new OrderController();
+OrderItemController oic= new OrderItemController(new OrderItemService());
+OrderController oc= new OrderController(new OrderService());
 //Header Elements
     JPanel pnlHeader = new JPanel();
     JLabel lblHeader = new JLabel("Book Catalogue");
