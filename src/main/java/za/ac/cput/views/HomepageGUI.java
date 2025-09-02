@@ -41,8 +41,8 @@ import javax.swing.JPanel;
             }
         };
 
-         JButton  btnSignup = new JButton("Signup");
-         JButton  btnLogin = new JButton("Login");
+        public JButton  btnSignup = new JButton("Join Now");
+        public JButton  btnLogin = new JButton("Go To Login");
 
 
         public HomepageGUI(){
@@ -81,24 +81,6 @@ import javax.swing.JPanel;
         @Override
         public void actionPerformed(ActionEvent e) {
 
-            if (e.getSource() == btnSignup) {
-                SignupGUI sg = new SignupGUI();
-                sg.setVisible(true);
-                sg.setSize(600,600);
-               // sg.isResizable();
-                //sg.setDefaultCloseOperation(EXIT_ON_CLOSE);
-
-
-            }
-
-            if (e.getSource() == btnLogin) {
-                LoginGUI lg = new LoginGUI();
-                lg.setVisible(true);
-                lg.setSize(600,600);
-                //lg.isResizable();
-                //lg.setDefaultCloseOperation(EXIT_ON_CLOSE);
-
-            }
 
         }
 

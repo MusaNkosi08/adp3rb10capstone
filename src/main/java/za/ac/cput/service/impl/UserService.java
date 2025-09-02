@@ -20,19 +20,9 @@ public class UserService implements IUserService {
 
 
     @Autowired
-    private static IUserService service;
-    @Autowired
-    private static IUserRepository repository;
+    private IUserRepository repository;
 
 
-    public static IUserService getService() {
-        if (service == null) {
-
-            return service;
-        }
-
-        return service;
-    }
 
     @Override
     public User create (User user) {
@@ -63,7 +53,8 @@ public class UserService implements IUserService {
         return this.repository.findAll();
     }
 
+    @Override
     public User findByEmailAndPassword(String email, String password) {
-        return repository.findByEmailAndPassword(email, password);
+        return repository.findByEmailAndPassword(email, password).orElse(null);
     }
 }

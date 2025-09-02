@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 
 public class AddEmployeeGUI extends JPanel {
+    public JButton saveBtn;
+    public JButton cancelBtn;
 
     public AddEmployeeGUI() {
         /*
@@ -11,7 +13,7 @@ public class AddEmployeeGUI extends JPanel {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         */
-        setSize(500, 500);
+       // setSize(500, 500);
 
 
         JPanel panel = new JPanel(new GridBagLayout());
@@ -73,13 +75,15 @@ public class AddEmployeeGUI extends JPanel {
         gbc.gridy++;
         gbc.weightx = 0.5;   // half-half
         gbc.fill = GridBagConstraints.BOTH;
-        JButton saveBtn = new JButton("Save");
+
+        saveBtn = new JButton("Save");
         saveBtn.setBackground(Color.DARK_GRAY);
         saveBtn.setForeground(Color.WHITE);
         panel.add(saveBtn, gbc);
 
         gbc.gridx = 1;
-        JButton cancelBtn = new JButton("Cancel");
+
+        cancelBtn = new JButton("Cancel");
         cancelBtn.setBackground(new Color(200, 230, 200));
         panel.add(cancelBtn, gbc);
 

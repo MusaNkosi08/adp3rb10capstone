@@ -23,7 +23,7 @@ import javax.swing.border.EmptyBorder;
  */
 public class LoginGUI extends JPanel implements ActionListener{
 //Data Elements
-OkHttpClient client = new OkHttpClient();
+
 
 // Panels
     private JPanel pnlGreeting = new JPanel();
@@ -36,12 +36,12 @@ OkHttpClient client = new OkHttpClient();
     private JLabel lblEmail = new JLabel("Email: ");
     private JLabel lblPsword = new JLabel("Password: ");
 
-    private JTextField txtName = new JTextField(10);
-    private JTextField txtSname = new JTextField(10);
-    private JTextField txtEmail = new JTextField(10);
-    private JTextField txtPsword = new JTextField(10);
+    public JTextField txtName = new JTextField(10);
+    public JTextField txtSname = new JTextField(10);
+    public JTextField txtEmail = new JTextField(10);
+    public JTextField txtPsword = new JTextField(10);
 
-    private JButton btnLogin = new JButton("Login");
+   public JButton btnLogin = new JButton("Login");
 
     public LoginGUI(){
 
@@ -94,16 +94,13 @@ OkHttpClient client = new OkHttpClient();
         add(pnlBtn, BorderLayout.SOUTH);
 
         // Add ActionListeners
-        btnLogin.addActionListener(this);
+
 
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == btnLogin) {
-            String successMsg = "Login Successful!";
-            JOptionPane.showMessageDialog(null, successMsg);
-        }
+
     }
 
 

@@ -23,6 +23,6 @@ public interface IUserRepository extends JpaRepository<User, String> {
     List<User> findByUserFirstName(String firstName);
     List<User> findByUserLastName(String lastName);
     List<User> findByUserPhoneNumber(String phoneNumber);
-    @Query(value= "SELECT * FROM User WHERE userEmail > :email AND userPassword =:password", nativeQuery = true)
-    User findByEmailAndPassword(@Param("email") String email, @Param("password") String password);
+    @Query(value = "SELECT * FROM User WHERE email = :email AND password = :password", nativeQuery = true)
+    Optional<User> findByEmailAndPassword(@Param("email") String email, @Param("password") String password);
 }

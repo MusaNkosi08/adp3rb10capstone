@@ -8,7 +8,6 @@ package za.ac.cput.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import za.ac.cput.domain.User;
-import za.ac.cput.repository.IUserRepository;
 import za.ac.cput.service.impl.UserService;
 
 import java.util.List;
@@ -18,34 +17,36 @@ import java.util.List;
 public class UserController {
 
     @Autowired
-    private UserService userRepository;
+    private UserService service;
 
     @PostMapping("/create")
     public User createUser(@RequestBody User user) {
-        return userRepository.create(user);
+        return service.create(user);
     }
 
     @GetMapping("/{userId}")
     public User getUser(@PathVariable String userId) {
-        return userRepository.read(userId);
+        return service.read(userId);
     }
 
     @GetMapping("/all")
     public List<User> getAllUsers() {
-        return userRepository.findAll();
+        return service.findAll();
     }
 
     @PutMapping("/update")
     public User updateUser(@RequestBody User user) {
-        return userRepository.create(user);
+        return service.create(user);
     }
 
     @GetMapping("/login/{email}/{password}")
     public User loginUser(@PathVariable String email, @PathVariable String password) {
-        return userRepository.findByEmailAndPassword(email, password);
+        System.out.println("email: " + email);
+        System.out.println("email: " + password);
+        return service.findByEmailAndPassword(email, password);
     }
     @DeleteMapping("/delete/{userId}")
     public boolean deleteUser(@PathVariable String userId) {
-       return userRepository.delete(userId);
+       return service.delete(userId);
     }
 }

@@ -30,13 +30,13 @@ public class SignupGUI extends JPanel implements ActionListener {
     private JLabel lblPsword = new JLabel("Password: ");
     private JLabel lblNumber = new JLabel("Number: ");
 
-    private JTextField txtName = new JTextField(10);
-    private JTextField txtSname = new JTextField(10);
-    private JTextField txtEmail = new JTextField(10);
-    private JTextField txtPsword = new JTextField(10);
-    private JTextField txtNumber = new JTextField(10);
+    public JTextField txtName = new JTextField(10);
+    public JTextField txtSname = new JTextField(10);
+    public JTextField txtEmail = new JTextField(10);
+    public JTextField txtPsword = new JTextField(10);
+    public JTextField txtNumber = new JTextField(10);
 
-    private JButton btnSignup = new JButton("Signup");
+    public JButton btnSignup = new JButton("Signup");
 
     public SignupGUI() {
 
@@ -98,9 +98,6 @@ public class SignupGUI extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == btnSignup) {
-            String successMsg = "Signup Successful!";
-            JOptionPane.showMessageDialog(null, successMsg);
-        }
+
     }
 }

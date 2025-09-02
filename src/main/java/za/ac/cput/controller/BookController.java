@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class BookController {
 
     @Autowired
-    private IBookService service;
+    private BookService service;
 
 
 

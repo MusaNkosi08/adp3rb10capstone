@@ -14,7 +14,7 @@ public interface IOrderRepository extends JpaRepository<Order, Integer> {
 
     List<Order> findByCustomerId(int customerId);
 
-    @Query(value= "SELECT * FROM Order o WHERE o.customerID = :customerID ORDER BY orderID DESC LIMIT 1", nativeQuery = true)
+    @Query(value= "SELECT * FROM Orders o WHERE o.customer_ID = :customerID ORDER BY order_ID DESC LIMIT 1", nativeQuery = true)
     Order findLatestUserOrder ( @Param("customerID") Long customerId);
 
     List<Order> findByStatus(String status);

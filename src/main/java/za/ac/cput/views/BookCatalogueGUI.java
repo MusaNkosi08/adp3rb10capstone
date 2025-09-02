@@ -1,6 +1,5 @@
 
 package za.ac.cput.views;
-
 import okhttp3.OkHttp;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -23,16 +22,14 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import static za.ac.cput.views.SnuggleReadsFrame.runQuery;
+
 public class BookCatalogueGUI extends JPanel implements ActionListener {
 //Data Elements
 
 ArrayList<Book> bookList= new ArrayList<>();
-OkHttpClient client = new OkHttpClient();
+
 /*
-@Autowired
-BookController bc;
-OrderItemController oic= new OrderItemController(new OrderItemService());
-OrderController oc= new OrderController(new OrderService());
 
 //Header Elements
  */
@@ -55,14 +52,8 @@ for(int i=0;i<bookList.size();i++){
 }
 
     public void testClient(){
-        Request request = new Request.Builder()
-                .url("http://localhost:8080/bookstore/api/book/hello")
-                .build();
-        try (Response response= client.newCall(request).execute()){
-            System.out.println(response.body().string());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+    System.out.println(runQuery("http://localhost:8080/bookstore/api/book/hello"));
+
     }
 
 

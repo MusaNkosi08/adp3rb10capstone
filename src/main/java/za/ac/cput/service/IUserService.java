@@ -11,6 +11,7 @@ import java.util.List;
 
 
 public interface IUserService extends IService<User,String>{
+   User findByEmailAndPassword(String email, String password);
     /*
     List<User> findById(String userId);
     List<User> findByFirstName(String userFirstname);
