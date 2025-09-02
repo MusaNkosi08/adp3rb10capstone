@@ -4,21 +4,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.web.bind.annotation.*;
 import za.ac.cput.domain.Book;
+import za.ac.cput.service.IBookService;
 import za.ac.cput.service.impl.BookService;
 
 import java.util.ArrayList;
 
 @RestController
 @RequestMapping("/api/book")
-@CrossOrigin(origins = "http://localhost:3000") // Add this annotation
+//@CrossOrigin(origins = "http://localhost:3000") // Add this annotation
 public class BookController {
 
-
-    private BookService service;
-
     @Autowired
-    public BookController(BookService service) {
-        this.service = service;
+    private IBookService service;
+
+
+
+@GetMapping ("/hello")
+    public String hello() {
+    System.out.println("Hello, Book!");
+        return "Hello, Book!";
     }
 
     @PostMapping("/create")

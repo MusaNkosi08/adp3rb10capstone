@@ -8,6 +8,7 @@
 package za.ac.cput.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import za.ac.cput.domain.Book;
 import za.ac.cput.domain.Employee;
@@ -15,7 +16,7 @@ import za.ac.cput.repository.IBookRepository;
 import za.ac.cput.service.IBookService;
 
 import java.util.List;
-
+@Primary
 @Service
 public class BookService implements IBookService {
 

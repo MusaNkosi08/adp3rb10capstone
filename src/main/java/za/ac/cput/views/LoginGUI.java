@@ -1,6 +1,8 @@
 package za.ac.cput.views;
 
 
+import okhttp3.OkHttpClient;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
@@ -20,7 +22,10 @@ import javax.swing.border.EmptyBorder;
  * @author aimee paulus 222814969
  */
 public class LoginGUI extends JPanel implements ActionListener{
+//Data Elements
+OkHttpClient client = new OkHttpClient();
 
+// Panels
     private JPanel pnlGreeting = new JPanel();
     private JPanel pnl = new JPanel();
     private JPanel pnlBtn = new JPanel();

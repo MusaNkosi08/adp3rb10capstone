@@ -62,4 +62,8 @@ public class UserService implements IUserService {
     public List<User> findAll () {
         return this.repository.findAll();
     }
+
+    public User findByEmailAndPassword(String email, String password) {
+        return repository.findByEmailAndPassword(email, password);
+    }
 }

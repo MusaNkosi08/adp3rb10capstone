@@ -40,6 +40,10 @@ public class UserController {
         return userRepository.create(user);
     }
 
+    @GetMapping("/login/{email}/{password}")
+    public User loginUser(@PathVariable String email, @PathVariable String password) {
+        return userRepository.findByEmailAndPassword(email, password);
+    }
     @DeleteMapping("/delete/{userId}")
     public boolean deleteUser(@PathVariable String userId) {
        return userRepository.delete(userId);
