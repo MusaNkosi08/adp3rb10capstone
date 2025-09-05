@@ -3,20 +3,25 @@ package za.ac.cput.domain;
 import jakarta.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 
 @Entity
 public class SupplyOrder implements Serializable {
 
     @Id
-    private String orderID;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long orderID;
 
-    private String employeeID;
+    private Long employeeID;
     private String orderDetails;
 
     @Temporal(TemporalType.DATE)
     private Date orderDate;
 
-    private String supplierID;
+    @ManyToOne
+    @JoinColumn(name = "supplier_id", referencedColumnName = "supplierID")
+    private Supplier supplier;
     private double orderPrice;
     private String orderStatus;
 
@@ -28,19 +33,33 @@ public class SupplyOrder implements Serializable {
         this.employeeID = builder.employeeID;
         this.orderDetails = builder.orderDetails;
         this.orderDate = builder.orderDate;
-        this.supplierID = builder.supplierID;
+        this.supplier = builder.supplier;
         this.orderPrice = builder.orderPrice;
         this.orderStatus = builder.orderStatus;
     }
 
     // Getters
-    public String getOrderID() { return orderID; }
-    public String getEmployeeID() { return employeeID; }
-    public String getOrderDetails() { return orderDetails; }
-    public Date getOrderDate() { return orderDate; }
-    public String getSupplierID() { return supplierID; }
-    public double getOrderPrice() { return orderPrice; }
-    public String getOrderStatus() { return orderStatus; }
+    public Long getOrderID() {
+        return orderID;
+    }
+    public Long getEmployeeID() {
+        return employeeID;
+    }
+    public String getOrderDetails() {
+        return orderDetails;
+    }
+    public Date getOrderDate() {
+        return orderDate;
+    }
+    public Supplier getSupplier() {
+        return supplier;
+    }
+    public double getOrderPrice() {
+        return orderPrice;
+    }
+    public String getOrderStatus() {
+        return orderStatus;
+    }
 
     // Business Logic
     public String displayStatus() {
@@ -53,33 +72,32 @@ public class SupplyOrder implements Serializable {
 
     @Override
     public String toString() {
-        return "SupplyOrder{" +
-                "orderID='" + orderID + '\'' +
-                ", employeeID='" + employeeID + '\'' +
-                ", orderDetails='" + orderDetails + '\'' +
-                ", orderDate=" + orderDate +
-                ", supplierID='" + supplierID + '\'' +
-                ", orderPrice=" + orderPrice +
-                ", orderStatus='" + orderStatus + '\'' +
-                '}';
+    return "SupplyOrder{" +
+        "orderID='" + orderID + '\'' +
+        ", employeeID='" + employeeID + '\'' +
+        ", orderDetails='" + orderDetails + '\'' +
+        ", orderDate=" + orderDate +
+        ", supplier='" + (supplier != null ? supplier.getSupplierID() : null) + '\'' +
+        ", orderPrice=" + orderPrice +
+        ", orderStatus='" + orderStatus + '\'' +
+        '}';
     }
 
     // Builder class
     public static class Builder {
-        private String orderID;
-        private String employeeID;
+        private Long orderID;
+        private Long employeeID;
         private String orderDetails;
         private Date orderDate;
-        private String supplierID;
+        private Supplier supplier;
         private double orderPrice;
         private String orderStatus;
 
-        public Builder setOrderID(String orderID) {
+        public Builder setOrderID(Long orderID) {
             this.orderID = orderID;
             return this;
         }
-
-        public Builder setEmployeeID(String employeeID) {
+        public Builder setEmployeeID(Long employeeID) {
             this.employeeID = employeeID;
             return this;
         }
@@ -94,18 +112,18 @@ public class SupplyOrder implements Serializable {
             return this;
         }
 
-        public Builder setSupplierID(String supplierID) {
-            this.supplierID = supplierID;
-            return this;
-        }
-
-        public Builder setOrderPrice(double orderPrice) {
-            this.orderPrice = orderPrice;
+        public Builder setSupplier(Supplier supplier) {
+            this.supplier = supplier;
             return this;
         }
 
         public Builder setOrderStatus(String orderStatus) {
             this.orderStatus = orderStatus;
+            return this;
+        }
+
+        public Builder setOrderPrice(double orderPrice) {
+            this.orderPrice = orderPrice;
             return this;
         }
 

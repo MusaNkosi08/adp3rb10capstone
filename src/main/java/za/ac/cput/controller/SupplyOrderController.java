@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import za.ac.cput.domain.SupplyOrder;
 import za.ac.cput.repository.ISupplyOrderRepository;
-import za.ac.cput.service.impl.SupplyOrderService;
 
 import java.util.List;
 
@@ -13,36 +12,31 @@ import java.util.List;
 @RequestMapping("/api/supplyorder")
 public class SupplyOrderController {
 
-
-    private SupplyOrderService repository;
-@Autowired
-    public SupplyOrderController(SupplyOrderService repository) {
-        this.repository = repository;
-    }
-
+    @Autowired
+    private ISupplyOrderRepository repository;
 
     @PostMapping("/create")
     public SupplyOrder createSupplyOrder(@RequestBody SupplyOrder supplyOrder) {
-        return this.repository.create(supplyOrder);
+        return this.repository.save(supplyOrder);
     }
 
     @GetMapping("/{orderId}")
-    public SupplyOrder getSupplyOrder(@PathVariable String orderId) {
-        return repository.read(orderId);
+    public SupplyOrder getSupplyOrder(@PathVariable Long orderId) {
+        return repository.findById(orderId).orElse(null);
     }
 
     @PutMapping("/update")
     public SupplyOrder updateSupplyOrder(@RequestBody SupplyOrder supplyOrder) {
-        return repository.create(supplyOrder);
+        return repository.save(supplyOrder);
     }
 
     @DeleteMapping("/delete/{orderId}")
-    public void deleteSupplyOrder(@PathVariable String orderId) {
-        repository.delete(orderId);
+    public void deleteSupplyOrder(@PathVariable Long orderId) {
+        repository.deleteById(orderId);
     }
 
     @GetMapping("/all")
     public List<SupplyOrder> getAllSupplyOrders() {
-        return repository.readAll();
+        return repository.findAll();
     }
 }

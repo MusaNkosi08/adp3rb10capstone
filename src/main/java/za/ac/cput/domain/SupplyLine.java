@@ -9,20 +9,27 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.JoinColumn;
 
 @Entity
 public class SupplyLine {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int lineID;
-    private int orderId;
-    private String bookIsbn;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long lineID;
+    @ManyToOne
+    @JoinColumn(name = "order_id", referencedColumnName = "orderId")
+    private Order order;
+
+    @ManyToOne
+    @JoinColumn(name = "book_isbn", referencedColumnName = "isbn")
+    private Book book;
     private int quantity;
 
     public SupplyLine(Builder builder) {
-        this.lineID = builder.lineOrder;
-        this.orderId = builder.orderId;
-        this.bookIsbn = builder.bookId;
+        this.lineID = builder.lineID;
+        this.order = builder.order;
+        this.book = builder.book;
         this.quantity = builder.quantity;
     }
 
@@ -30,16 +37,16 @@ public class SupplyLine {
 
     }
 
-    public int getLineID() {
+    public Long getLineID() {
         return lineID;
     }
 
-    public int getOrderId() {
-        return orderId;
+    public Order getOrder() {
+        return order;
     }
 
-    public String getBookIsbn() {
-        return bookIsbn;
+    public Book getBook() {
+        return book;
     }
 
     public int getQuantity() {
@@ -47,37 +54,40 @@ public class SupplyLine {
     }
 
     public static class Builder {
-        private int lineOrder;
-        private int orderId;
-        private String bookId;
+        private Long lineID;
+        private Order order;
+        private Book book;
         private int quantity;
 
-        public Builder (int lineOrder, int orderId, String bookId, int quantity) {
-            this.lineOrder = lineOrder;
-            this.orderId = orderId;
-            this.bookId = bookId;
+        public Builder(Long lineID, Order order, Book book, int quantity) {
+            this.lineID = lineID;
+            this.order = order;
+            this.book = book;
             this.quantity = quantity;
         }
 
-        public void setLineOrder(int lineOrder) {
-            this.lineOrder = lineOrder;
+        public Builder setLineID(Long lineID) {
+            this.lineID = lineID;
+            return this;
         }
 
-        public void setOrderId(int orderId) {
-            this.orderId = orderId;
+        public Builder setOrder(Order order) {
+            this.order = order;
+            return this;
         }
 
-        public void setBookId(String bookId) {
-            this.bookId = bookId;
+        public Builder setBook(Book book) {
+            this.book = book;
+            return this;
         }
 
-        public void setQuantity(int quantity) {
+        public Builder setQuantity(int quantity) {
             this.quantity = quantity;
+            return this;
         }
 
         public SupplyLine build() {
             return new SupplyLine(this);
         }
-
     }
 }

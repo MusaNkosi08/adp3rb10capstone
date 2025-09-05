@@ -3,38 +3,33 @@ package za.ac.cput.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import za.ac.cput.domain.SupplyLine;
-import za.ac.cput.service.impl.SupplyLineService;
+import za.ac.cput.repository.ISupplyLineRepository;
 
 @RestController
 @RequestMapping("/api/line")
 public class SupplyLineController {
 
-
-    private SupplyLineService service;
-
     @Autowired
-    public SupplyLineController(SupplyLineService service) {
-        this.service = service;
-    }
+    private ISupplyLineRepository repository;
 
     @PostMapping("/create")
     public SupplyLine createLine(@RequestBody SupplyLine line) {
-        return this.service.create(line);
+        return this.repository.save(line);
     }
 
     @GetMapping("/{lineID}")
-    public SupplyLine getLine(@PathVariable Integer LineISBN) {
+    public SupplyLine getLine(@PathVariable Long lineID) {
 
-        return service.read(LineISBN);
+        return repository.findById(lineID).orElse(null);
     }
 
     @PutMapping("/update")
     public SupplyLine updateLine(@RequestBody SupplyLine line) {
-        return service.create(line);
+        return repository.save(line);
     }
 
     @DeleteMapping("/delete/{lineID}")
-    public void deleteLine(@PathVariable Integer lineID) {
-        service.delete(lineID);
+    public void deleteLine(@PathVariable Long lineID) {
+        repository.deleteById(lineID);
     }
 }

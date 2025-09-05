@@ -14,7 +14,7 @@ import jakarta.persistence.Id;
 public class Supplier {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long supplierID;
     private String name;
     private String address;

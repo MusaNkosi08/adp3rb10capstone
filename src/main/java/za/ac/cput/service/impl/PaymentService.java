@@ -7,7 +7,6 @@ import za.ac.cput.repository.IPaymentRepository;
 import za.ac.cput.service.IPaymentService;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class PaymentService implements IPaymentService {
@@ -21,8 +20,8 @@ public class PaymentService implements IPaymentService {
     }
 
     @Override
-    public Optional<Payment> read(String paymentId) {
-        return paymentRepository.findById(paymentId);
+    public Payment read(Long paymentId) {
+        return paymentRepository.findById(paymentId).orElse(null);
     }
 
     @Override
@@ -34,7 +33,7 @@ public class PaymentService implements IPaymentService {
     }
 
     @Override
-    public boolean delete(String paymentId) {
+    public boolean delete(Long paymentId) {
         if (paymentRepository.existsById(paymentId)) {
             paymentRepository.deleteById(paymentId);
             return true;
@@ -43,13 +42,8 @@ public class PaymentService implements IPaymentService {
     }
 
     @Override
-    public List<Payment> findByStatus(String status) {
-        return paymentRepository.findByStatus(status);
-    }
-
-    @Override
-    public List<Payment> findByAmountGreaterThan(double amount) {
-        return paymentRepository.findByAmountGreaterThan(amount);
+    public List<Payment> findAll() {
+        return List.of();
     }
 
     @Override
@@ -58,17 +52,17 @@ public class PaymentService implements IPaymentService {
     }
 
     @Override
-    public boolean processPayment(String paymentId) {
+    public boolean processPayment(Long paymentId) {
         return paymentRepository.processPayment(paymentId);
     }
 
     @Override
-    public boolean refundPayment(String paymentId) {
+    public boolean refundPayment(Long paymentId) {
         return paymentRepository.refundPayment(paymentId);
     }
 
     @Override
-    public boolean verifyTransaction(String paymentId) {
+    public boolean verifyTransaction(Long paymentId) {
         return paymentRepository.verifyTransaction(paymentId);
     }
 }

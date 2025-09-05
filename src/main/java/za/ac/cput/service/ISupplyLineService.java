@@ -6,6 +6,6 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public interface ISupplyLineService extends IService<SupplyLine, Integer> {
+public interface ISupplyLineService extends IService<SupplyLine, Long> {
     // No extra methods needed if IService already declares them
 }

@@ -30,7 +30,7 @@ public class SupplyOrderService implements ISupplyOrderService {
     }
 
     @Override
-    public SupplyOrder read(String id) {
+    public SupplyOrder read(Long id) {
         return repository.findById(id).orElse(null);
     }
 
@@ -40,8 +40,12 @@ public class SupplyOrderService implements ISupplyOrderService {
     }
 
     @Override
-    public void delete(String id) {
-        repository.deleteById(id);
+    public boolean delete(Long id) {
+        if (repository.existsById(id)) {
+            repository.deleteById(id);
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -60,18 +64,23 @@ public class SupplyOrderService implements ISupplyOrderService {
     }
 
     @Override
-    public List<SupplyOrder> findByEmployeeID(String employeeID) {
+    public List<SupplyOrder> findByEmployeeID(Long employeeID) {
         return repository.findByEmployeeID(employeeID);
     }
 
     @Override
-    public List<SupplyOrder> findBySupplierID(String supplierID) {
-        return repository.findBySupplierID(supplierID);
+    public List<SupplyOrder> findBySupplierID(Long supplierID) {
+        return repository.findBySupplierSupplierID(supplierID);
     }
 
     @Override
     public List<SupplyOrder> findByOrderPriceBetween(double minPrice, double maxPrice) {
         // TODO: Implement this method when the repository supports it
         throw new UnsupportedOperationException("findByOrderPriceBetween not implemented yet");
+    }
+
+    @Override
+    public List<SupplyOrder> findAll() {
+        return repository.findAll();
     }
 }

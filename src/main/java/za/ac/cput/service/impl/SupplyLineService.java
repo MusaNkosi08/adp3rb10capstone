@@ -21,14 +21,9 @@ public class SupplyLineService implements ISupplyLineService {
     }
 
     @Override
-    public SupplyLine read(Integer integer) {
-        return supplyLineRepository.findById(integer).orElse(null);
+    public SupplyLine read(Long id) {
+        return supplyLineRepository.findById(id).orElse(null);
     }
-
-//    @Override
-//    public Optional<SupplyLine> read(Integer id) {
-//        return supplyLineRepository.findById(id);
-//    }
 
     @Override
     public SupplyLine update(SupplyLine supplyLine) {
@@ -39,7 +34,7 @@ public class SupplyLineService implements ISupplyLineService {
     }
 
     @Override
-    public boolean delete(Integer id) {
+    public boolean delete(Long id) {
         if (supplyLineRepository.existsById(id)) {
             supplyLineRepository.deleteById(id);
             return true;

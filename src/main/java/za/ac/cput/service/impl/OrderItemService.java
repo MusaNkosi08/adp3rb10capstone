@@ -26,8 +26,8 @@ public class OrderItemService implements IOrderItemService {
     }
 
     @Override
-    public OrderItem read(Integer integer) {
-        return null;
+    public OrderItem read(Long id) {
+        return orderItemRepository.findById(id).orElse(null);
     }
 
     @Override
@@ -36,7 +36,11 @@ public class OrderItemService implements IOrderItemService {
     }
 
     @Override
-    public boolean delete(Integer integer) {
+    public boolean delete(Long id) {
+        if (orderItemRepository.existsById(id)) {
+            orderItemRepository.deleteById(id);
+            return true;
+        }
         return false;
     }
 

@@ -2,7 +2,8 @@
  EmployeeService.java
  Service class for Employee
  Author: Musa Banathi Nkosi (221744517)
-*/
+*//*
+
 
 package za.ac.cput.service.impl;
 
@@ -66,4 +67,4 @@ public class SupplierService implements ISupplierService {
     public List<Supplier> findAll () {
         return this.repository.findAll();
     }
-}
+}*/

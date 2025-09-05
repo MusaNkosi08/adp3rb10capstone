@@ -6,13 +6,13 @@ import jakarta.persistence.*;
 public class OrderItem {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int itemId;
-
     private int quantity;
+    private double price;
 
     @ManyToOne
-    @JoinColumn(name = "isbn", referencedColumnName = "isbn")
+    @JoinColumn(name = "book_isbn", referencedColumnName = "isbn")
     private Book book;
 
     @ManyToOne
@@ -24,7 +24,7 @@ public class OrderItem {
     private OrderItem(Builder builder) {
         this.itemId = builder.itemId;
         this.quantity = builder.quantity;
-        this.book= builder.book;
+        this.price = builder.price;
         this.order = builder.order;
     }
 
@@ -39,9 +39,8 @@ public class OrderItem {
     public static class Builder {
         private int itemId;
         private int quantity;
-
+        private double price;
         private Order order;
-        private Book book;
 
         public Builder itemId(int itemId) {
             this.itemId = itemId;
@@ -53,15 +52,13 @@ public class OrderItem {
             return this;
         }
 
-
-
-        public Builder order(Order order) {
-            this.order = order;
+        public Builder price(double price) {
+            this.price = price;
             return this;
         }
 
-        public Builder book(Book book) {
-            this.book = book;
+        public Builder order(Order order) {
+            this.order = order;
             return this;
         }
 
@@ -69,21 +66,13 @@ public class OrderItem {
             return new OrderItem(this);
         }
 
-        public Builder isbn(String isbn) {
+        public Builder productId(int productId) {
             return this;
         }
     }
 
     public double totalPrice() {
-        return quantity * book.price;
-    }
-
-    public Book getBook() {
-        return book;
-    }
-
-    public void setBook(Book book) {
-        this.book = book;
+        return quantity * price;
     }
 
     public int getItemId() {
@@ -94,4 +83,7 @@ public class OrderItem {
         return quantity;
     }
 
+    public double getPrice() {
+        return price;
+    }
 }

@@ -3,7 +3,7 @@ package za.ac.cput.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import za.ac.cput.domain.Payment;
-import za.ac.cput.service.impl.PaymentService;
+import za.ac.cput.repository.IPaymentRepository;
 
 import java.util.List;
 
@@ -11,46 +11,41 @@ import java.util.List;
 @RequestMapping("/api/payments")
 public class PaymentController {
 
-
-    private PaymentService service;
-
     @Autowired
-    public PaymentController(PaymentService service) {
-        this.service = service;
-    }
+    private IPaymentRepository paymentRepository;
 
     @PostMapping("/create")
     public Payment createPayment(@RequestBody Payment payment) {
-        return service.create(payment);
+        return paymentRepository.save(payment);
     }
 
     @GetMapping("/{paymentID}")
-    public Payment getPayment(@PathVariable String paymentID) {
-        return service.read(paymentID).orElse(null);
+    public Payment getPayment(@PathVariable Long paymentID) {
+        return paymentRepository.findById(paymentID).orElse(null);
     }
 
     @GetMapping("/status/{status}")
     public List<Payment> getPaymentsByStatus(@PathVariable String status) {
-        return service.findByStatus(status);
+        return paymentRepository.findByStatus(status);
     }
 
     @GetMapping("/above/{amount}")
     public List<Payment> getPaymentsAboveAmount(@PathVariable double amount) {
-        return service.findByAmountGreaterThan(amount);
+        return paymentRepository.findByAmountGreaterThan(amount);
     }
 
     @PutMapping("/process/{paymentID}")
-    public boolean processPayment(@PathVariable String paymentID) {
-        return service.processPayment(paymentID);
+    public boolean processPayment(@PathVariable Long paymentID) {
+        return paymentRepository.processPayment(paymentID);
     }
 
     @PutMapping("/refund/{paymentID}")
-    public boolean refundPayment(@PathVariable String paymentID) {
-        return service.refundPayment(paymentID);
+    public boolean refundPayment(@PathVariable Long paymentID) {
+        return paymentRepository.refundPayment(paymentID);
     }
 
     @GetMapping("/verify/{paymentID}")
-    public boolean verifyTransaction(@PathVariable String paymentID) {
-        return service.verifyTransaction(paymentID);
+    public boolean verifyTransaction(@PathVariable Long paymentID) {
+        return paymentRepository.verifyTransaction(paymentID);
     }
 }

@@ -1,13 +1,16 @@
 package za.ac.cput.domain;
 
 import jakarta.persistence.*;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import java.util.Objects;
 
 @Entity
 public class Payment {
 
     @Id
-    private String paymentId; // Changed from paymentID to paymentId
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long paymentId; // Changed from paymentID to paymentId
 
     private double amount;
     private String status;
@@ -24,8 +27,8 @@ public class Payment {
         this.transactionCode = builder.transactionCode;
     }
 
-    // Getters - FIXED NAMING CONVENTION
-    public String getPaymentId() { // Changed from getPaymentID() to getPaymentId()
+    // Getters
+    public Long getPaymentId() {
         return paymentId;
     }
 
@@ -56,12 +59,12 @@ public class Payment {
 
     // Builder - FIXED METHOD NAMES
     public static class Builder {
-        private String paymentId; // Changed from paymentID to paymentId
+        private Long paymentId; // Changed from paymentID to paymentId
         private double amount;
         private String status;
         private String transactionCode;
 
-        public Builder setPaymentId(String paymentId) { // Changed from setPaymentID to setPaymentId
+        public Builder setPaymentId(Long paymentId) { // Changed from setPaymentID to setPaymentId
             this.paymentId = paymentId;
             return this;
         }

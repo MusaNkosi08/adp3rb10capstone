@@ -1,55 +1,63 @@
 package za.ac.cput.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import za.ac.cput.domain.Book;
 import za.ac.cput.service.IBookService;
 import za.ac.cput.service.impl.BookService;
 
-import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/book")
-//@CrossOrigin(origins = "http://localhost:3000") // Add this annotation
+@CrossOrigin(origins = "http://localhost:3000") // Optional if React frontend is used
 public class BookController {
 
     @Autowired
-    private BookService service;
+    private BookService bookService;
 
-
-
-@GetMapping ("/hello")
+    // Test endpoint
+    @GetMapping("/hello")
     public String hello() {
-    System.out.println("Hello, Book!");
+        System.out.println("Hello, Book!");
         return "Hello, Book!";
     }
 
-    @PostMapping("/create")
-    public Book createBook(@RequestBody Book book) {
-        return this.service.create(book);
+    @PostMapping(value = "/create", consumes = {"multipart/form-data"})
+    public Book createBook(
+            @RequestParam("title") String title,
+            @RequestParam("author") String author,
+            @RequestParam("pages") int pages,
+            @RequestParam("genre") String genre,
+            @RequestParam("quantity") int quantity,
+            @RequestParam("price") double price,
+            @RequestParam(value = "image", required = false) MultipartFile image
+    ) throws Exception {
+        byte[] imageBytes = image != null ? image.getBytes() : null;
+        Book.BookBuilder builder = new Book.BookBuilder(title, author, pages, genre, quantity, price);
+        builder.setImage(imageBytes);
+        Book book = builder.build();
+        return bookService.save(book);
     }
 
-    @GetMapping("/get/{bookISBN}")
-    public Book getBook(@PathVariable String bookISBN) {
-
-        return service.read(bookISBN);
+    @GetMapping("/{bookId}")
+    public Book getBook(@PathVariable Long bookId) {
+        return bookService.findById(bookId).orElse(null);
     }
 
     @PutMapping("/update")
     public Book updateBook(@RequestBody Book book) {
-        return service.create(book);
+        return bookService.save(book);
     }
 
-    @DeleteMapping("/delete/{bookISBN}")
-    public void deleteBook(@PathVariable String bookISBN) {
-        service.delete(bookISBN);
+    @DeleteMapping("/delete/{bookId}")
+    public void deleteBook(@PathVariable Long bookId) {
+        bookService.deleteById(bookId);
     }
 
-    @GetMapping("/getall")
-    public ArrayList<Book> getAllBooks() {
-
-        return (ArrayList<Book>) service.findAll();
+    @GetMapping("/all")
+    public List<Book> getAllBooks() {
+        return bookService.findAll();
     }
 }
-

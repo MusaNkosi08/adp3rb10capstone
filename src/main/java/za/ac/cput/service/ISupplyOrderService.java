@@ -3,20 +3,20 @@ package za.ac.cput.service;
 import za.ac.cput.domain.SupplyOrder;
 import java.util.List;
 
-public interface ISupplyOrderService {
+public interface ISupplyOrderService extends IService<SupplyOrder, Long> {
     SupplyOrder create(SupplyOrder order);
-    SupplyOrder read(String id);
+    SupplyOrder read(Long id);
     List<SupplyOrder> readAll();
     SupplyOrder update(SupplyOrder order);
-    void delete(String id);
+    boolean delete(Long id);
 
     List<SupplyOrder> getAll();
 
     List<SupplyOrder> findByOrderStatus(String status);
 
-    List<SupplyOrder> findByEmployeeID(String employeeID);
+    List<SupplyOrder> findByEmployeeID(Long employeeID);
 
-    List<SupplyOrder> findBySupplierID(String supplierID);
+    List<SupplyOrder> findBySupplierID(Long supplierID);
 
     List<SupplyOrder> findByOrderPriceBetween(double minPrice, double maxPrice);
 }

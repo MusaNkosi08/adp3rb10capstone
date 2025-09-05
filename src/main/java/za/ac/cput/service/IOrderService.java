@@ -3,13 +3,7 @@ package za.ac.cput.service;
 import za.ac.cput.domain.Order;
 import java.util.List;
 
-public interface IOrderService extends IService<Order, Integer> {
-    List<Order> findByCustomerId(int customerId);
-
+public interface IOrderService extends IService<Order, Long> {
     List<Order> findByStatus(String status);
-
-    Order getOrder(int orderId);
-    //Order getOrder(int orderId);
-    //List<Order> getOrdersByCustomerId(int customerId);
-   // List<Order> findByStatus(String status);
+    List<Order> findByCustomerId(Long customerId);
 }

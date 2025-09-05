@@ -15,7 +15,7 @@ public class OrderService implements IOrderService {
     private IOrderRepository orderRepository;
 
     @Override
-    public List<Order> findByCustomerId(int customerId) {
+    public List<Order> findByCustomerId(Long customerId) {
         return orderRepository.findByCustomerId(customerId);
     }
 
@@ -25,40 +25,28 @@ public class OrderService implements IOrderService {
     }
 
     @Override
-    public Order getOrder(int orderId) {
-        return orderRepository.findById(orderId).orElse(null);
-    }
-
-    @Override
     public Order create(Order order) {
-        return orderRepository.save(order);
+        return null;
     }
 
     @Override
-    public Order read(Integer integer) {
-        return orderRepository.findById(integer).orElse(null);
+    public Order read(Long id) {
+        return orderRepository.findById(id).orElse(null);
     }
 
     @Override
     public Order update(Order order) {
-        return orderRepository.save(order);
-
+        return null;
     }
 
     @Override
-    public boolean delete(Integer id) {
-        if (!this.orderRepository.existsById(id)) {
-            return false;}
-        else {
-            this.orderRepository.deleteById(id);
+    public boolean delete(Long id) {
+        if (orderRepository.existsById(id)) {
+            orderRepository.deleteById(id);
             return true;
+        }
+        return false;
     }
-    }
-
-    public Order findLatestOrder(Long customerId) {
-        return orderRepository.findLatestUserOrder(customerId);
-    }
-
 
     @Override
     public List<Order> findAll() {

@@ -9,20 +9,20 @@ import za.ac.cput.domain.User;
 import java.util.List;
 import java.util.Optional;
 
-/*
- IUserRepository.java
- Repository interface for User entity
- Author: Aimee Paulus (222814969)
- Date: 21 March 2025
-*/
-
 @Repository
-public interface IUserRepository extends JpaRepository<User, String> {
+public interface IUserRepository extends JpaRepository<User, Long> {
 
-    Optional<User> findByUserEmail(String email);
     List<User> findByUserFirstName(String firstName);
+
     List<User> findByUserLastName(String lastName);
+
+    // Search via Contact object
+    Optional<User> findByContactEmail(String email);
+    List<User> findByContactPhoneNumber(String phoneNumber);
+
+    // Search via User fields
     List<User> findByUserPhoneNumber(String phoneNumber);
-    @Query(value = "SELECT * FROM User WHERE email = :email AND password = :password", nativeQuery = true)
+
+    @Query(value = "SELECT * FROM users u WHERE u.email = :email AND u.password = :password", nativeQuery = true)
     Optional<User> findByEmailAndPassword(@Param("email") String email, @Param("password") String password);
 }

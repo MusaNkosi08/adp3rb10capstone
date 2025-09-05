@@ -2,45 +2,53 @@ package za.ac.cput.domain;
 
 import jakarta.persistence.*;
 
-/* User.java
-``Author: Aimee Paulus (222814969)
-  Date: 21 March 2025
- */
 @Entity
+@Table(name = "users") // optional but recommended
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-    private int userId;
+    private Long userId;
+
     @Column(name = "first_name")
     private String userFirstName;
+
     @Column(name = "last_name")
     private String userLastName;
+
+    @Column(name = "role")
+    private String role;
+
     @Column(name = "email", unique = true)
     private String userEmail;
+
     @Column(name = "password")
     private String userPassword;
+
     @Column(name = "phone_number")
     private String userPhoneNumber;
 
-    protected User() {
+    @OneToOne
+    @JoinColumn(name = "contact_id")
+    private Contact contact;
 
-    }
-    private User(UserBuilder builder){
+    // Required by JPA
+    protected User() {}
+
+    private User(UserBuilder builder) {
+        this.userId = builder.userId;
         this.userFirstName = builder.userFirstName;
         this.userLastName = builder.userLastName;
+        this.role = builder.role;
         this.userEmail = builder.userEmail;
         this.userPassword = builder.userPassword;
         this.userPhoneNumber = builder.userPhoneNumber;
-
-
+        this.contact = builder.contact;
     }
 
-
-
-
-    public int getUserId() {
+    // Getters
+    public Long getUserId() {
         return userId;
     }
 
@@ -50,6 +58,10 @@ public class User {
 
     public String getUserLastName() {
         return userLastName;
+    }
+
+    public String getRole() {
+        return role;
     }
 
     public String getUserEmail() {
@@ -64,35 +76,37 @@ public class User {
         return userPhoneNumber;
     }
 
+    public Contact getContact() {
+        return contact;
+    }
+
     @Override
     public String toString() {
         return "User{" +
-                "userId='" + userId + '\'' +
+                "userId=" + userId +
                 ", userFirstName='" + userFirstName + '\'' +
                 ", userLastName='" + userLastName + '\'' +
+                ", role='" + role + '\'' +
                 ", userEmail='" + userEmail + '\'' +
-                ", userPassword='" + userPassword + '\'' +
                 ", userPhoneNumber='" + userPhoneNumber + '\'' +
+                ", contact=" + contact +
                 '}';
     }
 
-    public static class UserBuilder{
-        private String userId;
+    // Builder Pattern
+    public static class UserBuilder {
+        private Long userId;
         private String userFirstName;
         private String userLastName;
+        private String role;
         private String userEmail;
         private String userPassword;
         private String userPhoneNumber;
+        private Contact contact;
 
-        public UserBuilder(int userId, String userFirstName, String userLastName, String userEmail, String userPassword, String userPhoneNumber){
-            this.userFirstName = userFirstName;
-            this.userLastName = userLastName;
-            this.userEmail = userEmail;
-            this.userPassword = userPassword;
-            this.userPhoneNumber = userPhoneNumber;
-        }
+        public UserBuilder() {}
 
-        public UserBuilder setUserId(String userId) {
+        public UserBuilder setUserId(Long userId) {
             this.userId = userId;
             return this;
         }
@@ -104,6 +118,11 @@ public class User {
 
         public UserBuilder setUserLastName(String userLastName) {
             this.userLastName = userLastName;
+            return this;
+        }
+
+        public UserBuilder setRole(String role) {
+            this.role = role;
             return this;
         }
 
@@ -122,7 +141,13 @@ public class User {
             return this;
         }
 
-        public User build(){ return new User(this);
+        public UserBuilder setContact(Contact contact) {
+            this.contact = contact;
+            return this;
+        }
+
+        public User build() {
+            return new User(this);
         }
     }
 }

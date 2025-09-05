@@ -1,14 +1,10 @@
-/* UserController.java
-``Author: Aimee Paulus (222814969)
-  Date: 25 May 2025
- */
-
 package za.ac.cput.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import za.ac.cput.domain.User;
-import za.ac.cput.service.impl.UserService;
+import za.ac.cput.domain.Contact;
+import za.ac.cput.service.IUserService;
 
 import java.util.List;
 
@@ -16,37 +12,68 @@ import java.util.List;
 @RequestMapping("/api/users")
 public class UserController {
 
-    @Autowired
-    private UserService service;
+    private final IUserService userService;
 
+    public UserController(IUserService userService) {
+        this.userService = userService;
+    }
+
+    
     @PostMapping("/create")
-    public User createUser(@RequestBody User user) {
-        return service.create(user);
+    public ResponseEntity<User> createUser(@RequestBody UserContactDTO dto) {
+        Contact contact = dto.toContact();
+        String role = (dto.role == null || dto.role.trim().isEmpty()) ? "CUSTOMER" : dto.role;
+
+        User user = new User.UserBuilder()
+                .setUserId(dto.userId)
+                .setUserFirstName(dto.userFirstName)
+                .setUserLastName(dto.userLastName)
+                .setRole(role)
+                .setContact(contact)
+                .build();
+
+        return ResponseEntity.ok(userService.create(user));
     }
 
+   
     @GetMapping("/{userId}")
-    public User getUser(@PathVariable String userId) {
-        return service.read(userId);
+    public ResponseEntity<User> getUser(@PathVariable Long userId) {
+        User user = userService.read(userId);
+        return (user != null) ? ResponseEntity.ok(user) : ResponseEntity.notFound().build();
     }
 
+   
     @GetMapping("/all")
-    public List<User> getAllUsers() {
-        return service.findAll();
+    public ResponseEntity<List<User>> getAllUsers() {
+        return ResponseEntity.ok(userService.findAll());
     }
 
+   
     @PutMapping("/update")
-    public User updateUser(@RequestBody User user) {
-        return service.create(user);
+    public ResponseEntity<User> updateUser(@RequestBody UserContactDTO dto) {
+        Contact contact = dto.toContact();
+        User user = new User.UserBuilder()
+                .setUserId(dto.userId)
+                .setUserFirstName(dto.userFirstName)
+                .setUserLastName(dto.userLastName)
+                .setRole(dto.role)
+                .setContact(contact)
+                .build();
+
+        return ResponseEntity.ok(userService.update(user));
     }
 
-    @GetMapping("/login/{email}/{password}")
-    public User loginUser(@PathVariable String email, @PathVariable String password) {
-        System.out.println("email: " + email);
-        System.out.println("email: " + password);
-        return service.findByEmailAndPassword(email, password);
+    
+    @PostMapping("/login")
+    public ResponseEntity<User> login(@RequestBody LoginDTO loginDTO) {
+        User user = userService.login(loginDTO.email, loginDTO.password);
+        return (user != null) ? ResponseEntity.ok(user) : ResponseEntity.status(401).build();
     }
+
+    
     @DeleteMapping("/delete/{userId}")
-    public boolean deleteUser(@PathVariable String userId) {
-       return service.delete(userId);
+    public ResponseEntity<Void> deleteUser(@PathVariable Long userId) {
+        boolean deleted = userService.delete(userId);
+        return deleted ? ResponseEntity.ok().build() : ResponseEntity.notFound().build();
     }
 }
