@@ -4,17 +4,20 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
-public class Cart extends JFrame {
+public class Cart extends JPanel {
     private JTable cartTable;
     private JLabel subtotalLabel, totalLabel;
     private JButton payNowButton, removeButton, addButton;
     private DefaultTableModel model;
 
     public Cart() {
-        setTitle("Cart");
-        setSize(600, 400);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        /*
+        setTitle("Add/Edit Supplier");
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
+        */
+        setSize(600, 400);
+
 
         // Table columns
         String[] columns = {"Item", "Quantity", "Price"};
@@ -76,7 +79,7 @@ public class Cart extends JFrame {
                 return;
             }
             double total = calculateTotal();
-            dispose();
+
             new Payment(total);
         });
 
@@ -115,7 +118,5 @@ public class Cart extends JFrame {
         return total;
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(Cart::new);
-    }
+    //public static void main(String[] args) {SwingUtilities.invokeLater(Cart::new);}
 }

@@ -1,27 +1,38 @@
 
 package za.ac.cput.views;
-
+import okhttp3.OkHttp;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import org.springframework.beans.factory.annotation.Autowired;
 import za.ac.cput.controller.BookController;
 import za.ac.cput.controller.OrderController;
 import za.ac.cput.controller.OrderItemController;
 import za.ac.cput.domain.Book;
 import za.ac.cput.factory.OrderItemFactory;
 import za.ac.cput.service.impl.BookService;
+import za.ac.cput.service.impl.OrderItemService;
+import za.ac.cput.service.impl.OrderService;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 
-public class BookCatalogueGUI extends JFrame implements ActionListener {
+import static za.ac.cput.views.SnuggleReadsFrame.runQuery;
+
+public class BookCatalogueGUI extends JPanel implements ActionListener {
 //Data Elements
+
 ArrayList<Book> bookList= new ArrayList<>();
-BookController bc= new BookController(new BookService());
-OrderItemController oic= new OrderItemController();
-OrderController oc= new OrderController();
+
+/*
+
 //Header Elements
+ */
     JPanel pnlHeader = new JPanel();
     JLabel lblHeader = new JLabel("Book Catalogue");
     JButton btnBack = new JButton("Back to Main Menu");
@@ -30,16 +41,25 @@ OrderController oc= new OrderController();
     JPanel pnlBody = new JPanel();
     JScrollPane scrollPane = new JScrollPane(pnlBody);
 
-    
+
+
 public void setList (){
     pnlBody.removeAll();
-    bookList = bc.getAllBooks();
+  //  bookList = bc.getAllBooks();
 for(int i=0;i<bookList.size();i++){
     pnlBody.add(new BookItemPanel(bookList.get(i)));
 }
 }
+
+    public void testClient(){
+    System.out.println(runQuery("http://localhost:8080/bookstore/api/book/hello"));
+
+    }
+
+
   public BookCatalogueGUI(){
-setList();
+//setList();
+testClient();
 pnlHeader.add(lblHeader);
 pnlHeader.add(btnBack);
 pnlHeader.add(btnCart);
@@ -97,7 +117,7 @@ this.add(scrollPane);
                         JOptionPane.showMessageDialog(null, "Please enter a valid quantity.");
                         return;
                     }
-                 oic.createOrderItem(OrderItemFactory.createOrderItem(b, oc.getLatestOrder(Long.valueOf(1)), requestedQuantity));
+                // oic.createOrderItem(OrderItemFactory.createOrderItem(b, oc.getLatestOrder(Long.valueOf(1)), requestedQuantity));
                     break;
                 }
             }

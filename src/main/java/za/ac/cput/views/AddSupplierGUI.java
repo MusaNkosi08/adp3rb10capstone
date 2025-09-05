@@ -3,13 +3,16 @@ package za.ac.cput.views;
 import javax.swing.*;
 import java.awt.*;
 
-public class AddSupplierGUI extends JFrame {
+public class AddSupplierGUI extends JPanel {
 
     public AddSupplierGUI() {
+        /*
         setTitle("Add/Edit Supplier");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setSize(750, 600);
         setLocationRelativeTo(null);
+        */
+        setSize(750, 600);
+
 
         JPanel panel = new JPanel(new GridBagLayout());
         panel.setBackground(new Color(250, 245, 245));
@@ -81,10 +84,11 @@ public class AddSupplierGUI extends JFrame {
 
         add(panel);
     }
-
+    /*
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             new AddSupplierGUI().setVisible(true);
         });
     }
+    */
 }

@@ -17,7 +17,7 @@ import javax.swing.border.EmptyBorder;
  *
  * @author aimee paulus 222814969
  */
-public class SignupGUI extends JFrame implements ActionListener {
+public class SignupGUI extends JPanel implements ActionListener {
 
     private JPanel pnlGreeting = new JPanel();
     private JPanel pnl = new JPanel();
@@ -30,16 +30,16 @@ public class SignupGUI extends JFrame implements ActionListener {
     private JLabel lblPsword = new JLabel("Password: ");
     private JLabel lblNumber = new JLabel("Number: ");
 
-    private JTextField txtName = new JTextField(10);
-    private JTextField txtSname = new JTextField(10);
-    private JTextField txtEmail = new JTextField(10);
-    private JTextField txtPsword = new JTextField(10);
-    private JTextField txtNumber = new JTextField(10);
+    public JTextField txtName = new JTextField(10);
+    public JTextField txtSname = new JTextField(10);
+    public JTextField txtEmail = new JTextField(10);
+    public JTextField txtPsword = new JTextField(10);
+    public JTextField txtNumber = new JTextField(10);
 
-    private JButton btnSignup = new JButton("Signup");
+    public JButton btnSignup = new JButton("Signup");
 
     public SignupGUI() {
-        super("Signup");
+
 
         // Panel layout
         pnlGreeting.setLayout(new BorderLayout());
@@ -98,9 +98,6 @@ public class SignupGUI extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == btnSignup) {
-            String successMsg = "Signup Successful!";
-            JOptionPane.showMessageDialog(null, successMsg);
-        }
+
     }
 }

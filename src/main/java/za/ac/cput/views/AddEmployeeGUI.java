@@ -3,13 +3,18 @@ package za.ac.cput.views;
 import javax.swing.*;
 import java.awt.*;
 
-public class AddEmployeeGUI extends JFrame {
+public class AddEmployeeGUI extends JPanel {
+    public JButton saveBtn;
+    public JButton cancelBtn;
 
     public AddEmployeeGUI() {
+        /*
         setTitle("Add Employee");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setSize(500, 500);
         setLocationRelativeTo(null);
+        */
+       // setSize(500, 500);
+
 
         JPanel panel = new JPanel(new GridBagLayout());
         panel.setBackground(new Color(250, 245, 245));
@@ -70,22 +75,26 @@ public class AddEmployeeGUI extends JFrame {
         gbc.gridy++;
         gbc.weightx = 0.5;   // half-half
         gbc.fill = GridBagConstraints.BOTH;
-        JButton saveBtn = new JButton("Save");
+
+        saveBtn = new JButton("Save");
         saveBtn.setBackground(Color.DARK_GRAY);
         saveBtn.setForeground(Color.WHITE);
         panel.add(saveBtn, gbc);
 
         gbc.gridx = 1;
-        JButton cancelBtn = new JButton("Cancel");
+
+        cancelBtn = new JButton("Cancel");
         cancelBtn.setBackground(new Color(200, 230, 200));
         panel.add(cancelBtn, gbc);
 
         add(panel);
     }
 
+    /*
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             new AddEmployeeGUI().setVisible(true);
         });
     }
+    */
 }

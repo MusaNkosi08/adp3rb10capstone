@@ -1,6 +1,8 @@
 package za.ac.cput.views;
 
 
+import okhttp3.OkHttpClient;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
@@ -19,8 +21,11 @@ import javax.swing.border.EmptyBorder;
  *
  * @author aimee paulus 222814969
  */
-public class LoginGUI extends JFrame implements ActionListener{
+public class LoginGUI extends JPanel implements ActionListener{
+//Data Elements
 
+
+// Panels
     private JPanel pnlGreeting = new JPanel();
     private JPanel pnl = new JPanel();
     private JPanel pnlBtn = new JPanel();
@@ -31,15 +36,15 @@ public class LoginGUI extends JFrame implements ActionListener{
     private JLabel lblEmail = new JLabel("Email: ");
     private JLabel lblPsword = new JLabel("Password: ");
 
-    private JTextField txtName = new JTextField(10);
-    private JTextField txtSname = new JTextField(10);
-    private JTextField txtEmail = new JTextField(10);
-    private JTextField txtPsword = new JTextField(10);
+    public JTextField txtName = new JTextField(10);
+    public JTextField txtSname = new JTextField(10);
+    public JTextField txtEmail = new JTextField(10);
+    public JTextField txtPsword = new JTextField(10);
 
-    private JButton btnLogin = new JButton("Login");
+   public JButton btnLogin = new JButton("Login");
 
     public LoginGUI(){
-        super("Login");
+
 
         // Panel layout
         pnlGreeting.setLayout(new BorderLayout());
@@ -89,16 +94,13 @@ public class LoginGUI extends JFrame implements ActionListener{
         add(pnlBtn, BorderLayout.SOUTH);
 
         // Add ActionListeners
-        btnLogin.addActionListener(this);
+
 
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == btnLogin) {
-            String successMsg = "Login Successful!";
-            JOptionPane.showMessageDialog(null, successMsg);
-        }
+
     }
 
 
