@@ -1,0 +1,20 @@
+/*
+IBookService.java
+Book Repository Interface
+Author: Ashton Mondreo Petersen (220219494)
+ */
+
+package za.ac.cput.service;
+
+import org.springframework.stereotype.Service;
+import za.ac.cput.domain.Book;
+
+import java.util.List;
+
+@Service
+public interface IBookService extends IService<Book, Long> {
+    List<Book> findByAuthor(String author, boolean displayOOS);
+    List<Book> findByTitle(String title, boolean displayOOS);
+    List<Book> findByGenre(String genre, boolean displayOOS);
+}
+//EOF
