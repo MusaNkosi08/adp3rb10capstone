@@ -7,6 +7,18 @@
     <groupId>za.ac.cput</groupId>
     <artifactId>bookstore</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>21</source>
+                    <target>21</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -69,9 +81,28 @@
         </dependency>
 
         <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.10.1</version> <!-- Use the latest version -->
+        </dependency>
+
+        <dependency>
             <groupId>com.mysql</groupId>
             <artifactId>mysql-connector-j</artifactId>
             <version>9.2.0</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.crac/crac -->
+        <dependency>
+            <groupId>org.crac</groupId>
+            <artifactId>crac</artifactId>
+            <version>1.5.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>okhttp</artifactId>
+            <version>5.0.0-alpha.12</version>
         </dependency>
 
         <dependency>

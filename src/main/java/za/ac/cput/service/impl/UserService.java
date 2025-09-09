@@ -57,7 +57,6 @@ public class UserService implements IUserService {
             } else {
                 contact = contactService.create(contact);
             }
-            // Always rebuild the User with the latest Contact reference
             user = new User.UserBuilder()
                     .setUserId(user.getUserId())
                     .setUserFirstName(user.getUserFirstName())
@@ -83,6 +82,9 @@ public class UserService implements IUserService {
         return repository.findAll();
     }
 
+    /**
+     * Login by checking Contact details
+     */
     @Override
     public User login(String email, String password) {
         Optional<User> optionalUser = repository.findByContactEmail(email);
@@ -96,26 +98,35 @@ public class UserService implements IUserService {
         return null;
     }
 
+    /**
+     * Login using repository native query
+     */
+
+    @Override
+    public User findByEmailAndPassword(String email, String password) {
+        return repository.findByEmailAndPassword(email, password).orElse(null);
+    }
+
     @Override
     public List<User> findByPhoneNumber(String userPhoneNumber) {
         return repository.findByContactPhoneNumber(userPhoneNumber);
     }
 
     @Override
-    public List<User> findById(Long userId) {
-        return repository.findAll().stream()
-            .filter(u -> u.getUserId().equals(userId))
-            .toList();
+    public User findById(Long userId) {
+        return (User) repository.findAll().stream()
+                .filter(u -> u.getUserId().equals(userId))
+                .toList();
     }
 
     @Override
     public List<User> findByFirstName(String userFirstname) {
-        return List.of();
+        return repository.findByUserFirstName(userFirstname);
     }
 
     @Override
     public List<User> findByLastName(String userLastname) {
-        return List.of();
+        return repository.findByUserLastName(userLastname);
     }
 
     @Override
