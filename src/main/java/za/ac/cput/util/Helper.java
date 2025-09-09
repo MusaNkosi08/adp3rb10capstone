@@ -38,41 +38,41 @@ public class Helper {
         }
         if ((phoneNumber.length() != 10) || (phoneNumber.length() != 12)) {
             return false;
-        }
+           }
         return true;
     }
 // === SUPPLY ORDER VALIDATIONS BELOW ===
 
-    public static boolean verifyOrderID(String orderID) {
-        return orderID != null && !orderID.trim().isEmpty() && orderID.length() >= 5;
-    }
+        public static boolean verifyOrderID(String orderID) {
+            return orderID != null && !orderID.trim().isEmpty() && orderID.length() >= 5;
+        }
 
-    public static boolean verifySupplierID(String supplierID) {
-        return supplierID != null && !supplierID.trim().isEmpty();
-    }
+        public static boolean verifySupplierID(String supplierID) {
+            return supplierID != null && !supplierID.trim().isEmpty();
+        }
 
-    public static boolean verifyOrderPrice(double orderPrice) {
-        return orderPrice >= 0.0;
-    }
+        public static boolean verifyOrderPrice(double orderPrice) {
+            return orderPrice >= 0.0;
+        }
 
-    public static boolean verifyOrderDate(Date orderDate) {
-        return orderDate != null && !orderDate.after(new Date());
-    }
+        public static boolean verifyOrderDate(Date orderDate) {
+            return orderDate != null && !orderDate.after(new Date());
+        }
 
-    public static boolean verifyOrderStatus(String status) {
-        if (status == null) return false;
-        String cleanStatus = status.trim().toLowerCase();
-        return cleanStatus.equals("pending") ||
-                cleanStatus.equals("shipped") ||
-                cleanStatus.equals("delivered") ||
-                cleanStatus.equals("cancelled");
-    }
+        public static boolean verifyOrderStatus(String status) {
+            if (status == null) return false;
+            String cleanStatus = status.trim().toLowerCase();
+            return cleanStatus.equals("pending") ||
+                    cleanStatus.equals("shipped") ||
+                    cleanStatus.equals("delivered") ||
+                    cleanStatus.equals("cancelled");
+        }
 
-    public static boolean isValidSupplyOrder(String orderID, String supplierID, double price, Date date, String status) {
-        return verifyOrderID(orderID) &&
-                verifySupplierID(supplierID) &&
-                verifyOrderPrice(price) &&
-                verifyOrderDate(date) &&
-                verifyOrderStatus(status);
+        public static boolean isValidSupplyOrder(String orderID, String supplierID, double price, Date date, String status) {
+            return verifyOrderID(orderID) &&
+                    verifySupplierID(supplierID) &&
+                    verifyOrderPrice(price) &&
+                    verifyOrderDate(date) &&
+                    verifyOrderStatus(status);
+        }
     }
-}

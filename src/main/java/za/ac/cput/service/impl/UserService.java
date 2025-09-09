@@ -101,6 +101,7 @@ public class UserService implements IUserService {
     /**
      * Login using repository native query
      */
+
     @Override
     public User findByEmailAndPassword(String email, String password) {
         return repository.findByEmailAndPassword(email, password).orElse(null);
@@ -112,8 +113,8 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public List<User> findById(Long userId) {
-        return repository.findAll().stream()
+    public User findById(Long userId) {
+        return (User) repository.findAll().stream()
                 .filter(u -> u.getUserId().equals(userId))
                 .toList();
     }

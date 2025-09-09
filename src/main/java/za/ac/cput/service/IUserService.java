@@ -14,6 +14,8 @@ public interface IUserService extends IService<User, Long> {
 
     List<User> findByEmail(String userEmail);
 
+    User findByEmailAndPassword(String email, String password);
+
     List<User> findByPhoneNumber(String userPhoneNumber);
 
     User login(String email, String password);
