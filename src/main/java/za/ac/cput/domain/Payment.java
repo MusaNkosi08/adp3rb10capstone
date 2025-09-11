@@ -15,7 +15,16 @@ public class Payment {
     private double amount;
     private String status;
     private String transactionCode;
+    /*
+           @CreatedDate
+        @Column(nullable = false, updatable = false)
+        private LocalDateTime createdAt;
 
+        @LastModifiedDate
+        @Column(nullable = false)
+        private LocalDateTime updatedAt;
+    */
+    
     protected Payment() {
         // JPA requires a default constructor
     }
