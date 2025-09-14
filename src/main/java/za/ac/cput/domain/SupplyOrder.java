@@ -2,9 +2,11 @@ package za.ac.cput.domain;
 
 import jakarta.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+import org.springframework.data.annotation.CreatedDate;
 
 @Entity
 public class SupplyOrder implements Serializable {
@@ -24,11 +26,11 @@ public class SupplyOrder implements Serializable {
     private Supplier supplier;
     private double orderPrice;
     private String orderStatus;
-     /*
+
            @CreatedDate
         @Column(nullable = false, updatable = false)
         private LocalDateTime createdAt;
-
+    /*
         @LastModifiedDate
         @Column(nullable = false)
         private LocalDateTime updatedAt;

@@ -3,6 +3,9 @@ package za.ac.cput.domain;
 import jakarta.persistence.*;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+import org.springframework.data.annotation.CreatedDate;
+
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
@@ -15,11 +18,12 @@ public class Payment {
     private double amount;
     private String status;
     private String transactionCode;
-    /*
+
            @CreatedDate
         @Column(nullable = false, updatable = false)
         private LocalDateTime createdAt;
 
+           /*
         @LastModifiedDate
         @Column(nullable = false)
         private LocalDateTime updatedAt;
