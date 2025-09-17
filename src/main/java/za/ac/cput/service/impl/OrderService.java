@@ -50,6 +50,6 @@ public class OrderService implements IOrderService {
 
     @Override
     public List<Order> findAll() {
-        return List.of();
+        return orderRepository.findAll();
     }
 }

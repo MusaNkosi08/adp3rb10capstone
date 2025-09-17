@@ -8,7 +8,7 @@ import za.ac.cput.repository.IOrderRepository;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/orders")
+@RequestMapping("/api/order")
 public class OrderController {
 
     @Autowired
@@ -23,6 +23,19 @@ public class OrderController {
     public Order getOrder(@PathVariable Long orderId) {
         return orderRepository.findById(orderId).orElse(null);
     }
+/*
+    @GetMapping("/all")
+    public List<Order> getAllOrders() {
+        System.out.println(orderRepository.findAll().toString());
+        return orderRepository.findAll();
+    }
+
+    @GetMapping ("/recent")
+    public List<Order> getRecentOrders() {
+        System.out.println(orderRepository.findRecentOrders().toString());
+        return orderRepository.findRecentOrders();
+    }
+  */
 
     @GetMapping("/customer/{customerId}")
     public List<Order> getOrdersByCustomerId(@PathVariable Long customerId) {
