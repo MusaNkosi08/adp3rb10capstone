@@ -3,19 +3,20 @@ package za.ac.cput.factory;
 import za.ac.cput.domain.Order;
 import za.ac.cput.domain.OrderItem;
 import za.ac.cput.domain.Payment;
+import za.ac.cput.domain.User;
 
 import java.util.List;
 
 public class OrderFactory {
 
-    public static Order createOrder(Long orderId, int customerId, String shippingAddress,
+    public static Order createOrder(Long orderId, User user, String shippingAddress,
                                     String paymentMethod, List<OrderItem> items, Payment payment) {
         // Basic validations
         if (orderId != null && orderId <= 0) {
             throw new IllegalArgumentException("Order ID must be greater than zero");
         }
-        if (customerId <= 0) {
-            throw new IllegalArgumentException("Customer ID must be greater than zero");
+        if (user == null) {
+            throw new IllegalArgumentException("User cannot be null");
         }
         if (shippingAddress == null || shippingAddress.isEmpty()) {
             throw new IllegalArgumentException("Shipping address cannot be null or empty");
@@ -32,7 +33,7 @@ public class OrderFactory {
 
         Order order = new Order.Builder()
                 .orderId(orderId)
-                .customerId(customerId)
+                .user(user)
                 .shippingAddress(shippingAddress)
                 .paymentMethod(paymentMethod)
                 .status("Pending")  // default status
@@ -42,7 +43,7 @@ public class OrderFactory {
 
         // Set back-reference for each OrderItem
         for (OrderItem item : items) {
-
+            // item.setOrder(order); // Uncomment if needed
         }
 
         return order;

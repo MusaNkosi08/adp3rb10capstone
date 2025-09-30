@@ -11,5 +11,5 @@ public interface ISupplyLineRepository extends JpaRepository<SupplyLine, Long> {
 
     // Custom queries
     List<SupplyLine> findByOrderOrderId(Long orderId);
-    List<SupplyLine> findByBookIsbn(String bookIsbn);
+    List<SupplyLine> findByBook_BookId(Long bookId);
 }

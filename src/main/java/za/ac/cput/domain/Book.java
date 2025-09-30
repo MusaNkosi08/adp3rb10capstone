@@ -15,8 +15,8 @@ import jakarta.persistence.Lob;
 @Entity
 public class Book {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    public String isbn;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    public Long bookId;
     public String title;
     public String author;
     public int pages;
@@ -24,25 +24,25 @@ public class Book {
     public int quantity;
     public double price;
     @Lob
-    public byte[] image;
+    private byte[] image; // Store image as BLOB
 
     private Book(BookBuilder builder) {
-    this.isbn = builder.isbn;
-    this.title = builder.title;
-    this.author = builder.author;
-    this.pages = builder.pages;
-    this.genre = builder.genre;
-    this.quantity = builder.quantity;
-    this.price = builder.price;
-    this.image = builder.image;
+        this.bookId = builder.bookId;
+        this.title = builder.title;
+        this.author = builder.author;
+        this.pages = builder.pages;
+        this.genre = builder.genre;
+        this.quantity = builder.quantity;
+        this.price = builder.price;
+        this.image = builder.image;
     }
 
     public Book() {
 
     }
 
-    public String getIsbn() {
-        return isbn;
+    public Long getBookId() {
+        return bookId;
     }
 
     public String getTitle() {
@@ -73,6 +73,10 @@ public class Book {
         return image;
     }
 
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
+
     //A method to check if there is stock of the book
     public boolean checkStock() {
         if (quantity <= 0) {
@@ -83,11 +87,11 @@ public class Book {
 
     //A method to add more stock to the quantity of this book
     public Boolean restockBook(int amount) {
-       if (amount <= 0) {
-           return false;
-       }
+        if (amount <= 0) {
+            return false;
+        }
         quantity += amount;
-       return true;
+        return true;
     }
 
     //A method that removes stock that is sold and returns the total price of the amount sold
@@ -101,7 +105,7 @@ public class Book {
     @Override
     public String toString() {
         return "Book{" +
-                "isbn='" + isbn + '\'' +
+                "bookId='" + bookId + '\'' +
                 ", title='" + title + '\'' +
                 ", author='" + author + '\'' +
                 ", pages=" + pages +
@@ -112,15 +116,14 @@ public class Book {
     }
 
     public static class BookBuilder {
-
-    private String isbn;
-    private String title;
-    private String author;
-    private int pages;
-    private String genre;
-    private int quantity;
-    private double price;
-    private byte[] image;
+        private Long bookId;
+        private String title;
+        private String author;
+        private int pages;
+        private String genre;
+        private int quantity;
+        private double price;
+        private byte[] image; // Store image as BLOB
 
         public BookBuilder(String title, String author, int pages, String genre, int quantity, double price) {
             this.title = title;
@@ -140,9 +143,8 @@ public class Book {
             this.price = price;
         }
 
-        public void setIsbn(String isbn) {
-            this.isbn = isbn;
-
+        public void setBookId(Long bookId) {
+            this.bookId = bookId;
         }
 
         public void setTitle(String title) {

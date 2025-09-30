@@ -1,5 +1,6 @@
 package za.ac.cput.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.springframework.data.annotation.CreatedDate;
 
@@ -7,15 +8,25 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 @Entity
-@Table(name = "orders") // ✅ avoid SQL reserved keyword "order"
+@Table(name = "orders")
 public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long orderId; // ✅ only ONE primary key
+    private Long orderId;
 
-    private int customerId;
-    private Date orderDate;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    @JsonIgnore
+    private User user;
+
+    public void setTimestamp(LocalDateTime timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    @CreatedDate
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime timestamp;
     private String status;
     private double totalAmount;
     private String shippingAddress;
@@ -28,23 +39,12 @@ public class Order {
     @JoinColumn(name = "payment_id")
     private Payment payment;
 
-
-           @CreatedDate
-        @Column(nullable = false, updatable = false)
-        private LocalDateTime createdAt;
-
-/*
-        @LastModifiedDate
-        @Column(nullable = false)
-        private LocalDateTime updatedAt;
-    */
-    
     protected Order() {} // JPA needs this
 
     private Order(Builder builder) {
         this.orderId = builder.orderId;
-        this.customerId = builder.customerId;
-        this.orderDate = new Date();
+        this.user = builder.user;
+
         this.status = builder.status;
         this.shippingAddress = builder.shippingAddress;
         this.paymentMethod = builder.paymentMethod;
@@ -52,10 +52,14 @@ public class Order {
         this.payment = builder.payment;
         calculateTotal();
     }
+    public double setTotalAmount(double totalAmount) {
+        return this.totalAmount = totalAmount;
+    }
 
     public Long getOrderId() { return orderId; }
-    public int getCustomerId() { return customerId; }
-    public Date getOrderDate() { return orderDate; }
+    public User getUser() { return user; }
+    public void setUser(User user) { this.user = user; }
+    public LocalDateTime getTimeStamp() { return timestamp; }
     public String getStatus() { return status; }
     public double getTotalAmount() { return totalAmount; }
     public String getShippingAddress() { return shippingAddress; }
@@ -63,9 +67,21 @@ public class Order {
     public List<OrderItem> getItems() { return items; }
     public Payment getPayment() { return payment; }
 
+    public void setStatus(String status) { this.status = status;
+
+    }
+
+    public void setPayment(Payment payment) {
+        this.payment = payment;
+    }
+
+    public void setID(Long i) {
+        this.orderId = i;
+    }
+
     public static class Builder {
-        private Long orderId; // ⚠️ keep this if you want to set manually, but usually DB generates it
-        private int customerId;
+        private Long orderId;
+        private User user;
         private String shippingAddress;
         private String paymentMethod;
         private String status = "Pending";
@@ -77,8 +93,8 @@ public class Order {
             return this;
         }
 
-        public Builder customerId(int customerId) {
-            this.customerId = customerId;
+        public Builder user(User user) {
+            this.user = user;
             return this;
         }
 
@@ -113,8 +129,11 @@ public class Order {
     }
 
     public double calculateTotal() {
-        totalAmount = items.stream().mapToDouble(OrderItem::totalPrice).sum();
-        return totalAmount;
+        return items.stream()
+                .mapToDouble(OrderItem::getTotalPrice)
+                .sum();
+
+
     }
 
     public void updateStatus(String newStatus) {
@@ -135,8 +154,8 @@ public class Order {
     public String getOrderDetails() {
         StringBuilder details = new StringBuilder();
         details.append("Order ID: ").append(orderId).append("\n");
-        details.append("Customer ID: ").append(customerId).append("\n");
-        details.append("Order Date: ").append(orderDate).append("\n");
+        details.append("User ID: ").append(user != null ? user.getUserId() : "N/A").append("\n");
+        details.append("Order Date: ").append(timestamp).append("\n");
         details.append("Status: ").append(status).append("\n");
         details.append("Total Amount: ").append(String.format("%.2f", totalAmount)).append("\n");
         details.append("Shipping Address: ").append(shippingAddress).append("\n");

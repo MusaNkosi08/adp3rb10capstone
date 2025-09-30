@@ -22,7 +22,7 @@ public class SupplyLine {
     private Order order;
 
     @ManyToOne
-    @JoinColumn(name = "book_isbn", referencedColumnName = "isbn")
+    @JoinColumn(name = "book_id", referencedColumnName = "bookId")
     private Book book;
     private int quantity;
 

@@ -50,22 +50,27 @@ public class UserService implements IUserService {
 
     @Override
     public User update(User user) {
-        Contact contact = user.getContact();
-        if (contact != null) {
-            if (contact.getContactId() != null) {
-                contact = contactService.update(contact);
-            } else {
-                contact = contactService.create(contact);
-            }
-            user = new User.UserBuilder()
-                    .setUserId(user.getUserId())
-                    .setUserFirstName(user.getUserFirstName())
-                    .setUserLastName(user.getUserLastName())
-                    .setRole(user.getRole())
-                    .setContact(contact)
-                    .build();
+        User existingUser = repository.findById(user.getUserId()).orElse(null);
+        if (existingUser == null) {
+            return null;
         }
-        return repository.save(user);
+        Contact incomingContact = user.getContact();
+        Contact currentContact = existingUser.getContact();
+        if (incomingContact != null) {
+            // Only update contact if details have changed
+            if (currentContact == null || !incomingContact.equals(currentContact)) {
+                if (incomingContact.getContactId() != null) {
+                    incomingContact = contactService.update(incomingContact);
+                } else {
+                    incomingContact = contactService.create(incomingContact);
+                }
+                existingUser.setContact(incomingContact);
+            }
+        }
+        existingUser.setUserFirstName(user.getUserFirstName());
+        existingUser.setUserLastName(user.getUserLastName());
+        existingUser.setRole(user.getRole());
+        return repository.save(existingUser);
     }
 
     @Override
@@ -82,9 +87,6 @@ public class UserService implements IUserService {
         return repository.findAll();
     }
 
-    /**
-     * Login by checking Contact details
-     */
     @Override
     public User login(String email, String password) {
         Optional<User> optionalUser = repository.findByContactEmail(email);
@@ -98,35 +100,26 @@ public class UserService implements IUserService {
         return null;
     }
 
-    /**
-     * Login using repository native query
-     */
-
-    @Override
-    public User findByEmailAndPassword(String email, String password) {
-        return repository.findByEmailAndPassword(email, password).orElse(null);
-    }
-
     @Override
     public List<User> findByPhoneNumber(String userPhoneNumber) {
         return repository.findByContactPhoneNumber(userPhoneNumber);
     }
 
     @Override
-    public User findById(Long userId) {
-        return (User) repository.findAll().stream()
+    public List<User> findById(Long userId) {
+        return repository.findAll().stream()
                 .filter(u -> u.getUserId().equals(userId))
                 .toList();
     }
 
     @Override
     public List<User> findByFirstName(String userFirstname) {
-        return repository.findByUserFirstName(userFirstname);
+        return List.of();
     }
 
     @Override
     public List<User> findByLastName(String userLastname) {
-        return repository.findByUserLastName(userLastname);
+        return List.of();
     }
 
     @Override

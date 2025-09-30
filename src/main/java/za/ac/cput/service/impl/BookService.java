@@ -4,10 +4,10 @@
  Author: Ashton Mondreo Petersen (220219494)
 */
 
+
 package za.ac.cput.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import za.ac.cput.domain.Book;
 import za.ac.cput.repository.IBookRepository;
@@ -15,7 +15,6 @@ import za.ac.cput.service.IBookService;
 
 import java.util.List;
 
-@Primary
 @Service
 public class BookService implements IBookService {
 
@@ -27,22 +26,23 @@ public class BookService implements IBookService {
     }
 
     @Override
-    public Book create(Book book) {
+    public Book create (Book book){
         return this.repository.save(book);
     }
 
+    // Remove String overload, only use Long for read
     @Override
-    public Book read(Long id) {
+    public Book read(Long id){
         return this.repository.findById(id).orElse(null);
     }
 
     @Override
-    public Book update(Book book) {
+    public Book update (Book book){
         return this.repository.save(book);
     }
 
     @Override
-    public boolean delete(Long id) {
+    public boolean delete(Long id){
         if (!this.repository.existsById(id)) {
             return false;
         } else {
@@ -50,12 +50,10 @@ public class BookService implements IBookService {
             return true;
         }
     }
-
     @Override
-    public List<Book> findAll() {
+    public List<Book> findAll () {
         return this.repository.findAll();
     }
-
     public Book create(String title, String author, int pages, String genre, int quantity, double price, byte[] image) {
         Book.BookBuilder builder = new Book.BookBuilder(title, author, pages, genre, quantity, price);
         builder.setImage(image);
@@ -69,19 +67,16 @@ public class BookService implements IBookService {
 
     @Override
     public List<Book> findByAuthor(String author, boolean displayOOS) {
-        // TODO: implement filtering logic with displayOOS
         return List.of();
     }
 
     @Override
     public List<Book> findByTitle(String title, boolean displayOOS) {
-        // TODO: implement filtering logic with displayOOS
         return List.of();
     }
 
     @Override
     public List<Book> findByGenre(String genre, boolean displayOOS) {
-        // TODO: implement filtering logic with displayOOS
         return List.of();
     }
 }

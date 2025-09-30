@@ -46,8 +46,8 @@ public class BookFactory {
             System.out.println("Error: page or price or quantity or price is invalid");
             return null;
         }
-    Book.BookBuilder builder = new Book.BookBuilder(title, author, pages, genre, price);
-    builder.setImage(image);
-    return builder.build();
+        Book.BookBuilder builder = new Book.BookBuilder(title, author, pages, genre, price);
+        builder.setImage(image);
+        return builder.build();
     }
 } //EOF

@@ -32,4 +32,6 @@ public interface IPaymentRepository extends JpaRepository<Payment, Long> {
     default boolean verifyTransaction(Long paymentID) {
         return findById(paymentID).map(Payment::verifyTransaction).orElse(false);
     }
+
+    Payment findTopByOrderByPaymentId();
 }

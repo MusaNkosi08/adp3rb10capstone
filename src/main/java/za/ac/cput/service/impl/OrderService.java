@@ -3,20 +3,21 @@ package za.ac.cput.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import za.ac.cput.domain.Order;
+import za.ac.cput.domain.OrderItem;
 import za.ac.cput.repository.IOrderRepository;
 import za.ac.cput.service.IOrderService;
 
 import java.util.List;
 
-@Service
+@Service("orderServiceImpl")
 public class OrderService implements IOrderService {
 
     @Autowired
     private IOrderRepository orderRepository;
 
     @Override
-    public List<Order> findByCustomerId(Long customerId) {
-        return orderRepository.findByCustomerId(customerId);
+    public List<Order> findByUserId(Long userId) {
+        return orderRepository.findByUser_UserId(userId);
     }
 
     @Override
@@ -50,6 +51,26 @@ public class OrderService implements IOrderService {
 
     @Override
     public List<Order> findAll() {
-        return orderRepository.findAll();
+        return List.of();
+    }
+
+    public Order addItemToOrder(Long orderId, OrderItem item) {
+        Order order = orderRepository.findById(orderId).orElseThrow();
+        order.addItem(item); // calculateTotal() is called inside
+        return orderRepository.save(order);
+    }
+
+    public Order removeItemFromOrder(Long orderId, OrderItem item) {
+        Order order = orderRepository.findById(orderId).orElseThrow();
+        order.removeItem(item); // calculateTotal() is called inside
+        return orderRepository.save(order);
+    }
+
+    public Order updateOrderItems(Long orderId, List<OrderItem> items) {
+        Order order = orderRepository.findById(orderId).orElseThrow();
+        order.getItems().clear();
+        order.getItems().addAll(items);
+        order.calculateTotal(); // Call after updating items
+        return orderRepository.save(order);
     }
 }

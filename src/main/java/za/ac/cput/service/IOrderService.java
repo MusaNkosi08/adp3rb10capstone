@@ -5,5 +5,5 @@ import java.util.List;
 
 public interface IOrderService extends IService<Order, Long> {
     List<Order> findByStatus(String status);
-    List<Order> findByCustomerId(Long customerId);
+    List<Order> findByUserId(Long userId);
 }

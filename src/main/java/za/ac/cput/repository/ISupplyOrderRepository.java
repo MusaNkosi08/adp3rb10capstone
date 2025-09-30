@@ -14,3 +14,4 @@ public interface ISupplyOrderRepository extends JpaRepository<SupplyOrder, Long>
     List<SupplyOrder> findBySupplierSupplierID(Long supplierID);
     List<SupplyOrder> findByOrderStatus(String status);
 }
+

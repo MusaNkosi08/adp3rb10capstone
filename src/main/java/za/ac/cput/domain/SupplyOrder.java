@@ -2,11 +2,11 @@ package za.ac.cput.domain;
 
 import jakarta.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.Date;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-import org.springframework.data.annotation.CreatedDate;
+import org.hibernate.annotations.CreationTimestamp;
+import java.time.LocalDateTime;
 
 @Entity
 public class SupplyOrder implements Serializable {
@@ -27,15 +27,10 @@ public class SupplyOrder implements Serializable {
     private double orderPrice;
     private String orderStatus;
 
-           @CreatedDate
-        @Column(nullable = false, updatable = false)
-        private LocalDateTime createdAt;
-    /*
-        @LastModifiedDate
-        @Column(nullable = false)
-        private LocalDateTime updatedAt;
-    */
-    
+    @CreationTimestamp
+    @Column(updatable = false)
+    private LocalDateTime supplyOrderTimestamp;
+
     // Constructors
     public SupplyOrder() {}
 
@@ -71,6 +66,9 @@ public class SupplyOrder implements Serializable {
     public String getOrderStatus() {
         return orderStatus;
     }
+    public LocalDateTime getSupplyOrderTimestamp() {
+        return supplyOrderTimestamp;
+    }
 
     // Business Logic
     public String displayStatus() {
@@ -83,15 +81,15 @@ public class SupplyOrder implements Serializable {
 
     @Override
     public String toString() {
-    return "SupplyOrder{" +
-        "orderID='" + orderID + '\'' +
-        ", employeeID='" + employeeID + '\'' +
-        ", orderDetails='" + orderDetails + '\'' +
-        ", orderDate=" + orderDate +
-        ", supplier='" + (supplier != null ? supplier.getSupplierID() : null) + '\'' +
-        ", orderPrice=" + orderPrice +
-        ", orderStatus='" + orderStatus + '\'' +
-        '}';
+        return "SupplyOrder{" +
+                "orderID='" + orderID + '\'' +
+                ", employeeID='" + employeeID + '\'' +
+                ", orderDetails='" + orderDetails + '\'' +
+                ", orderDate=" + orderDate +
+                ", supplier='" + (supplier != null ? supplier.getSupplierID() : null) + '\'' +
+                ", orderPrice=" + orderPrice +
+                ", orderStatus='" + orderStatus + '\'' +
+                '}';
     }
 
     // Builder class

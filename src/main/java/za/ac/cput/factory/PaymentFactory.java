@@ -15,10 +15,10 @@ public class PaymentFactory {
         // transactionCode can be null or empty, but you may add validation if needed
 
         return new Payment.Builder()
-            .setPaymentId(paymentID)
-            .setAmount(amount)
-            .setStatus(status)
-            .setTransactionCode(transactionCode)
-            .build();
+                .setPaymentId(paymentID)
+                .setAmount(amount)
+                .setStatus(status)
+                .setTransactionCode(transactionCode)
+                .build();
     }
 }

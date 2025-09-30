@@ -3,19 +3,55 @@ package za.ac.cput.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import za.ac.cput.domain.Order;
+import za.ac.cput.domain.OrderItem;
+import za.ac.cput.domain.Payment;
+import za.ac.cput.domain.User;
 import za.ac.cput.repository.IOrderRepository;
+import za.ac.cput.repository.IPaymentRepository;
+import za.ac.cput.repository.IUserRepository;
+import za.ac.cput.service.impl.OrderService;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/order")
+@RequestMapping("/api/orders")
 public class OrderController {
+
+    private final OrderService orderService;
 
     @Autowired
     private IOrderRepository orderRepository;
 
+    @Autowired
+    private IPaymentRepository paymentRepository;
+
+    @Autowired
+    private IUserRepository userRepository;
+
+    public OrderController(OrderService orderService) {
+        this.orderService = orderService;
+    }
+
     @PostMapping("/create")
-    public Order createOrder(@RequestBody Order order) {
+    public Order createOrder(@RequestBody Order order, @RequestParam Long userId) {
+        User user = userRepository.findById(userId).orElse(null);
+        if (user == null) {
+            throw new IllegalArgumentException("User not found for id: " + userId);
+        }
+
+        Payment payment = paymentRepository.findTopByOrderByPaymentId();
+        if (payment == null) {
+            throw new IllegalArgumentException("No payments found");
+        }
+        order.setID(null);
+        order.setUser(user);
+
+        order.setPayment(payment);
+        order.setTotalAmount(payment.getAmount());
+        order.setTimestamp(LocalDateTime.now());
+        order.setStatus("pending");
+
         return orderRepository.save(order);
     }
 
@@ -23,23 +59,10 @@ public class OrderController {
     public Order getOrder(@PathVariable Long orderId) {
         return orderRepository.findById(orderId).orElse(null);
     }
-/*
-    @GetMapping("/all")
-    public List<Order> getAllOrders() {
-        System.out.println(orderRepository.findAll().toString());
-        return orderRepository.findAll();
-    }
-
-    @GetMapping ("/recent")
-    public List<Order> getRecentOrders() {
-        System.out.println(orderRepository.findRecentOrders().toString());
-        return orderRepository.findRecentOrders();
-    }
-  */
 
     @GetMapping("/customer/{customerId}")
     public List<Order> getOrdersByCustomerId(@PathVariable Long customerId) {
-        return orderRepository.findByCustomerId(customerId);
+        return orderRepository.findByUser_UserId(customerId);
     }
 
     @GetMapping("/status/{status}")
@@ -59,5 +82,20 @@ public class OrderController {
             return true;
         }
         return false;
+    }
+
+    @PostMapping("/{orderId}/items")
+    public Order addItem(@PathVariable Long orderId, @RequestBody OrderItem item) {
+        return orderService.addItemToOrder(orderId, item);
+    }
+
+    @DeleteMapping("/{orderId}/items")
+    public Order removeItem(@PathVariable Long orderId, @RequestBody OrderItem item) {
+        return orderService.removeItemFromOrder(orderId, item);
+    }
+
+    @PutMapping("/{orderId}/items")
+    public Order updateItems(@PathVariable Long orderId, @RequestBody List<OrderItem> items) {
+        return orderService.updateOrderItems(orderId, items);
     }
 }

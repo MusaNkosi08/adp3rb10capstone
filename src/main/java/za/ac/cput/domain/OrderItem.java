@@ -12,7 +12,7 @@ public class OrderItem {
     private double price;
 
     @ManyToOne
-    @JoinColumn(name = "book_isbn", referencedColumnName = "isbn")
+    @JoinColumn(name = "book_id", referencedColumnName = "bookId")
     private Book book;
 
     @ManyToOne
@@ -34,6 +34,10 @@ public class OrderItem {
 
     public void setOrder(Order order) {
         this.order = order;
+    }
+
+    public double getTotalPrice() {
+        return quantity * price;
     }
 
     public static class Builder {
